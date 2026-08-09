@@ -4,44 +4,38 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cologne</title>
-    <meta name="description" content="Cologne — a site under construction." />
-    <link rel="icon" href="data:," />
+    <meta name="description" content="Cologne" />
+    <meta name="theme-color" content="#0b0b0b" />
+    <link rel="icon" href="assets/img/icon.png" />
+    <link rel="apple-touch-icon" href="assets/img/icon.png" />
+    <link rel="preload" as="image" href="assets/img/table.jpg" />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <a class="wordmark" href="./">Cologne</a>
-      <nav class="site-nav">
-        <a href="./">Home</a>
-      </nav>
+    <!-- Full-bleed background. A fixed layer rather than background-attachment,
+         which iOS Safari does not honour. -->
+    <div class="backdrop" role="presentation"></div>
+
+    <header class="masthead">
+      <a class="mark" href="./" aria-label="Cologne — home">
+        <img src="assets/img/icon.png" alt="" width="44" height="44" />
+      </a>
     </header>
 
-    <main class="wrap">
-      <section class="hero">
-        <h1>Cologne</h1>
-        <p class="lede">
-          This site is live on GitHub Pages. Replace this page with your content
-          and push to <code>main</code> — the deploy runs automatically.
-        </p>
-      </section>
-
-      <section class="notes">
-        <h2>Getting started</h2>
-        <ul>
-          <li>Edit <code>index.html</code> for the landing page.</li>
-          <li>Styles live in <code>assets/css/styles.css</code>.</li>
-          <li>Add images and other files under <code>assets/</code>.</li>
-          <li>New pages: add <code>about.html</code>, link it from the nav above.</li>
-        </ul>
-      </section>
+    <main class="stage">
+      <h1 class="wordmark">Cologne</h1>
     </main>
 
-    <footer class="site-footer">
-      <p>&copy; <span id="year">2026</span> Cologne</p>
+    <footer class="footer">
+      <div class="footer-group">
+        <span>&copy; 2026 Cologne Agent. All rights reserved.</span>
+        <a href="mailto:hello@cologneagent.com">hello@cologneagent.com</a>
+      </div>
+      <div class="footer-group">
+        <!-- Swap href for the PDF paths once the documents are in place. -->
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+      </div>
     </footer>
-
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
   </body>
 </html>

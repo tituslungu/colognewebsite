@@ -1,20 +1,12 @@
 :root {
-  --bg: #fbfaf8;
-  --fg: #1b1a17;
-  --muted: #6b6862;
-  --rule: #e4e0d9;
-  --accent: #8a5a2b;
-  --max: 44rem;
-}
+  --black: #0b0b0b;
+  --gray: #d8d6d3;
+  --gray-dim: #a5a19c;
+  --orange: #f7b58c;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #14130f;
-    --fg: #efece5;
-    --muted: #a29d94;
-    --rule: #2c2a24;
-    --accent: #d9a86c;
-  }
+  /* One value drives every footer gap, so the pairs stay visually matched. */
+  --footer-gap: 2.25rem;
+  --edge: clamp(1.25rem, 4vw, 3rem);
 }
 
 *,
@@ -29,105 +21,120 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font: 400 1rem/1.65 ui-serif, Georgia, "Times New Roman", serif;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  background: var(--black);
+  color: var(--gray);
+  font-family: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system,
+    Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: var(--accent);
-  text-underline-offset: 0.2em;
+/* Background image plus a scrim, darkened top and bottom so the mark and the
+   footer stay legible over the busiest part of the photo. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(11, 11, 11, 0.62) 0%,
+      rgba(11, 11, 11, 0.42) 30%,
+      rgba(11, 11, 11, 0.42) 66%,
+      rgba(11, 11, 11, 0.72) 100%
+    ),
+    url("../img/table.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.9em;
-  background: color-mix(in srgb, var(--rule) 60%, transparent);
-  padding: 0.1em 0.35em;
-  border-radius: 3px;
+.masthead {
+  padding: var(--edge);
 }
 
-.wrap,
-.site-header,
-.site-footer {
-  width: 100%;
-  max-width: var(--max);
-  margin-inline: auto;
-  padding-inline: 1.25rem;
+.mark {
+  display: inline-block;
+  line-height: 0;
 }
 
-.site-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-block: 1.5rem;
+.mark img {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.mark:hover img,
+.mark:focus-visible img {
+  opacity: 0.75;
+}
+
+.stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 1rem var(--edge);
 }
 
 .wordmark {
-  font-size: 1.05rem;
-  letter-spacing: 0.14em;
+  margin: 0;
+  /* Optical centering: the masthead adds weight up top, so lift the mark
+     slightly above true center. */
+  transform: translateY(-4%);
+  font-size: clamp(2rem, 12vw, 11rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  /* letter-spacing pads the right edge; pull it back so the word reads centered. */
+  text-indent: 0.12em;
   text-transform: uppercase;
-  color: var(--fg);
+  color: #fff;
+  white-space: nowrap;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem var(--footer-gap);
+  padding: var(--edge);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--gray-dim);
+}
+
+.footer-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem var(--footer-gap);
+}
+
+.footer a {
+  color: var(--gray);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.site-nav a {
-  margin-left: 1rem;
-  font-size: 0.95rem;
+.footer a:hover,
+.footer a:focus-visible {
+  color: var(--orange);
 }
 
-main {
-  flex: 1;
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
 }
 
-.hero {
-  padding-block: 2.5rem 1.5rem;
-  border-bottom: 1px solid var(--rule);
-}
-
-h1 {
-  font-size: clamp(2.25rem, 7vw, 3.5rem);
-  line-height: 1.1;
-  margin: 0 0 0.75rem;
-  font-weight: 400;
-}
-
-h2 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 0 0 0.5rem;
-}
-
-.lede {
-  margin: 0;
-  color: var(--muted);
-  font-size: 1.1rem;
-}
-
-.notes {
-  padding-block: 1.75rem;
-}
-
-.notes ul {
-  margin: 0;
-  padding-left: 1.15rem;
-}
-
-.notes li {
-  margin-bottom: 0.35rem;
-}
-
-.site-footer {
-  padding-block: 2rem;
-  color: var(--muted);
-  font-size: 0.9rem;
-  border-top: 1px solid var(--rule);
-}
-
-.site-footer p {
-  margin: 0;
+@media (max-width: 34rem) {
+  .footer {
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
