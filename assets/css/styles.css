@@ -6,6 +6,7 @@
 
   /* One value drives every footer gap, so the pairs stay visually matched. */
   --footer-gap: 2.25rem;
+  --footer-stack-gap: 0.85rem;
   --edge: clamp(1.25rem, 4vw, 3rem);
 }
 
@@ -131,10 +132,38 @@ body {
   outline-offset: 4px;
 }
 
-@media (max-width: 34rem) {
+/* Narrow screens cannot hold four items on one line, and letting them wrap
+   produces a ragged two-column block. Stack them deliberately instead: one row
+   of links, then the contact, then the legal line, all centred. Each line is
+   forced rather than wrapped, so the shape does not change with string length.
+   The breakpoint is set where the single-row layout genuinely fits (measured
+   at ~790px including the inter-group gap), not at a round guess. */
+@media (max-width: 50rem) {
   .footer {
-    justify-content: flex-start;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
+    gap: var(--footer-stack-gap);
+    font-size: 0.75rem;
+  }
+
+  .footer-group {
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+
+  /* Links read better above the legal text on a stacked layout. */
+  .footer-links {
+    order: -1;
+  }
+
+  .footer-legal {
+    flex-direction: column;
+    gap: var(--footer-stack-gap);
+  }
+
+  /* Copyright reads as the closing line, so the contact sits above it. */
+  .footer-legal a {
+    order: -1;
   }
 }
