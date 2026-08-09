@@ -1,0 +1,133 @@
+:root {
+  --bg: #fbfaf8;
+  --fg: #1b1a17;
+  --muted: #6b6862;
+  --rule: #e4e0d9;
+  --accent: #8a5a2b;
+  --max: 44rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14130f;
+    --fg: #efece5;
+    --muted: #a29d94;
+    --rule: #2c2a24;
+    --accent: #d9a86c;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 1rem/1.65 ui-serif, Georgia, "Times New Roman", serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  background: color-mix(in srgb, var(--rule) 60%, transparent);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+.wrap,
+.site-header,
+.site-footer {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.5rem;
+}
+
+.wordmark {
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.site-nav a {
+  margin-left: 1rem;
+  font-size: 0.95rem;
+}
+
+main {
+  flex: 1;
+}
+
+.hero {
+  padding-block: 2.5rem 1.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+h1 {
+  font-size: clamp(2.25rem, 7vw, 3.5rem);
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.lede {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.notes {
+  padding-block: 1.75rem;
+}
+
+.notes ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.notes li {
+  margin-bottom: 0.35rem;
+}
+
+.site-footer {
+  padding-block: 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+
+.site-footer p {
+  margin: 0;
+}
