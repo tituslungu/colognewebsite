@@ -47,13 +47,14 @@ mostly works too, but a server matches production behavior more closely.
 - `assets/img/table.jpg` — placeholder background (Pexels, free for commercial
   use, no attribution required). Not yet the intended shot: it lacks the receipt
   and the hand photographing it.
-- The Terms of Service and Privacy Policy links in `index.html` and `404.html`
-  point at `#`. Drop the PDFs somewhere like `assets/docs/` and update the hrefs.
 
 ## Notes
 
 - `index.html` uses relative asset paths; `404.html` uses root-relative ones,
   since it is served from arbitrary URL depths.
+- `/tos` and `/privacy` are stub pages (`tos/index.html`, `privacy/index.html`)
+  that instantly redirect to the PDFs in `assets/docs/`. To update a document,
+  replace the PDF; to rename one, also update the matching stub's URLs.
 - `--footer-gap` in the CSS drives the spacing inside both footer groups, which
   is what keeps the two pairs visually matched.
 - Custom domain is `cologneagent.com`, set in the repo's Pages settings AND in
