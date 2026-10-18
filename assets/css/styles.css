@@ -1,5 +1,5 @@
 :root {
-  --charcoal: #2b2b2b;
+  --charcoal: #2D2D2D;
   --charcoal-deep: #1a1a1a;
   --sage: #7a8c6e;
   --sage-light: #9aac8e;
@@ -51,8 +51,8 @@ body {
 
 .animation-container {
   width: 100%;
-  max-width: 520px;
-  max-height: 55vh;
+  max-width: 620px;
+  max-height: 62vh;
   display: flex;
   justify-content: center;
 }
