@@ -66,20 +66,29 @@
       let revealTimer = null;
       const hasVisited = localStorage.getItem('divi-visited');
 
+      // Gentle zoom on first visit — large enough to feel immersive,
+      // small enough that most of the SVG stays visible
+      if (!hasVisited) {
+        document.getElementById('animContainer').style.setProperty('--zoom', '1.3');
+      }
+
       function revealBottom() {
         body.classList.add('revealed');
 
-        // Show everything after a short pause for the layout shift
-        setTimeout(() => {
+        // Wait for the scale transition to finish, then show the rest
+        document.getElementById('animContainer').addEventListener('transitionend', function handler(e) {
+          if (e.propertyName !== 'transform') return;
+          e.target.removeEventListener('transitionend', handler);
+
           controls.classList.add('visible');
           ctaSection.classList.add('visible');
           footer.classList.add('visible');
-        }, 200);
 
-        setTimeout(() => {
-          ctaPrompt.classList.add('visible');
-          ctaArrow.classList.add('visible');
-        }, 600);
+          setTimeout(() => {
+            ctaPrompt.classList.add('visible');
+            ctaArrow.classList.add('visible');
+          }, 300);
+        });
 
         localStorage.setItem('divi-visited', '1');
       }
