@@ -1,12 +1,12 @@
 :root {
-  --black: #0b0b0b;
-  --gray: #d8d6d3;
-  --gray-dim: #a5a19c;
-  --orange: #f7b58c;
+  --charcoal: #2b2b2b;
+  --charcoal-deep: #1a1a1a;
+  --sage: #7a8c6e;
+  --sage-light: #9aac8e;
+  --sage-dim: #5e6d54;
+  --white: #f0efed;
+  --white-dim: #b8b6b2;
 
-  /* One value drives every footer gap, so the pairs stay visually matched. */
-  --footer-gap: 2.25rem;
-  --footer-stack-gap: 0.85rem;
   --edge: clamp(1.25rem, 4vw, 3rem);
 }
 
@@ -25,32 +25,13 @@ body {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  background: var(--black);
-  color: var(--gray);
+  background: var(--charcoal-deep);
+  color: var(--white);
   font-family: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system,
     Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-}
-
-/* Background image plus a scrim, darkened top and bottom so the mark and the
-   footer stay legible over the busiest part of the photo. */
-.backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image: linear-gradient(
-      to bottom,
-      rgba(11, 11, 11, 0.62) 0%,
-      rgba(11, 11, 11, 0.42) 30%,
-      rgba(11, 11, 11, 0.42) 66%,
-      rgba(11, 11, 11, 0.72) 100%
-    ),
-    url("../img/table.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .masthead {
@@ -77,24 +58,76 @@ body {
 
 .stage {
   flex: 1;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 1rem var(--edge);
+  gap: 2.5rem;
 }
 
-.wordmark {
-  margin: 0;
-  /* Optical centering: the masthead adds weight up top, so lift the mark
-     slightly above true center. */
-  transform: translateY(-4%);
-  font-size: clamp(2rem, 12vw, 11rem);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  /* letter-spacing pads the right edge; pull it back so the word reads centered. */
-  text-indent: 0.12em;
-  text-transform: uppercase;
-  color: #fff;
-  white-space: nowrap;
+.animation-container {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  justify-content: center;
+}
+
+.animation-container img {
+  width: 100%;
+  height: auto;
+}
+
+.cta-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.cta-btn:active {
+  transform: scale(0.97);
+}
+
+.cta-btn svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.cta-whatsapp {
+  background: var(--sage);
+  color: var(--charcoal-deep);
+}
+
+.cta-whatsapp:hover,
+.cta-whatsapp:focus-visible {
+  background: var(--sage-light);
+}
+
+.cta-imessage {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid var(--sage);
+}
+
+.cta-imessage:hover,
+.cta-imessage:focus-visible {
+  background: var(--sage-dim);
+  border-color: var(--sage-dim);
 }
 
 .footer {
@@ -102,48 +135,42 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 0.75rem var(--footer-gap);
+  gap: 0.75rem 2.25rem;
   padding: var(--edge);
   font-size: 0.8125rem;
   letter-spacing: 0.04em;
-  color: var(--gray-dim);
+  color: var(--white-dim);
 }
 
 .footer-group {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem var(--footer-gap);
+  gap: 0.5rem 2.25rem;
 }
 
 .footer a {
-  color: var(--gray);
+  color: var(--white);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .footer a:hover,
 .footer a:focus-visible {
-  color: var(--orange);
+  color: var(--sage-light);
 }
 
 :focus-visible {
-  outline: 2px solid var(--orange);
+  outline: 2px solid var(--sage);
   outline-offset: 4px;
 }
 
-/* Narrow screens cannot hold four items on one line, and letting them wrap
-   produces a ragged two-column block. Stack them deliberately instead: one row
-   of links, then the contact, then the legal line, all centred. Each line is
-   forced rather than wrapped, so the shape does not change with string length.
-   The breakpoint is set where the single-row layout genuinely fits (measured
-   at ~790px including the inter-group gap), not at a round guess. */
 @media (max-width: 50rem) {
   .footer {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: var(--footer-stack-gap);
+    gap: 0.85rem;
     font-size: 0.75rem;
   }
 
@@ -152,18 +179,28 @@ body {
     flex-wrap: nowrap;
   }
 
-  /* Links read better above the legal text on a stacked layout. */
   .footer-links {
     order: -1;
   }
 
   .footer-legal {
     flex-direction: column;
-    gap: var(--footer-stack-gap);
+    gap: 0.85rem;
   }
 
-  /* Copyright reads as the closing line, so the contact sits above it. */
   .footer-legal a {
     order: -1;
+  }
+}
+
+@media (max-width: 28rem) {
+  .cta-group {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .cta-btn {
+    justify-content: center;
   }
 }
