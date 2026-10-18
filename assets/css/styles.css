@@ -69,11 +69,13 @@ body.revealed .stage {
   flex: 1 1 100%;
   min-height: 0;
   overflow: hidden;
-  transition: flex 0.8s cubic-bezier(.4,0,.2,1);
+  transition: flex 0.8s cubic-bezier(.4,0,.2,1),
+              height 0.8s cubic-bezier(.4,0,.2,1);
 }
 
 body.revealed .animation-container {
-  flex: 0 1 45vh;
+  flex: 0 0 auto;
+  height: 35vh;
 }
 
 .animation-container img {
@@ -193,9 +195,9 @@ body.revealed .animation-container img {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.7rem 1.5rem;
+  padding: 0.6rem 1.4rem;
   border-radius: 50px;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-decoration: none;
