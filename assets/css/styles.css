@@ -68,6 +68,7 @@ body.revealed .stage {
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: height;
 }
 
 .animation-container img {
@@ -81,15 +82,15 @@ body.revealed .stage {
   display: flex;
   align-items: center;
   opacity: 0;
-  max-height: 0;
-  overflow: hidden;
+  transform: translateY(10px);
   pointer-events: none;
-  transition: opacity 0.4s ease, max-height 0.4s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: opacity, transform;
 }
 
 .controls.visible {
   opacity: 1;
-  max-height: 2rem;
+  transform: translateY(0);
   pointer-events: auto;
 }
 
@@ -125,15 +126,15 @@ body.revealed .stage {
   align-items: center;
   gap: clamp(0.25rem, 0.8vh, 0.5rem);
   opacity: 0;
-  max-height: 0;
-  overflow: hidden;
+  transform: translateY(15px);
   pointer-events: none;
-  transition: opacity 0.5s ease, max-height 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: opacity, transform;
 }
 
 .cta-section.visible {
   opacity: 1;
-  max-height: 20rem;
+  transform: translateY(0);
   pointer-events: auto;
 }
 
@@ -245,14 +246,14 @@ body.revealed .stage {
   letter-spacing: 0.04em;
   color: var(--white-dim);
   opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: opacity 0.4s ease, max-height 0.4s ease;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  will-change: opacity, transform;
 }
 
 .footer.visible {
   opacity: 1;
-  max-height: 6rem;
+  transform: translateY(0);
 }
 
 .footer-group {

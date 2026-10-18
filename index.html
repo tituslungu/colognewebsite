@@ -80,30 +80,29 @@
         const startH = animContainer.getBoundingClientRect().height;
         const endH = getCompactHeight();
 
-        // Animate the container height smoothly
-        animContainer.animate(
-          [{ height: startH + 'px' }, { height: endH + 'px' }],
-          { duration: 1000, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }
-        ).onfinish = () => {
-          animContainer.style.height = endH + 'px';
-        };
-
         body.classList.add('revealed');
 
-        // Stagger the reveals after the shrink starts
-        setTimeout(() => {
-          controls.classList.add('visible');
-          ctaSection.classList.add('visible');
-        }, 400);
+        // Step 1: Shrink the animation container (only layout change)
+        const shrink = animContainer.animate(
+          [{ height: startH + 'px' }, { height: endH + 'px' }],
+          { duration: 1000, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }
+        );
 
-        setTimeout(() => {
-          footer.classList.add('visible');
-        }, 600);
+        shrink.onfinish = () => {
+          animContainer.style.height = endH + 'px';
 
-        setTimeout(() => {
-          ctaPrompt.classList.add('visible');
-          ctaArrow.classList.add('visible');
-        }, 900);
+          // Step 2: After shrink is done, fade in everything (opacity + transform only, no layout reflow)
+          requestAnimationFrame(() => {
+            controls.classList.add('visible');
+            ctaSection.classList.add('visible');
+            footer.classList.add('visible');
+
+            setTimeout(() => {
+              ctaPrompt.classList.add('visible');
+              ctaArrow.classList.add('visible');
+            }, 300);
+          });
+        };
 
         localStorage.setItem('divi-visited', '1');
       }
