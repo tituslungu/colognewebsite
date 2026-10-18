@@ -13,7 +13,20 @@
   <body>
     <main class="stage">
       <div class="animation-container">
-        <img src="assets/img/divi-web-charcoal-sage.svg" alt="Cologne" />
+        <object id="anim" type="image/svg+xml" data="assets/img/divi-web-charcoal-sage.svg" aria-label="Cologne"></object>
+      </div>
+
+      <div class="controls">
+        <div class="dots" id="dots">
+          <button class="dot active" data-page="0" aria-label="Page 1"></button>
+          <button class="dot" data-page="1" aria-label="Page 2"></button>
+          <button class="dot" data-page="2" aria-label="Page 3"></button>
+          <button class="dot" data-page="3" aria-label="Page 4"></button>
+          <button class="dot" data-page="4" aria-label="Page 5"></button>
+        </div>
+        <button class="replay-btn" id="replay" aria-label="Replay animation">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+        </button>
       </div>
 
       <div class="cta-group">
@@ -38,5 +51,104 @@
         <a href="/privacy">Privacy Policy</a>
       </div>
     </footer>
+
+    <script>
+      const PAGES = 5;
+      const DURATION = 17.4;
+      // Page visibility windows (fraction of total duration)
+      const PAGE_TIMES = [
+        [0, 0.22414],
+        [0.22414, 0.43103],
+        [0.43103, 0.67241],
+        [0.67241, 0.86782],
+        [0.86782, 1.0]
+      ];
+
+      const obj = document.getElementById('anim');
+      const dots = document.querySelectorAll('.dot');
+      const replayBtn = document.getElementById('replay');
+      let autoTracker = null;
+      let manualMode = false;
+
+      function getSvgDoc() {
+        try { return obj.contentDocument; } catch(e) { return null; }
+      }
+
+      function updateDots(active) {
+        dots.forEach((d, i) => {
+          d.classList.toggle('active', i === active);
+        });
+      }
+
+      // Track which page is showing during auto-play
+      function startTracking() {
+        manualMode = false;
+        const start = Date.now();
+        if (autoTracker) clearInterval(autoTracker);
+        autoTracker = setInterval(() => {
+          if (manualMode) return;
+          const elapsed = (Date.now() - start) / 1000;
+          const frac = Math.min(elapsed / DURATION, 1);
+          for (let i = PAGES - 1; i >= 0; i--) {
+            if (frac >= PAGE_TIMES[i][0]) {
+              updateDots(i);
+              break;
+            }
+          }
+          if (frac >= 1) clearInterval(autoTracker);
+        }, 200);
+      }
+
+      // Jump to a specific page
+      function goToPage(pageIndex) {
+        manualMode = true;
+        if (autoTracker) clearInterval(autoTracker);
+        const svgDoc = getSvgDoc();
+        if (!svgDoc) return;
+
+        // Pause all animations and set page visibility
+        for (let i = 0; i < PAGES; i++) {
+          const els = svgDoc.querySelectorAll('.pg' + i);
+          els.forEach(el => {
+            el.style.animation = 'none';
+            el.style.opacity = i === pageIndex ? '1' : '0';
+          });
+        }
+
+        // Also freeze other decorative animations
+        const allAnimated = svgDoc.querySelectorAll('[class]');
+        allAnimated.forEach(el => {
+          const cls = el.getAttribute('class') || '';
+          if (!cls.match(/^pg\d$/)) {
+            el.style.animationPlayState = 'paused';
+          }
+        });
+
+        updateDots(pageIndex);
+      }
+
+      // Replay the full animation
+      function replay() {
+        manualMode = false;
+        // Reload the SVG by resetting the data attribute
+        const src = obj.getAttribute('data');
+        obj.setAttribute('data', '');
+        requestAnimationFrame(() => {
+          obj.setAttribute('data', src);
+          obj.onload = () => startTracking();
+        });
+        updateDots(0);
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          goToPage(parseInt(dot.dataset.page));
+        });
+      });
+
+      replayBtn.addEventListener('click', replay);
+
+      obj.addEventListener('load', () => startTracking());
+    </script>
   </body>
 </html>
