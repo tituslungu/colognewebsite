@@ -49,24 +49,22 @@ body {
   min-height: 0;
 }
 
-/* Always in compact layout. Scaled up via transform on first visit. */
+/* SVG container — centered by default, slides up on reveal */
 .animation-container {
   width: 100%;
-  height: 50vh;
+  flex: 1 1 auto;
+  min-height: 0;
   max-width: 480px;
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: scale(var(--zoom, 1));
-  transform-origin: center center;
-  transition: transform 1.2s cubic-bezier(.25, .1, .25, 1);
+  transition: flex 1.2s cubic-bezier(.25,.1,.25,1);
   will-change: transform;
-  z-index: 2;
 }
 
 body.revealed .animation-container {
-  transform: scale(1);
+  flex: 0 1 auto;
+  max-height: 45vh;
 }
 
 .animation-container img {
