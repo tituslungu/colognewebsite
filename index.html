@@ -55,6 +55,7 @@
 
     <script>
       const DURATION = 17.4;
+      const SVG_RATIO = 530 / 655; // width / height of the SVG
       const anim = document.getElementById('anim');
       const replayBtn = document.getElementById('replay');
       const ctaSection = document.getElementById('ctaSection');
@@ -65,6 +66,24 @@
       const body = document.body;
       let revealTimer = null;
       const hasVisited = localStorage.getItem('divi-visited');
+
+      // Calculate zoom so the SVG fills the viewport height
+      // With object-fit:contain, the image fits by width on tall screens,
+      // leaving gaps top/bottom. Scale up to fill the height.
+      function calcZoom() {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const imgH = vw / SVG_RATIO; // height if fitted by width
+        const zoom = Math.max(1, vh / imgH);
+        anim.style.setProperty('--zoom', zoom.toFixed(3));
+      }
+
+      if (!hasVisited) {
+        calcZoom();
+        window.addEventListener('resize', () => {
+          if (!body.classList.contains('revealed')) calcZoom();
+        });
+      }
 
       function revealBottom() {
         body.classList.add('revealed');
