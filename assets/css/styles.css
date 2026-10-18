@@ -176,13 +176,6 @@ body.revealed .animation-container {
   50% { transform: translateY(5px); }
 }
 
-.cta-channel {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--white-dim);
-  letter-spacing: 0.02em;
-}
-
 .cta-group {
   display: flex;
   gap: 0.75rem;
