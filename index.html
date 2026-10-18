@@ -92,7 +92,7 @@
       function startRevealTimer() {
         if (hasVisited) return;
         if (revealTimer) clearTimeout(revealTimer);
-        revealTimer = setTimeout(revealBottom, (DURATION * 0.868 + 1.5) * 1000);
+        revealTimer = setTimeout(revealBottom, (DURATION + 2) * 1000);
       }
 
       function replay() {
@@ -107,7 +107,7 @@
           revealTimer = setTimeout(() => {
             ctaPrompt.classList.add('visible');
             ctaArrow.classList.add('visible');
-          }, (DURATION * 0.868 + 1.5) * 1000);
+          }, (DURATION + 2) * 1000);
         });
       }
 
