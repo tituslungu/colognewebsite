@@ -12,8 +12,6 @@
   </head>
   <body>
     <main class="stage">
-      <h1 class="headline">Split bills instantly. No app needed.</h1>
-
       <div class="animation-container">
         <object id="anim" type="image/svg+xml" data="assets/img/divi-web-charcoal-sage.svg" aria-label="Divi"></object>
       </div>
@@ -60,25 +58,41 @@
       const DURATION = 17.4;
       const obj = document.getElementById('anim');
       const replayBtn = document.getElementById('replay');
+      const ctaSection = document.getElementById('ctaSection');
       const ctaPrompt = document.getElementById('ctaPrompt');
       const ctaArrow = document.getElementById('ctaArrow');
+      const controls = document.querySelector('.controls');
+      const footer = document.querySelector('.footer');
       let revealTimer = null;
+      const hasVisited = localStorage.getItem('divi-visited');
 
-      function showCta() {
+      function revealBottom() {
+        ctaSection.classList.add('visible');
+        controls.classList.add('visible');
+        footer.classList.add('visible');
         ctaPrompt.classList.add('visible');
         ctaArrow.classList.add('visible');
+        localStorage.setItem('divi-visited', '1');
       }
 
-      function hideCta() {
+      function hideBottom() {
+        ctaSection.classList.remove('visible');
+        controls.classList.remove('visible');
+        footer.classList.remove('visible');
         ctaPrompt.classList.remove('visible');
         ctaArrow.classList.remove('visible');
       }
 
+      if (hasVisited) {
+        // Returning visitor: show everything immediately
+        revealBottom();
+      }
+
       function startRevealTimer() {
+        if (hasVisited) return;
         if (revealTimer) clearTimeout(revealTimer);
-        hideCta();
-        // Show "text us" prompt ~1.5s after the last page appears (pg4 starts at 86.8%)
-        revealTimer = setTimeout(showCta, (DURATION * 0.868 + 1.5) * 1000);
+        hideBottom();
+        revealTimer = setTimeout(revealBottom, (DURATION * 0.868 + 1.5) * 1000);
       }
 
       function replay() {
@@ -86,7 +100,16 @@
         obj.setAttribute('data', '');
         requestAnimationFrame(() => {
           obj.setAttribute('data', src);
-          obj.onload = () => startRevealTimer();
+          obj.onload = () => {
+            // On replay, just re-trigger the text prompt animation
+            ctaPrompt.classList.remove('visible');
+            ctaArrow.classList.remove('visible');
+            if (revealTimer) clearTimeout(revealTimer);
+            revealTimer = setTimeout(() => {
+              ctaPrompt.classList.add('visible');
+              ctaArrow.classList.add('visible');
+            }, (DURATION * 0.868 + 1.5) * 1000);
+          };
         });
       }
 
