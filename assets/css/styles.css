@@ -38,7 +38,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Disable transitions for returning visitors on load */
 body.no-transition *,
 body.no-transition *::before,
 body.no-transition *::after {
@@ -54,7 +53,6 @@ body.no-transition *::after {
   padding: 0;
   gap: 0;
   min-height: 0;
-  transition: padding 1s ease, gap 1s ease;
 }
 
 body.revealed .stage {
@@ -62,37 +60,23 @@ body.revealed .stage {
   gap: clamp(0.3rem, 0.8vh, 0.5rem);
 }
 
-/* Animation: starts full-screen + zoomed, shrinks when .revealed */
+/* Full-screen initially, shrinks on reveal via JS height animation */
 .animation-container {
   width: 100%;
-  flex: 1 1 100%;
   min-height: 0;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: flex 1.2s cubic-bezier(.4,0,.2,1), max-height 1.2s cubic-bezier(.4,0,.2,1);
-}
-
-body.revealed .animation-container {
-  flex: 0 0 auto;
-  max-height: 35vh;
 }
 
 .animation-container img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* Scale set by JS via --zoom, fills viewport on mobile */
-  transform: scale(var(--zoom, 1));
-  transition: transform 1.2s cubic-bezier(.4,0,.2,1);
 }
 
-body.revealed .animation-container img {
-  transform: scale(1);
-}
-
-/* Controls: hidden until revealed */
+/* Controls */
 .controls {
   display: flex;
   align-items: center;
@@ -100,7 +84,7 @@ body.revealed .animation-container img {
   max-height: 0;
   overflow: hidden;
   pointer-events: none;
-  transition: opacity 0.6s ease 0.8s, max-height 0.6s ease 0.8s;
+  transition: opacity 0.4s ease, max-height 0.4s ease;
 }
 
 .controls.visible {
@@ -134,7 +118,7 @@ body.revealed .animation-container img {
   color: var(--sage);
 }
 
-/* CTA section: hidden until revealed */
+/* CTA section */
 .cta-section {
   display: flex;
   flex-direction: column;
@@ -144,7 +128,7 @@ body.revealed .animation-container img {
   max-height: 0;
   overflow: hidden;
   pointer-events: none;
-  transition: opacity 0.6s ease 0.6s, max-height 0.8s ease 0.5s;
+  transition: opacity 0.5s ease, max-height 0.5s ease;
 }
 
 .cta-section.visible {
@@ -249,7 +233,7 @@ body.revealed .animation-container img {
   opacity: 0.7;
 }
 
-/* Footer: hidden until revealed */
+/* Footer */
 .footer {
   display: flex;
   flex-wrap: wrap;
@@ -263,7 +247,7 @@ body.revealed .animation-container img {
   opacity: 0;
   max-height: 0;
   overflow: hidden;
-  transition: opacity 0.6s ease 0.9s, max-height 0.6s ease 0.9s;
+  transition: opacity 0.4s ease, max-height 0.4s ease;
 }
 
 .footer.visible {

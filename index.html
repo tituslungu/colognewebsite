@@ -55,8 +55,9 @@
 
     <script>
       const DURATION = 17.4;
-      const SVG_RATIO = 530 / 655; // width / height of the SVG
+      const COMPACT_HEIGHT_VH = 35;
       const anim = document.getElementById('anim');
+      const animContainer = document.getElementById('animContainer');
       const replayBtn = document.getElementById('replay');
       const ctaSection = document.getElementById('ctaSection');
       const ctaPrompt = document.getElementById('ctaPrompt');
@@ -67,45 +68,58 @@
       let revealTimer = null;
       const hasVisited = localStorage.getItem('divi-visited');
 
-      // Calculate zoom so the SVG fills the viewport height
-      // With object-fit:contain, the image fits by width on tall screens,
-      // leaving gaps top/bottom. Scale up to fill the height.
-      function calcZoom() {
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-        const imgH = vw / SVG_RATIO; // height if fitted by width
-        const zoom = Math.max(1, vh / imgH);
-        anim.style.setProperty('--zoom', zoom.toFixed(3));
+      function getCompactHeight() {
+        return Math.round(window.innerHeight * COMPACT_HEIGHT_VH / 100);
       }
 
-      if (!hasVisited) {
-        calcZoom();
-        window.addEventListener('resize', () => {
-          if (!body.classList.contains('revealed')) calcZoom();
-        });
+      function setFullScreen() {
+        animContainer.style.height = window.innerHeight + 'px';
       }
 
       function revealBottom() {
+        const startH = animContainer.getBoundingClientRect().height;
+        const endH = getCompactHeight();
+
+        // Animate the container height smoothly
+        animContainer.animate(
+          [{ height: startH + 'px' }, { height: endH + 'px' }],
+          { duration: 1000, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }
+        ).onfinish = () => {
+          animContainer.style.height = endH + 'px';
+        };
+
         body.classList.add('revealed');
-        ctaSection.classList.add('visible');
-        controls.classList.add('visible');
-        footer.classList.add('visible');
+
+        // Stagger the reveals after the shrink starts
+        setTimeout(() => {
+          controls.classList.add('visible');
+          ctaSection.classList.add('visible');
+        }, 400);
+
+        setTimeout(() => {
+          footer.classList.add('visible');
+        }, 600);
+
         setTimeout(() => {
           ctaPrompt.classList.add('visible');
           ctaArrow.classList.add('visible');
-        }, hasVisited ? 0 : 600);
+        }, 900);
+
         localStorage.setItem('divi-visited', '1');
       }
 
       if (hasVisited) {
+        // Returning visitor: compact immediately
         body.classList.add('revealed');
-        body.classList.add('no-transition');
-        revealBottom();
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            body.classList.remove('no-transition');
-          });
-        });
+        animContainer.style.height = getCompactHeight() + 'px';
+        controls.classList.add('visible');
+        ctaSection.classList.add('visible');
+        footer.classList.add('visible');
+        ctaPrompt.classList.add('visible');
+        ctaArrow.classList.add('visible');
+      } else {
+        // First visit: full-screen
+        setFullScreen();
       }
 
       function startRevealTimer() {
@@ -117,8 +131,7 @@
       function replay() {
         ctaPrompt.classList.remove('visible');
         ctaArrow.classList.remove('visible');
-        // Reload SVG animation by resetting src
-        const src = anim.getAttribute('src');
+        const src = anim.src.split('?')[0];
         anim.src = '';
         requestAnimationFrame(() => {
           anim.src = src + '?' + Date.now();
@@ -131,7 +144,7 @@
       }
 
       replayBtn.addEventListener('click', replay);
-      // Start timer on load
+
       if (anim.complete) {
         startRevealTimer();
       } else {
