@@ -9,6 +9,21 @@
     <link rel="icon" href="assets/img/icon.png" />
     <link rel="apple-touch-icon" href="assets/img/icon.png" />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <script>
+      // Set zoom before first paint so user never sees the unzoomed state
+      if (!localStorage.getItem('divi-visited')) {
+        document.documentElement.style.setProperty('--pre-zoom', 'true');
+      }
+    </script>
+    <style>
+      /* Hide until JS sets the zoom to prevent flash of unzoomed content */
+      html[style*="--pre-zoom"] .animation-container {
+        visibility: hidden;
+      }
+      html[style*="--pre-zoom"] .animation-container.ready {
+        visibility: visible;
+      }
+    </style>
   </head>
   <body>
     <main class="stage">
@@ -67,12 +82,13 @@
       let revealTimer = null;
       const hasVisited = localStorage.getItem('divi-visited');
 
-      // Calculate scale so the 35vh container appears to fill the viewport
+      // Calculate scale so the 50vh container appears to fill the viewport
       function calcZoom() {
         const containerH = animContainer.offsetHeight;
         if (containerH === 0) return;
         const zoom = window.innerHeight / containerH;
         animContainer.style.setProperty('--zoom', zoom.toFixed(3));
+        animContainer.classList.add('ready');
       }
 
       function revealBottom() {
