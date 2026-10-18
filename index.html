@@ -55,9 +55,8 @@
 
     <script>
       const DURATION = 17.4;
-      const COMPACT_HEIGHT_VH = 35;
-      const anim = document.getElementById('anim');
       const animContainer = document.getElementById('animContainer');
+      const anim = document.getElementById('anim');
       const replayBtn = document.getElementById('replay');
       const ctaSection = document.getElementById('ctaSection');
       const ctaPrompt = document.getElementById('ctaPrompt');
@@ -68,57 +67,53 @@
       let revealTimer = null;
       const hasVisited = localStorage.getItem('divi-visited');
 
-      function getCompactHeight() {
-        return Math.round(window.innerHeight * COMPACT_HEIGHT_VH / 100);
-      }
-
-      function setFullScreen() {
-        animContainer.style.height = window.innerHeight + 'px';
+      // Calculate scale so the 35vh container appears to fill the viewport
+      function calcZoom() {
+        const containerH = animContainer.offsetHeight;
+        if (containerH === 0) return;
+        const zoom = window.innerHeight / containerH;
+        animContainer.style.setProperty('--zoom', zoom.toFixed(3));
       }
 
       function revealBottom() {
-        const startH = animContainer.getBoundingClientRect().height;
-        const endH = getCompactHeight();
-
+        // Trigger the scale transition (CSS handles it via .revealed)
         body.classList.add('revealed');
 
-        // Step 1: Shrink the animation container (only layout change)
-        const shrink = animContainer.animate(
-          [{ height: startH + 'px' }, { height: endH + 'px' }],
-          { duration: 1000, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }
-        );
+        // Wait for the scale transition to finish, then show the rest
+        animContainer.addEventListener('transitionend', function handler(e) {
+          if (e.propertyName !== 'transform') return;
+          animContainer.removeEventListener('transitionend', handler);
 
-        shrink.onfinish = () => {
-          animContainer.style.height = endH + 'px';
+          controls.classList.add('visible');
+          ctaSection.classList.add('visible');
+          footer.classList.add('visible');
 
-          // Step 2: After shrink is done, fade in everything (opacity + transform only, no layout reflow)
-          requestAnimationFrame(() => {
-            controls.classList.add('visible');
-            ctaSection.classList.add('visible');
-            footer.classList.add('visible');
-
-            setTimeout(() => {
-              ctaPrompt.classList.add('visible');
-              ctaArrow.classList.add('visible');
-            }, 300);
-          });
-        };
+          setTimeout(() => {
+            ctaPrompt.classList.add('visible');
+            ctaArrow.classList.add('visible');
+          }, 300);
+        });
 
         localStorage.setItem('divi-visited', '1');
       }
 
       if (hasVisited) {
-        // Returning visitor: compact immediately
+        // Returning visitor: show compact layout, no zoom, no transitions
         body.classList.add('revealed');
-        animContainer.style.height = getCompactHeight() + 'px';
+        animContainer.style.setProperty('--zoom', '1');
         controls.classList.add('visible');
         ctaSection.classList.add('visible');
         footer.classList.add('visible');
         ctaPrompt.classList.add('visible');
         ctaArrow.classList.add('visible');
       } else {
-        // First visit: full-screen
-        setFullScreen();
+        // First visit: calculate zoom after layout settles
+        requestAnimationFrame(() => {
+          calcZoom();
+        });
+        window.addEventListener('resize', () => {
+          if (!body.classList.contains('revealed')) calcZoom();
+        });
       }
 
       function startRevealTimer() {
