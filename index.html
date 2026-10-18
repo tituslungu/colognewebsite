@@ -13,7 +13,7 @@
   <body>
     <main class="stage">
       <div class="animation-container" id="animContainer">
-        <object id="anim" type="image/svg+xml" data="assets/img/divi-web-charcoal-sage.svg" aria-label="Divi"></object>
+        <img id="anim" src="assets/img/divi-web-charcoal-sage.svg" alt="Divi" />
       </div>
 
       <div class="controls" id="controls">
@@ -55,8 +55,7 @@
 
     <script>
       const DURATION = 17.4;
-      const obj = document.getElementById('anim');
-      const animContainer = document.getElementById('animContainer');
+      const anim = document.getElementById('anim');
       const replayBtn = document.getElementById('replay');
       const ctaSection = document.getElementById('ctaSection');
       const ctaPrompt = document.getElementById('ctaPrompt');
@@ -72,7 +71,6 @@
         ctaSection.classList.add('visible');
         controls.classList.add('visible');
         footer.classList.add('visible');
-        // Delay the text prompt slightly so shrink finishes first
         setTimeout(() => {
           ctaPrompt.classList.add('visible');
           ctaArrow.classList.add('visible');
@@ -81,11 +79,9 @@
       }
 
       if (hasVisited) {
-        // Returning visitor: skip full-screen, show compact layout immediately
         body.classList.add('revealed');
         body.classList.add('no-transition');
         revealBottom();
-        // Remove no-transition after paint so future transitions work
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             body.classList.remove('no-transition');
@@ -100,24 +96,28 @@
       }
 
       function replay() {
-        const src = obj.getAttribute('data');
-        obj.setAttribute('data', '');
         ctaPrompt.classList.remove('visible');
         ctaArrow.classList.remove('visible');
+        // Reload SVG animation by resetting src
+        const src = anim.getAttribute('src');
+        anim.src = '';
         requestAnimationFrame(() => {
-          obj.setAttribute('data', src);
-          obj.onload = () => {
-            if (revealTimer) clearTimeout(revealTimer);
-            revealTimer = setTimeout(() => {
-              ctaPrompt.classList.add('visible');
-              ctaArrow.classList.add('visible');
-            }, (DURATION * 0.868 + 1.5) * 1000);
-          };
+          anim.src = src + '?' + Date.now();
+          if (revealTimer) clearTimeout(revealTimer);
+          revealTimer = setTimeout(() => {
+            ctaPrompt.classList.add('visible');
+            ctaArrow.classList.add('visible');
+          }, (DURATION * 0.868 + 1.5) * 1000);
         });
       }
 
       replayBtn.addEventListener('click', replay);
-      obj.addEventListener('load', () => startRevealTimer());
+      // Start timer on load
+      if (anim.complete) {
+        startRevealTimer();
+      } else {
+        anim.addEventListener('load', startRevealTimer);
+      }
     </script>
   </body>
 </html>
