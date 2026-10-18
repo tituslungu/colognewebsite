@@ -1,11 +1,11 @@
 :root {
   --charcoal: #2D2D2D;
   --charcoal-deep: #1a1a1a;
-  --sage: #7a8c6e;
-  --sage-light: #9aac8e;
-  --sage-dim: #5e6d54;
+  --sage: #6FAF8E;
+  --sage-light: #8cc4a5;
+  --sage-dim: #4e7a62;
   --white: #f0efed;
-  --white-dim: #b8b6b2;
+  --white-dim: #8A8885;
 
   --edge: clamp(1.25rem, 4vw, 3rem);
 }
@@ -45,14 +45,23 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem var(--edge);
-  gap: clamp(1rem, 3vh, 2.5rem);
+  padding: 0.75rem var(--edge);
+  gap: clamp(0.5rem, 1.5vh, 1rem);
+}
+
+.headline {
+  margin: 0;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--white-dim);
+  text-align: center;
 }
 
 .animation-container {
   width: 100%;
   max-width: 620px;
-  max-height: 62vh;
+  max-height: 55vh;
   display: flex;
   justify-content: center;
 }
@@ -65,58 +74,88 @@ body {
 .controls {
   display: flex;
   align-items: center;
-  gap: 1rem;
-}
-
-.dots {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.dot {
-  width: 28px;
-  height: 6px;
-  border-radius: 3px;
-  border: none;
-  padding: 0;
-  background: var(--sage-dim);
-  cursor: pointer;
-  transition: background 0.2s ease, width 0.2s ease;
-}
-
-.dot.active {
-  background: var(--sage-light);
-  width: 36px;
-}
-
-.dot:hover {
-  background: var(--sage);
 }
 
 .replay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   background: none;
   border: none;
-  padding: 0;
+  padding: 0.25rem 0.5rem;
   cursor: pointer;
-  color: var(--sage);
-  transition: color 0.2s ease, transform 0.2s ease;
-  line-height: 0;
+  color: var(--white-dim);
+  font-family: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease;
+  line-height: 1;
 }
 
 .replay-btn svg {
-  width: 22px;
-  height: 22px;
+  width: 16px;
+  height: 16px;
 }
 
 .replay-btn:hover {
-  color: var(--sage-light);
-  transform: rotate(-45deg);
+  color: var(--sage);
+}
+
+.cta-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.3rem, 1vh, 0.6rem);
+}
+
+.cta-prompt {
+  margin: 0;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 600;
+  color: var(--sage);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.cta-prompt.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cta-arrow {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+}
+
+.cta-arrow.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: bounce 1.8s ease-in-out infinite 0.7s;
+}
+
+.cta-arrow svg {
+  width: 22px;
+  height: 22px;
+  color: var(--sage);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+.cta-channel {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--white-dim);
+  letter-spacing: 0.02em;
 }
 
 .cta-group {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -124,10 +163,10 @@ body {
 .cta-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.85rem 1.75rem;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
   border-radius: 50px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-decoration: none;
@@ -139,14 +178,14 @@ body {
 }
 
 .cta-btn svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 
 .cta-whatsapp {
   background: var(--sage);
-  color: var(--charcoal-deep);
+  color: var(--charcoal);
 }
 
 .cta-whatsapp:hover,
@@ -166,14 +205,22 @@ body {
   border-color: var(--sage-dim);
 }
 
+.cta-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--white-dim);
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+}
+
 .footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 0.75rem 2.25rem;
-  padding: 0.75rem var(--edge);
-  font-size: 0.8125rem;
+  gap: 0.5rem 2.25rem;
+  padding: 0.5rem var(--edge);
+  font-size: 0.75rem;
   letter-spacing: 0.04em;
   color: var(--white-dim);
 }
@@ -206,8 +253,7 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 0.85rem;
-    font-size: 0.75rem;
+    gap: 0.5rem;
   }
 
   .footer-group {
@@ -221,7 +267,7 @@ body {
 
   .footer-legal {
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 0.5rem;
   }
 
   .footer-legal a {
