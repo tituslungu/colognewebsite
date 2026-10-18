@@ -12,11 +12,11 @@
   </head>
   <body>
     <main class="stage">
-      <div class="animation-container">
+      <div class="animation-container" id="animContainer">
         <object id="anim" type="image/svg+xml" data="assets/img/divi-web-charcoal-sage.svg" aria-label="Divi"></object>
       </div>
 
-      <div class="controls">
+      <div class="controls" id="controls">
         <button class="replay-btn" id="replay" aria-label="Replay animation">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
           Replay
@@ -43,7 +43,7 @@
       </div>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" id="footer">
       <div class="footer-group footer-legal">
         <span>&copy; 2026 Divi. All rights reserved.</span>
         <a href="mailto:hello@cologneagent.com">hello@cologneagent.com</a>
@@ -57,53 +57,57 @@
     <script>
       const DURATION = 17.4;
       const obj = document.getElementById('anim');
+      const animContainer = document.getElementById('animContainer');
       const replayBtn = document.getElementById('replay');
       const ctaSection = document.getElementById('ctaSection');
       const ctaPrompt = document.getElementById('ctaPrompt');
       const ctaArrow = document.getElementById('ctaArrow');
-      const controls = document.querySelector('.controls');
-      const footer = document.querySelector('.footer');
+      const controls = document.getElementById('controls');
+      const footer = document.getElementById('footer');
+      const body = document.body;
       let revealTimer = null;
       const hasVisited = localStorage.getItem('divi-visited');
 
       function revealBottom() {
+        body.classList.add('revealed');
         ctaSection.classList.add('visible');
         controls.classList.add('visible');
         footer.classList.add('visible');
-        ctaPrompt.classList.add('visible');
-        ctaArrow.classList.add('visible');
+        // Delay the text prompt slightly so shrink finishes first
+        setTimeout(() => {
+          ctaPrompt.classList.add('visible');
+          ctaArrow.classList.add('visible');
+        }, hasVisited ? 0 : 600);
         localStorage.setItem('divi-visited', '1');
       }
 
-      function hideBottom() {
-        ctaSection.classList.remove('visible');
-        controls.classList.remove('visible');
-        footer.classList.remove('visible');
-        ctaPrompt.classList.remove('visible');
-        ctaArrow.classList.remove('visible');
-      }
-
       if (hasVisited) {
-        // Returning visitor: show everything immediately
+        // Returning visitor: skip full-screen, show compact layout immediately
+        body.classList.add('revealed');
+        body.classList.add('no-transition');
         revealBottom();
+        // Remove no-transition after paint so future transitions work
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            body.classList.remove('no-transition');
+          });
+        });
       }
 
       function startRevealTimer() {
         if (hasVisited) return;
         if (revealTimer) clearTimeout(revealTimer);
-        hideBottom();
         revealTimer = setTimeout(revealBottom, (DURATION * 0.868 + 1.5) * 1000);
       }
 
       function replay() {
         const src = obj.getAttribute('data');
         obj.setAttribute('data', '');
+        ctaPrompt.classList.remove('visible');
+        ctaArrow.classList.remove('visible');
         requestAnimationFrame(() => {
           obj.setAttribute('data', src);
           obj.onload = () => {
-            // On replay, just re-trigger the text prompt animation
-            ctaPrompt.classList.remove('visible');
-            ctaArrow.classList.remove('visible');
             if (revealTimer) clearTimeout(revealTimer);
             revealTimer = setTimeout(() => {
               ctaPrompt.classList.add('visible');

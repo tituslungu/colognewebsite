@@ -1,6 +1,5 @@
 :root {
   --charcoal: #2D2D2D;
-  --charcoal-deep: #1a1a1a;
   --sage: #6FAF8E;
   --sage-light: #8cc4a5;
   --sage-dim: #4e7a62;
@@ -39,6 +38,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Disable transitions for returning visitors on load */
+body.no-transition *,
+body.no-transition *::before,
+body.no-transition *::after {
+  transition: none !important;
+}
+
 .stage {
   flex: 1;
   display: flex;
@@ -46,17 +52,28 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0.75rem var(--edge);
-  gap: clamp(0.5rem, 1.5vh, 1rem);
+  gap: clamp(0.4rem, 1vh, 0.75rem);
+  min-height: 0;
 }
 
+/* Animation: starts full-screen, shrinks when .revealed */
 .animation-container {
   width: 100%;
-  max-width: 420px;
-  max-height: 45vh;
-  flex-shrink: 1;
+  max-width: 100%;
+  max-height: 100vh;
+  flex: 1 1 100%;
   min-height: 0;
   display: flex;
   justify-content: center;
+  transition: max-width 0.8s cubic-bezier(.4,0,.2,1),
+              max-height 0.8s cubic-bezier(.4,0,.2,1),
+              flex 0.8s cubic-bezier(.4,0,.2,1);
+}
+
+body.revealed .animation-container {
+  max-width: 420px;
+  max-height: 45vh;
+  flex: 0 1 45vh;
 }
 
 .animation-container object {
@@ -64,12 +81,13 @@ body {
   height: 100%;
 }
 
+/* Controls: hidden until revealed */
 .controls {
   display: flex;
   align-items: center;
   opacity: 0;
-  transition: opacity 0.6s ease;
   pointer-events: none;
+  transition: opacity 0.5s ease 0.6s;
 }
 
 .controls.visible {
@@ -102,6 +120,7 @@ body {
   color: var(--sage);
 }
 
+/* CTA section: hidden until revealed */
 .cta-section {
   display: flex;
   flex-direction: column;
@@ -109,8 +128,8 @@ body {
   gap: clamp(0.3rem, 1vh, 0.6rem);
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
   pointer-events: none;
+  transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
 }
 
 .cta-section.visible {
@@ -224,6 +243,7 @@ body {
   opacity: 0.7;
 }
 
+/* Footer: hidden until revealed */
 .footer {
   display: flex;
   flex-wrap: wrap;
@@ -235,7 +255,7 @@ body {
   letter-spacing: 0.04em;
   color: var(--white-dim);
   opacity: 0;
-  transition: opacity 0.6s ease 0.3s;
+  transition: opacity 0.6s ease 0.7s;
 }
 
 .footer.visible {
