@@ -3,16 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Not found — Cologne</title>
-    <meta name="theme-color" content="#0b0b0b" />
+    <title>Not found — Divi</title>
+    <meta name="theme-color" content="#2D2D2D" />
     <link rel="icon" href="/assets/img/icon.png" />
-    <!-- Root-relative paths: this page is served from arbitrary URL depths. -->
     <link rel="stylesheet" href="/assets/css/styles.css" />
     <style>
+      body { overflow: auto; }
       .stage {
+        flex: 1;
+        display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         text-align: center;
         gap: 1rem;
+        padding: 2rem var(--edge);
       }
       .code {
         margin: 0;
@@ -24,39 +29,31 @@
       }
       .stage p {
         margin: 0;
-        color: var(--gray-dim);
+        color: var(--white-dim);
         letter-spacing: 0.04em;
       }
       .stage a {
-        color: var(--gray);
+        color: var(--white);
         text-decoration: none;
-        border-bottom: 1px solid var(--orange);
+        border-bottom: 1px solid var(--sage);
         padding-bottom: 2px;
         transition: color 0.2s ease;
       }
       .stage a:hover {
-        color: var(--orange);
+        color: var(--sage);
       }
     </style>
   </head>
-  <body>
-    <div class="backdrop" role="presentation"></div>
-
-    <header class="masthead">
-      <a class="mark" href="/" aria-label="Cologne — home">
-        <img src="/assets/img/icon.png" alt="" width="44" height="44" />
-      </a>
-    </header>
-
+  <body class="revealed">
     <main class="stage">
       <h1 class="code">404</h1>
       <p>That page doesn&rsquo;t exist.</p>
       <p><a href="/">Back to the homepage</a></p>
     </main>
 
-    <footer class="footer">
+    <footer class="footer visible">
       <div class="footer-group footer-legal">
-        <span>&copy; 2026 Cologne Agent. All rights reserved.</span>
+        <span>&copy; 2026 Divi. All rights reserved.</span>
         <a href="mailto:hello@cologneagent.com">hello@cologneagent.com</a>
       </div>
       <div class="footer-group footer-links">
