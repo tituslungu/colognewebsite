@@ -38,7 +38,7 @@ const DOCS = {
 const args = process.argv.slice(2);
 const outIdx = args.indexOf('--out');
 const outDir = outIdx >= 0 ? path.resolve(args[outIdx + 1]) : path.join(REPO, 'assets', 'docs');
-const names = args.filter((a, i) => !a.startsWith('--') && i !== outIdx + 1);
+const names = args.filter((a, i) => !a.startsWith('--') && (outIdx < 0 || i !== outIdx + 1));
 for (const n of names) if (!DOCS[n]) { console.error(`unknown document "${n}" (use: ${Object.keys(DOCS).join(', ')})`); process.exit(2); }
 
 const browser = await chromium.launch();

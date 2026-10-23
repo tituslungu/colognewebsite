@@ -23,5 +23,5 @@ Playwright with Chromium is needed; see `designs/tools/README.md`
 
 The HTML was rebuilt from the original Cologne PDFs (printed from HTML whose
 source was lost) and then updated for Divi: Divi LLC, a limited liability
-company, info@justdivi.com and justdivi.com. The pre-rename versions are in
+company, hello@justdivi.com and justdivi.com. The pre-rename versions are in
 git history (`git show a3abfa5:assets/docs/Divi-Terms-of-Service.pdf`).
