@@ -16,6 +16,7 @@ assets/img/icon.png        512px PNG of icon.svg: fallback favicon, apple-touch-
 assets/img/divi-loop.svg   the looping "how it works" animation
 assets/img/divi-still.svg  its still frame, shown instead under reduced motion
 assets/docs/               Terms of Service and Privacy Policy PDFs
+legal/                     their HTML sources and print.mjs, which prints them (see legal/README.md)
 tos/, privacy/             stub pages that redirect to those PDFs
 .nojekyll                  skip Jekyll processing; serve files as-is
 .github/workflows/         deploy workflow
@@ -93,7 +94,8 @@ mostly works too, but its root-relative links (`/`, `/tos`, `/privacy`) and
   since it is served from arbitrary URL depths.
 - `/tos` and `/privacy` are stub pages (`tos/index.html`, `privacy/index.html`)
   that instantly redirect to the PDFs in `assets/docs/`. To update a document,
-  replace the PDF; to rename one, also update the matching stub's URLs.
+  edit its source in `legal/` and re-print it (`node legal/print.mjs`); to
+  rename one, also update the matching stub's URLs.
 - `icon.png` is a 512px render of `icon.svg`. If the SVG changes, re-export the PNG
   at 512x512 so the iPhone home-screen icon and older browsers match.
 - Custom domain is `justdivi.com`, set in the repo's Pages settings AND in
