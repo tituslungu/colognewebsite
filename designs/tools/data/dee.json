@@ -1,0 +1,173 @@
+{
+ "lede": "A D in the style of the old Cologne C, plus two more minimal versions, each as an uppercase D and a lowercase d in five colour schemes, from a large tile down to a round chat avatar and a 16px browser tab. Each has its own trademark screen.",
+ "concepts": [
+  {
+   "id": "dee-ribbon",
+   "name": "Cologne-style D",
+   "idea": "The uppercase D is the Cologne C mirrored into a bowl and closed with a straight stem; the C's hooks become rounded loops in the stem's corners. The lowercase d uses the Cologne C itself as its bowl, attached to a tall stem.",
+   "howItRelatesToC": "Same doubled line, hairpin turns, crescent and stroke weight as the C. Watch-outs: the lowercase can look like a \u00a9 sign at 24\u201340px, and at 16px the d's inner lines merge into a solid bowl.",
+   "trademark": {
+    "upper": {
+     "risk": "medium",
+     "summary": "Line-drawn Ds are common. The closest are Dailymotion's icon (a D with a second D line inside it) and Elegant Themes' Divi icon (an outlined D in a ring). Neither is in payments, and no payments or messaging brand found uses a double-line D.",
+     "closestMarks": [
+      {
+       "name": "Dailymotion (current D icon)",
+       "industry": "Online video platform",
+       "url": "https://static.neon-ssr.dailymotion.com/neon-user-ssr/static/favicons/android-icon-192x192.12ce02f3a914dc2f3d6d.png",
+       "similarity": "medium"
+      },
+      {
+       "name": "Divi by Elegant Themes (product icon)",
+       "industry": "WordPress theme and website builder software",
+       "url": "https://www.elegantthemes.com/images/favicon/favicon-divi-192.png",
+       "similarity": "medium"
+      },
+      {
+       "name": "Dash (cryptocurrency)",
+       "industry": "Crypto and payments",
+       "url": "https://www.dash.org/wp-content/themes/dash-theme/img/icons/favicon/favicon-96x96.png",
+       "similarity": "low"
+      }
+     ]
+    },
+    "lower": {
+     "risk": "medium",
+     "summary": "The closest is Deliverect, restaurant ordering software whose icon is a green lowercase d, and it sells to the same restaurants. D-EDGE (hotel software) is also similar.",
+     "closestMarks": [
+      {
+       "name": "Deliverect",
+       "industry": "Restaurant ordering and delivery software",
+       "url": "https://www.deliverect.com/images/apple-touch-icon.png",
+       "similarity": "medium"
+      },
+      {
+       "name": "D-EDGE",
+       "industry": "Hotel booking and distribution software",
+       "url": "https://www.d-edge.com/wp-content/themes/d-edge/img/apple-touch-icon.png",
+       "similarity": "medium"
+      },
+      {
+       "name": "Dayforce",
+       "industry": "Payroll, pay and HR software",
+       "url": "https://www.dayforce.com/favicon.ico",
+       "similarity": "low"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "dee-mono",
+   "name": "Minimal D",
+   "idea": "Each letter is one round-capped line that never quite closes: the D runs down its stem, round the bowl and stops just short of the stem; the d does the same around its bowl.",
+   "howItRelatesToC": "Keeps the C's round-ended line, its weight and its open, not-quite-closed mouth, without the doubled line. At 16px the small gap closes up.",
+   "trademark": {
+    "upper": {
+     "risk": "high",
+     "summary": "Too close to OneDosh's registered D (US Reg. 8442961, registered Sept 2026 for payments and money transfer): a D drawn as one continuous curved line with a hook, inside a circle, which is how this D looks as a round chat avatar. I checked the registration myself.",
+     "closestMarks": [
+      {
+       "name": "OneDosh's registered D (US Reg. 8442961)",
+       "industry": "Payments and money transfer",
+       "url": "https://tsdr.uspto.gov/statusview/sn99152729",
+       "similarity": "high"
+      },
+      {
+       "name": "Dojo (Paymentsense) site icon 'D'",
+       "industry": "Card payments and POS for restaurants and hospitality",
+       "url": "https://a.storyblok.com/f/267449/192x192/1aadc7dccc/fav.png/m/512x512",
+       "similarity": "medium"
+      },
+      {
+       "name": "Elegant Themes 'Divi' logo",
+       "industry": "WordPress theme and website-builder software",
+       "url": "https://www.elegantthemes.com/images/favicon/favicon-divi-192.png",
+       "similarity": "medium"
+      }
+     ]
+    },
+    "lower": {
+     "risk": "low",
+     "summary": "Reads as a plain rounded d; nothing found that copies it. The closest is Dayforce's lowercase d (payroll software).",
+     "closestMarks": [
+      {
+       "name": "Dayforce lowercase 'd' logo",
+       "industry": "HR, payroll and workforce software",
+       "url": "https://www.dayforce.com/favicon.ico",
+       "similarity": "medium"
+      },
+      {
+       "name": "Deliverect icon",
+       "industry": "Restaurant online-ordering and delivery integration software",
+       "url": "https://www.deliverect.com/images/apple-touch-icon.png",
+       "similarity": "low"
+      },
+      {
+       "name": "NTT DOCOMO 'd' design mark (USPTO Serial 88303744)",
+       "industry": "Mobile payments and payment software",
+       "url": "https://tsdr.uspto.gov/statusview/sn88303744",
+       "similarity": "low"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "dee-min",
+   "name": "Most minimal D",
+   "idea": "Each letter is just two round-capped strokes: a straight stem and a circular arc whose round tips rest on the stem. The uppercase is a stem with a reversed half-circle; the lowercase uses the Cologne C as its bowl on a tall stem.",
+   "howItRelatesToC": "The C distilled to its round stroke and touching tips. It sits close to a rounded geometric font, so it is the least distinctive of the three.",
+   "trademark": {
+    "upper": {
+     "risk": "high",
+     "summary": "Very close to Elegant Themes' Divi icon, a white single-line D inside a ring; as a round chat avatar this D looks almost the same. DEUNA (payments) is also similar.",
+     "closestMarks": [
+      {
+       "name": "Divi theme 'D' icon (Elegant Themes)",
+       "industry": "Website-builder software / WordPress theme",
+       "url": "https://www.elegantthemes.com/images/favicon/favicon-divi-192.png",
+       "similarity": "high"
+      },
+      {
+       "name": "DEUNA app icon",
+       "industry": "Payments / checkout infrastructure",
+       "url": "https://cdn.prod.website-files.com/6a8c5235b238a3ee4fb01363/6a8c5235b238a3ee4fb0147d_WEBCLIP.webp",
+       "similarity": "medium"
+      },
+      {
+       "name": "Dailymotion 'D' icon (2023)",
+       "industry": "Video platform",
+       "url": "https://static.neon-ssr.dailymotion.com/neon-user-ssr/static/favicons/apple-icon-precomposed.12ce02f3a914dc2f3d6d.png",
+       "similarity": "low"
+      }
+     ]
+    },
+    "lower": {
+     "risk": "low",
+     "summary": "Reads like the d of a rounded font; nothing found that copies it. The closest is Deel's 'd.' icon (payroll and payments).",
+     "closestMarks": [
+      {
+       "name": "Deel 'd.' icon",
+       "industry": "Payroll / HR / global payments",
+       "url": "https://deel.com/apple-icon.png",
+       "similarity": "medium"
+      },
+      {
+       "name": "Dailymotion lowercase 'd' icon (2015 to 2023, retired)",
+       "industry": "Video platform",
+       "url": "https://commons.wikimedia.org/wiki/File:Dailymotion+Icon+Square.svg",
+       "similarity": "low"
+      },
+      {
+       "name": "Deliverect mark",
+       "industry": "Restaurant online-ordering / order-management software",
+       "url": "https://deliverect.com/images/apple-touch-icon.png",
+       "similarity": "low"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

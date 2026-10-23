@@ -36,6 +36,9 @@ running, open:
 
 The pages load `designs/preview.js` for their switchers and reuse the site's
 assets; changing the site does not update the screenshots in `designs/shots/`.
+`designs/tools/` holds the scripts that built and checked them (layout
+checker, logo renderers, comparison-page generators) plus an archive of the
+working scripts from the redesign; see its README.
 
 ## Design
 

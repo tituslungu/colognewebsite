@@ -1,0 +1,15 @@
+import fs from 'fs';
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const base = 'file:///Users/titus/repos/colognewebsite/designs/logos/';
+const ids = ['bubble-1', 'bubble-2', 'bubble-3'];
+const f = process.argv[2] || 'app-icon.svg';
+const html = `<!doctype html><body style="margin:0;display:flex;gap:10px;background:#ccc;padding:10px">${ids.map(i => `<img src="${base}${i}/${f}" width="420" style="background:#fafaf8">`).join('')}</body>`;
+fs.writeFileSync(new URL('./zoom3.html', import.meta.url), html);
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1300, height: 440 } });
+await p.goto(new URL('./zoom3.html', import.meta.url).href);
+await p.waitForTimeout(200);
+await p.screenshot({ path: new URL('./zoom3-' + f.replace('.svg', '') + '.png', import.meta.url).pathname });
+await b.close();

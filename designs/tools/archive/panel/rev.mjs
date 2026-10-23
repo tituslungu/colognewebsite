@@ -1,0 +1,11 @@
+import { createRequire } from 'module';
+import fs from 'fs';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const ids = ['bubble-1','bubble-2','bubble-3','bubble-4','bubble-5','slant-1','slant-3','portion-1','wild-1','wild-2'];
+const R = '/Users/titus/repos/colognewebsite/designs/logos/';
+const uri = p => 'data:image/svg+xml;base64,' + fs.readFileSync(p).toString('base64');
+let cells = ids.map(id => `<div class=c><div class=l>${id}</div><div class=row><div class=dk><img src="${uri(R+id+'/lockup-reverse.svg')}" style="height:70px"></div><div class=lt><img src="${uri(R+id+'/mark-mono.svg')}" style="height:24px;background:#2D2D2D"></div><div class=dk><img src="${uri(R+id+'/mark-mono.svg')}" style="height:16px"><img src="${uri(R+id+'/mark.svg')}" style="height:16px;background:#fff;margin-left:8px"><img src="${uri(R+id+'/app-icon.svg')}" style="height:16px;border-radius:50%;margin-left:8px"></div></div></div>`).join('');
+const html = `<html><body style="margin:0;padding:20px;background:#eee;font:12px Helvetica"><style>.c{margin-bottom:10px}.row{display:flex;gap:10px;align-items:center}.dk{background:#2D2D2D;padding:14px 20px;border-radius:8px;display:flex;align-items:center}.lt{padding:10px}.l{font-weight:bold;margin-bottom:4px}</style>${cells}</body></html>`;
+const b = await chromium.launch(); const p = await b.newPage({viewport:{width:900,height:1400}, deviceScaleFactor:2});
+await p.setContent(html); await p.screenshot({path: '/private/tmp/claude-501/-Users-titus-repos-colognewebsite/c94fcea5-365f-47cd-a42a-021d194de6cf/scratchpad/panel/reverse.png', fullPage:true}); await b.close();

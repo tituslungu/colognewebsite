@@ -1,0 +1,13 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const b = await chromium.launch(); const p = await b.newPage({viewport:{width:1440,height:790}});
+const errs=[]; p.on('console',m=>{if(m.type()==='error')errs.push(m.text())}); p.on('pageerror',e=>errs.push(e.message));
+await p.goto('file:///Users/titus/repos/colognewebsite/designs/d-bleed/index.html');
+await p.waitForTimeout(500);
+const before = await p.$eval('#anim', i=>i.src.split('/').pop());
+await p.click('#replay'); await p.waitForTimeout(600);
+const after = await p.$eval('#anim', i=>({src:i.src.split('/').pop(), complete:i.complete, nw:i.naturalWidth}));
+const bar = await p.$('.preview-bar') !== null;
+console.log({before, after, previewBarShown: bar, errs});
+await b.close();

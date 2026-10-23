@@ -1,0 +1,12 @@
+import { createRequire } from 'module';
+import fs from 'fs';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const [src, x, y, w, h, z, out] = process.argv.slice(2);
+const W = '/private/tmp/claude-501/-Users-titus-repos-colognewebsite/c94fcea5-365f-47cd-a42a-021d194de6cf/scratchpad/dee-mono-work';
+fs.writeFileSync(W + '/crop.html', `<body style="margin:0;overflow:hidden"><div style="width:${w}px;height:${h}px;overflow:hidden;transform:scale(${z});transform-origin:0 0"><img src="file://${src}" style="margin:-${y}px 0 0 -${x}px;image-rendering:pixelated;display:block"></div></body>`);
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: Math.round(+w * +z), height: Math.round(+h * +z) } });
+await p.goto('file://' + W + '/crop.html'); await p.waitForTimeout(300);
+await p.screenshot({ path: out });
+await b.close();

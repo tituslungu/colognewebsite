@@ -1,0 +1,10 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const [slug, query, w, h, out, scale='1'] = process.argv.slice(2);
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: +w, height: +h }, deviceScaleFactor: +scale });
+await p.goto(`file:///Users/titus/repos/colognewebsite/designs/${slug}/index.html?${query}&shot=1`);
+await p.waitForTimeout(1200);
+await p.screenshot({ path: out });
+await b.close();

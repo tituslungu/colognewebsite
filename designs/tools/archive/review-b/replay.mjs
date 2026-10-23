@@ -1,0 +1,16 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 390, height: 664 }, reducedMotion: 'reduce', isMobile: true, hasTouch: true });
+const page = await ctx.newPage();
+const errs = []; page.on('pageerror', e => errs.push(e.message));
+await page.goto('file:///Users/titus/repos/colognewebsite/designs/b-split/index.html?tone=white&shot=1');
+const before = await page.$eval('#anim', i => i.src);
+await page.tap('#replay');
+await page.waitForTimeout(600);
+const after = await page.$eval('#anim', i => ({ src: i.src, complete: i.complete, w: i.naturalWidth }));
+const tr = await page.$eval('.btn-wa', b => getComputedStyle(b).transitionDuration);
+const names = await page.evaluate(() => ['whatsapp','imessage'].map(k => { const a = document.querySelector(`[data-check=${k}]`); return a.textContent.replace(/\s+/g,' ').trim(); }));
+console.log({ before: before.split('/').pop(), after, tr, names, errs });
+await browser.close();

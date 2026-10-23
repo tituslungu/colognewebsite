@@ -1,0 +1,20 @@
+import { K, S, W, WH, svg, circ, rrect, notched } from './geo.mjs';
+const out = {};
+const both = (name, f) => { out[name] = { tile: svg(f(S, W), K), mono: svg(f(WH, WH)) }; };
+const off = ({ L, t, r, gap, dx = L / 4, s = 0.92, rx = t / 2, nest = 0, cut = 0 }) => (tf, df) => {
+  const dy = t / 2 + gap + r;
+  const bar = `<rect x="${128 - L * s / 2}" y="${128 - t * s / 2}" width="${L * s}" height="${t * s}" rx="${rx * s}"/>`;
+  const d1 = { x: 128 - dx * s, y: 128 - dy * s }, d2 = { x: 128 + dx * s, y: 128 + dy * s };
+  const table = cut ? notched(bar, [{ ...d1, r: (r + cut) * s }, { ...d2, r: (r + cut) * s }], tf) : bar.replace('/>', ` fill="${tf}"/>`);
+  return table + circ(d1.x, d1.y, r * s, df) + circ(d2.x, d2.y, r * s, df);
+};
+both('P current (L176 t38 r26 g12)', off({ L: 176, t: 38, r: 26, gap: 12 }));
+both('Q tighter gap 8', off({ L: 176, t: 38, r: 26, gap: 8 }));
+both('R slab t48 r24 g10', off({ L: 176, t: 48, r: 24, gap: 10 }));
+both('S slab t56 rx16 r24 g10', off({ L: 184, t: 56, r: 24, gap: 10, rx: 16 }));
+both('T nested: diners cut into edge', off({ L: 184, t: 60, r: 26, gap: -14, cut: 8, rx: 30 }));
+both('U t44 r26 g10 L184', off({ L: 184, t: 44, r: 26, gap: 10 }));
+both('V sym (orig) for compare', off({ L: 164, t: 38, r: 26, gap: 12, dx: 0, s: 1 }));
+both('W r30 big diners g10', off({ L: 180, t: 40, r: 30, gap: 10 }));
+both('X slab t52 rx26 r22 g10 L184', off({ L: 184, t: 52, r: 22, gap: 10 }));
+export default out;

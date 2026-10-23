@@ -1,0 +1,10 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 2 });
+await p.goto('file:///Users/titus/repos/colognewebsite/designs/logos/index.html#message-2');
+await p.waitForTimeout(500);
+const el = await p.$('#message-2 .visuals');
+await el.screenshot({ path: process.argv[2] + '/logo-tile-check.png' });
+await b.close();

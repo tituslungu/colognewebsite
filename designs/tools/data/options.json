@@ -1,0 +1,10 @@
+[
+ {"slug": "a-stack", "title": "Classic stack",
+  "summary": "The most direct merge of the old and current site: the photo band with DIVI, then one centered column with the animation, the buttons and a quiet footer. The simplest layout, though its animation is the smallest of the four."},
+ {"slug": "b-split", "title": "Split",
+  "summary": "The animation sits beside a large “Text us to split your bill” headline, even on phones, so both get more room. It reads the most like a product landing page."},
+ {"slug": "c-overlap", "title": "Overlap card",
+  "summary": "The animation is a card that rises over the bottom of the photo, tying the two halves together. On laptops DIVI and the buttons sit on the left with the card on the right; on phones everything is centered. It has the biggest animation of the four."},
+ {"slug": "d-bleed", "title": "Photo bleed",
+  "summary": "The table photo keeps going down the page and blurs into the background color, so the area under the band is made from the photo itself. It uses the same centered column as Option A."}
+]

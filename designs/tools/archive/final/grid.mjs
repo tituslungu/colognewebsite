@@ -1,0 +1,13 @@
+import { createRequire } from 'module';
+import fs from 'fs';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const [D, out, ...names] = process.argv.slice(2);
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 2400, height: 1200 } });
+let html = '<body style="margin:0;background:#c00;display:flex;gap:20px;align-items:flex-start;padding:10px">';
+for (const n of names) html += `<img src="data:image/png;base64,${fs.readFileSync(`${D}/${n}`).toString('base64')}">`;
+await p.setContent(html);
+await p.waitForTimeout(200);
+await p.screenshot({ path: `${D}/${out}`, fullPage: true });
+await b.close();

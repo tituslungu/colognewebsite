@@ -1,0 +1,14 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const [tone, size, n, out] = process.argv.slice(2);
+const [w, h] = size.split('x').map(Number);
+const browser = await chromium.launch();
+const page = await (await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 2 })).newPage();
+await page.goto(`file:///Users/titus/repos/colognewebsite/designs/c-overlap/index.html?tone=${tone}&shot=1`);
+await page.waitForTimeout(800);
+for (let i = 0; i < Number(n); i++) await page.keyboard.press('Tab');
+const r = await page.evaluate(() => { const e = document.activeElement; const b = e.getBoundingClientRect(); return { tag: e.tagName, cls: e.className, x: b.x, y: b.y, w: b.width, h: b.height }; });
+console.log(JSON.stringify(r));
+await page.screenshot({ path: out, clip: { x: Math.max(0, r.x - 40), y: Math.max(0, r.y - 30), width: Math.min(w, r.w + 80), height: r.h + 60 } });
+await browser.close();

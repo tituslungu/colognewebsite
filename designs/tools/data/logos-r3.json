@@ -1,0 +1,208 @@
+{
+ "lede": "Newest at the top: round 4, the stylised D. Below it, Fork with white outlines for dark backgrounds, then round 3 (the tilted Table for Two and Fork).",
+ "recLabel": "Which way it tilts matters",
+ "recommendation": "",
+ "concepts": [
+  {
+   "id": "tilt-up-30",
+   "name": "Tilted 30\u00b0, rising",
+   "direction": "Table for Two, tilted",
+   "idea": "The original Table for Two with nothing changed: a sage table with one diner above its left end and one below its right end, rotated so the table rises to the right at 30\u00b0.",
+   "rationale": "Rising to the right puts the two diners exactly where the circles of a % sign go, so this direction reads as a percent sign at small sizes.",
+   "rank": 1,
+   "siteIcon": "site-icon.svg",
+   "concerns": [],
+   "trademark": {
+    "risk": "medium",
+    "closestMarks": [
+     {
+      "name": "Percent logo (a slash with two solid dots)",
+      "owner": "Percent",
+      "industry": "Fintech, private credit",
+      "url": "https://percent.com",
+      "similarity": "medium"
+     },
+     {
+      "name": "Coral percent sign with a smile band (US Reg. 5483039)",
+      "owner": "",
+      "industry": "Advertising and price comparison",
+      "url": "https://trademark.justia.com/791/97/n-79197716.html",
+      "similarity": "low"
+     },
+     {
+      "name": "% Arabica (US Reg. 5197858)",
+      "owner": "% Arabica",
+      "industry": "Coffee shops",
+      "url": "https://trademark.justia.com/791/95/arabica-79195078.html",
+      "similarity": "low"
+     }
+    ],
+    "summary": "Everyone will read it as a percent sign. The closest real logo is Percent's, a slash rising to the right with a dot at top-left and bottom-right. Percent signs are common in finance and discount branding, so this would be hard to own even though no single owner looks likely to win a claim.",
+    "howToReduceRisk": ""
+   }
+  },
+  {
+   "id": "tilt-up-40",
+   "name": "Tilted 40\u00b0, rising",
+   "direction": "Table for Two, tilted",
+   "idea": "The original Table for Two with nothing changed: a sage table with one diner above its left end and one below its right end, rotated so the table rises to the right at 40\u00b0.",
+   "rationale": "The steeper angle makes the table read more like a slash, so the % resemblance is even stronger than at 30\u00b0.",
+   "rank": 2,
+   "siteIcon": "site-icon.svg",
+   "concerns": [],
+   "trademark": {
+    "risk": "medium",
+    "closestMarks": [
+     {
+      "name": "Percent logo (a slash with two solid dots)",
+      "owner": "Percent",
+      "industry": "Fintech, private credit",
+      "url": "https://percent.com",
+      "similarity": "medium"
+     },
+     {
+      "name": "Coral percent sign with a smile band (US Reg. 5483039)",
+      "owner": "",
+      "industry": "Advertising and price comparison",
+      "url": "https://trademark.justia.com/791/97/n-79197716.html",
+      "similarity": "low"
+     },
+     {
+      "name": "% Arabica (US Reg. 5197858)",
+      "owner": "% Arabica",
+      "industry": "Coffee shops",
+      "url": "https://trademark.justia.com/791/95/arabica-79195078.html",
+      "similarity": "low"
+     }
+    ],
+    "summary": "The same percent-sign reading, and at 40\u00b0 it sits even closer to the 45\u00b0 slash in Percent's logo, so of the four this is the one most likely to be seen as their kind of mark.",
+    "howToReduceRisk": ""
+   }
+  },
+  {
+   "id": "tilt-down-30",
+   "name": "Tilted 30\u00b0, falling",
+   "direction": "Table for Two, tilted",
+   "idea": "The original Table for Two with nothing changed: a sage table with one diner above its left end and one below its right end, rotated so the table falls to the right at 30\u00b0.",
+   "rationale": "Falling to the right keeps the diners at the outer ends of the table, so it reads as a tilted divide sign rather than a %.",
+   "rank": 3,
+   "siteIcon": "site-icon.svg",
+   "concerns": [],
+   "trademark": {
+    "risk": "low",
+    "closestMarks": [
+     {
+      "name": "BILL's Divvy V mark (US Reg. 6784829)",
+      "owner": "BILL",
+      "industry": "Spend management",
+      "url": "https://tsdr.uspto.gov/statusview/sn90545019",
+      "similarity": "low"
+     },
+     {
+      "name": "Cash App $ icon",
+      "owner": "Block",
+      "industry": "Payments",
+      "url": "https://cash.app/us/en/legal/copyright-trademark",
+      "similarity": "low"
+     },
+     {
+      "name": "Zelle Z",
+      "owner": "Early Warning Services",
+      "industry": "Bank payments",
+      "url": "https://www.earlywarning.com/early-warning-trademarks",
+      "similarity": "low"
+     }
+    ],
+    "summary": "Reads as a tilted divide sign. No fintech, payments or restaurant brand found uses one; it shares only loose traits with Cash App's $, the Zelle Z and BILL's Divvy V. The lowest risk of the four.",
+    "howToReduceRisk": ""
+   }
+  },
+  {
+   "id": "tilt-down-40",
+   "name": "Tilted 40\u00b0, falling",
+   "direction": "Table for Two, tilted",
+   "idea": "The original Table for Two with nothing changed: a sage table with one diner above its left end and one below its right end, rotated so the table falls to the right at 40\u00b0.",
+   "rationale": "At 40\u00b0 the diners sit almost directly above and below the table's ends, which makes the divide-sign reading strongest.",
+   "rank": 4,
+   "siteIcon": "site-icon.svg",
+   "concerns": [],
+   "trademark": {
+    "risk": "low",
+    "closestMarks": [
+     {
+      "name": "BILL's Divvy V mark (US Reg. 6784829)",
+      "owner": "BILL",
+      "industry": "Spend management",
+      "url": "https://tsdr.uspto.gov/statusview/sn90545019",
+      "similarity": "low"
+     },
+     {
+      "name": "Cash App $ icon",
+      "owner": "Block",
+      "industry": "Payments",
+      "url": "https://cash.app/us/en/legal/copyright-trademark",
+      "similarity": "low"
+     },
+     {
+      "name": "Zelle Z",
+      "owner": "Early Warning Services",
+      "industry": "Bank payments",
+      "url": "https://www.earlywarning.com/early-warning-trademarks",
+      "similarity": "low"
+     }
+    ],
+    "summary": "Also a tilted divide sign with no brand found using one. At 40\u00b0 the top dot shifts toward the upper right, a small step closer to BILL's Divvy V (a falling bar with one circle) and to a slanted $. Still low, but slightly above the 30\u00b0 version.",
+    "howToReduceRisk": ""
+   }
+  },
+  {
+   "id": "bubble-4",
+   "name": "Fork",
+   "direction": "From round 2",
+   "idea": "A round chat bubble with one cut that rises out of the tail on a diagonal, turns straight up, and sends a horizontal branch to the right edge. That gives three unequal shares of about 61/29/11: the speaking piece with the tail (charcoal on light, off-white on dark), a sage share, and a small corner share (dark sage #3E7A5B on light, light sage #8CC4A5 on dark).",
+   "rationale": "This is the closest descendant of the round-1 split bubble. It keeps the detail where the cut runs on as the edge of the tail, and adds the extra splits you asked for. The cuts run at three angles (diagonal, vertical, horizontal) and the cut line bends, so no straight cut runs through the bubble. The shares are clearly unequal, which fits Divi's 'pay for what you had'.",
+   "siteIcon": "/Users/titus/repos/colognewebsite/designs/logos/bubble-4/site-icon.svg",
+   "rank": 5,
+   "score": null,
+   "verdict": "Still a maybe from round 2.",
+   "concerns": [
+    "At 40-120px the speaking piece reads as a map pin or teardrop and the green pieces read as pie-chart wedges. The brief lists generic pie charts as something to avoid.",
+    "The 20\u00b0 bend where the diagonal turns vertical looks like a crooked cut, not a deliberate one."
+   ],
+   "trademark": {
+    "risk": "medium",
+    "summary": "No registered mark copies Fork's cut. Its risks are two neighbours: a small bill-splitting app (Splitz) whose icon is also an off-white circle on a charcoal tile, cut by a diagonal gap into a large piece and a detached wedge; and WhatsApp's round bubble with a tail at the lower left, which WhatsApp has now filed for bill-payment services. Divi will appear inside WhatsApp chats, so a green-tinted bubble with a lower-left tail could look like an official WhatsApp feature.",
+    "closestMarks": [
+     {
+      "name": "WhatsApp bubble logo (US App. 99088567, Class 36 incl. bill payment, allowed Feb 2026; also US Reg. 7031241)",
+      "owner": "WhatsApp LLC (Meta)",
+      "industry": "messaging / payments",
+      "url": "https://tsdr.uspto.gov/statusview/sn99088567",
+      "similarity": "medium",
+      "why": "Same base shape: a round speech bubble with a short pointed tail at the lower left, in the green family. WhatsApp filed it in Class 36 for payments, including 'bill payment services', so the services overlap with Divi's. WhatsApp opposed the payments mark WHATSPAY partly on visual-similarity grounds (lawstreetmedia.com/?p=6103). Differences: Fork has no handset, is solid rather than an outline, is mostly charcoal, and is broken into three shares by a visible cut. The off-white-on-charcoal mono version is the closest to it."
+     },
+     {
+      "name": "Splitz: Track & Split Expenses (app icon)",
+      "owner": "Kushagra Agarwal (indie developer)",
+      "industry": "bill splitting",
+      "url": "https://apps.apple.com/us/app/-/id6743405186",
+      "similarity": "medium",
+      "why": "Same category and nearly the same icon recipe: an off-white circle on a dark charcoal tile, split by straight gaps (one diagonal) into a large piece and a small detached wedge on the right. At 32-64px, Fork's app icon, with its off-white main share and diagonal gap, reads close to it. No registration found, so legal weight is low, but users searching the App Store could confuse the two."
+     },
+     {
+      "name": "Tikkie (app icon)",
+      "owner": "ABN AMRO Bank N.V.",
+      "industry": "payment requests / bill splitting sent over WhatsApp (NL/BE/DE)",
+      "url": "https://apps.apple.com/us/app/tikkie/id1112935685",
+      "similarity": "medium",
+      "why": "A teal-green round bubble with its tail at the lower left, used for the same job (sending payment requests in chats). Tikkie's bubble is whole with a euro sign, while Fork's is cut into shares. Registration status was not confirmed in this screen."
+     }
+    ],
+    "howToReduceRisk": "1) Move away from WhatsApp's look: make the tail clearly different (bottom-right, a short square notch, or a centred point) or reduce it, and keep the bubble mostly charcoal rather than green. Don't use the off-white bubble on charcoal as the main WhatsApp/iMessage avatar, because that version is closest to WhatsApp and Signal. 2) Move away from Splitz: in the app icon, keep the three shares in three distinct tones (charcoal or off-white, sage, dark sage) and lean on the distinctive part, the cut that rises from the tail, bends upright and branches. Avoid an off-white circle with one diagonal gap and a single detached wedge. 3) Before filing, run a proper clearance search: USPTO design codes 01.15.17 (speech bubbles) and 26.01 (divided circles) in Classes 9, 36 and 42, plus EUIPO and BOIP for Tikkie. 4) Separately from the symbol: the word DIVI is claimed as a registered mark by Elegant Themes (website-builder software, elegantthemes.com/policy/trademark), and an Australian bill-splitting startup called DiviPay existed (startupdaily.net, 2017). The lockup's wordmark needs its own name clearance."
+   },
+   "verdictLabel": "Status"
+  }
+ ],
+ "olderEyebrow": "Round 3",
+ "olderTitle": "Table for Two, tilted, and Fork"
+}

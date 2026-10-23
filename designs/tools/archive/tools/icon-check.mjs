@@ -1,0 +1,12 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1440, height: 790 }, deviceScaleFactor: 2 });
+await p.goto('file:///Users/titus/repos/colognewebsite/index.html');
+const links = await p.evaluate(() => [...document.querySelectorAll('link[rel~="icon"],link[rel="apple-touch-icon"]')].map(l => l.rel + ' ' + l.getAttribute('href')));
+console.log(links.join('\n'));
+await p.goto('file:///Users/titus/repos/colognewebsite/designs/e-loop/index.html?tone=white&footer=charcoal&shot=1');
+await p.waitForTimeout(600);
+await p.screenshot({ path: process.argv[2] + '/icon-in-e.png', clip: { x: 0, y: 0, width: 900, height: 230 } });
+await b.close();

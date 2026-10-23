@@ -1,0 +1,11 @@
+import { createRequire } from 'module';
+import fs from 'fs'; import path from 'path';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const [o, ...files] = process.argv.slice(2);
+const out = path.resolve(o);
+const html = `<!doctype html><html><body style="margin:0;background:#f2f3f1;display:flex;flex-wrap:wrap;gap:16px;padding:16px;width:1600px">${files.map(f => { const [p, bg, w] = f.split('|'); return `<div style="background:${bg};padding:20px;border-radius:12px"><img src="file://${p}" width="${w || 520}"></div>`; }).join('')}</body></html>`;
+fs.writeFileSync(out.replace('.png', '.html'), html);
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1640, height: 600 }, deviceScaleFactor: 1 });
+await p.goto('file://' + out.replace('.png', '.html')); await p.waitForLoadState('load');
+await p.screenshot({ path: out, fullPage: true }); await b.close();

@@ -1,0 +1,10 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const [,, url, out, w, h, x, y, cw, ch, dpr='2', wait='1200'] = process.argv;
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: +w, height: +h }, deviceScaleFactor: +dpr });
+const page = await ctx.newPage();
+await page.goto(url); await page.waitForTimeout(+wait);
+await page.screenshot({ path: out, clip: { x: +x, y: +y, width: +cw, height: +ch } });
+await browser.close();

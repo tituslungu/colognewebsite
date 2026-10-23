@@ -1,0 +1,10 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright'); const fs = require('fs');
+const out = process.argv[2]; const files = process.argv.slice(3);
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: files.length * 20 + 4, height: 20 }, deviceScaleFactor: 1 });
+fs.writeFileSync(out + '.1x.html', `<body style="margin:0;background:#dee1e6;display:flex;gap:4px;padding:2px">${files.map(f=>`<img src="file://${f}" width=16 height=16 style="border-radius:3px">`).join('')}</body>`);
+await p.goto('file://' + out + '.1x.html'); await p.waitForTimeout(200); await p.screenshot({ path: out + '.1x.png' });
+const q = await b.newPage({ viewport: { width: (files.length * 20 + 4) * 8, height: 160 } });
+fs.writeFileSync(out + '.html', `<body style="margin:0"><img src="file://${out}.1x.png" style="width:${(files.length*20+4)*8}px;image-rendering:pixelated"></body>`);
+await q.goto('file://' + out + '.html'); await q.waitForTimeout(200); await q.screenshot({ path: out }); await b.close();

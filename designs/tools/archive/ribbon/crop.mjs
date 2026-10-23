@@ -1,0 +1,16 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const fs = require('fs');
+const [,, src, out, x0, y0, w, h, scale] = process.argv.map((v,i)=>i>3?+v:v);
+const W=256,H=250;
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: w*scale, height: h*scale } });
+let grid='';
+for (let x=0;x<=W;x+=8) grid+=`<line x1="${x}" y1="0" x2="${x}" y2="${H}" stroke="${x%32?'rgba(255,0,0,.3)':'rgba(255,0,0,.8)'}" stroke-width="0.15"/>`;
+for (let y=0;y<=H;y+=8) grid+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="${y%32?'rgba(255,0,0,.3)':'rgba(255,0,0,.8)'}" stroke-width="0.15"/>`;
+fs.writeFileSync(out+'.html',`<body style="margin:0;overflow:hidden"><div style="position:relative;width:${W*scale}px;height:${H*scale}px;left:${-x0*scale}px;top:${-y0*scale}px"><img src="file://${src}" style="position:absolute;inset:0;width:100%;height:100%"><svg viewBox="0 0 ${W} ${H}" style="position:absolute;inset:0;width:100%;height:100%">${grid}</svg></div></body>`);
+await p.goto('file://'+out+'.html');
+await p.waitForTimeout(200);
+await p.screenshot({ path: out });
+await b.close();

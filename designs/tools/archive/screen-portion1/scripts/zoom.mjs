@@ -1,0 +1,10 @@
+import { createRequire } from 'module'; import fs from 'fs'; import path from 'path';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const [dir, markPath, monoPath, outPng] = process.argv.slice(2);
+const b64 = p => fs.readFileSync(p).toString('base64');
+let cells = `<div class=c><img src="data:image/svg+xml;base64,${b64(markPath)}"><span>concept</span></div><div class=c style="background:#222"><img src="data:image/svg+xml;base64,${b64(monoPath)}"><span style="color:#fff">concept mono</span></div>`;
+for (const f of fs.readdirSync(dir).filter(f=>f.endsWith('.jpg'))) cells += `<div class=c><img src="data:image/jpeg;base64,${b64(path.join(dir,f))}"><span>${f}</span></div>`;
+const html = `<html><body style="margin:0;background:#eee;font:13px sans-serif"><style>.c{display:inline-block;width:300px;margin:8px;text-align:center;vertical-align:top}.c img{width:280px;height:280px;object-fit:contain;background:transparent}</style>${cells}</body></html>`;
+const b = await chromium.launch(); const pg = await b.newPage({viewport:{width:1300,height:700}});
+await pg.setContent(html); await pg.waitForTimeout(400); await pg.screenshot({path: outPng, fullPage:true}); await b.close();

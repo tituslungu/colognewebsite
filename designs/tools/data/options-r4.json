@@ -1,0 +1,29 @@
+[
+ {
+  "slug": "f-fade",
+  "letter": "F",
+  "title": "Overlap card, photo fade",
+  "headline": "C with the photo fading into white",
+  "lede": "Option C with the header photo dissolving into the white panel, the looping animation, no Replay button and a Messages-style iMessage icon. It now defaults to the soft buttons with iMessage first and the new button text; the other colours and the WhatsApp-first order are still here to compare. The footer is dark gray.",
+  "summary": "C's layout and animation sizes, with the photo fading into white like D and E, and the card still rising into the fade. Buttons read \u201cUse on iMessage\u201d and \u201cUse on WhatsApp\u201d (\u201ciMessage\u201d and \u201cWhatsApp\u201d on phones), above \u201cText your receipt and Divi will split it \u2014 no app to download.\u201d",
+  "verdict": "Soft buttons with iMessage first work best: the pale green suits the sage brand, the blue is a gentle second colour, and the sage headline stays the strongest colour. Keep the dark gray footer.",
+  "buttons": [
+   [
+    "soft",
+    "Platform soft"
+   ],
+   [
+    "sage",
+    "Sage"
+   ],
+   [
+    "solid",
+    "Platform solid"
+   ],
+   [
+    "mixed",
+    "Mixed"
+   ]
+  ]
+ }
+]

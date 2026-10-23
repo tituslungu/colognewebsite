@@ -1,0 +1,10 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const dir = '/private/tmp/claude-501/-Users-titus-repos-colognewebsite/c94fcea5-365f-47cd-a42a-021d194de6cf/scratchpad/crops';
+const imgs = [];
+for (const t of ['gray','white','sage']) for (let i=0;i<7;i++) imgs.push(`<img src="file://${dir}/focus-${t}-${i}.png">`);
+const html = `<body style="margin:0;background:#888;display:grid;grid-template-columns:repeat(7,auto);gap:8px;padding:8px;align-items:center">${imgs.join('')}</body>`;
+const b = await chromium.launch(); const p = await b.newPage({viewport:{width:1500,height:300}});
+await p.setContent(html); await p.waitForTimeout(300);
+await p.screenshot({path:`${dir}/focus-montage-d.png`, fullPage:true}); await b.close();

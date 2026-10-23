@@ -1,0 +1,11 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 530, height: 655 } });
+await page.goto('file:///Users/titus/repos/colognewebsite/assets/img/divi-web-charcoal-sage.svg');
+await page.waitForTimeout(18000);
+const buf = await page.screenshot();
+await browser.close();
+const fs = await import('fs');
+fs.writeFileSync('final.png', buf);

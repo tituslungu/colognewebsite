@@ -1,0 +1,476 @@
+{
+ "lede": "Round 2: ten concepts from five directions (the split bubble with more cuts, the bubble with no straight cut through it, the slanted table, unequal shares, and wildcards). Round 1 is retired. Each concept has a preliminary trademark screen: a web search for logos it could be confused with, not a legal clearance.",
+ "recommendation": "Take three forward. Three Shares is the split bubble you liked, now cut into three uneven shares at different angles. Italic Split is your Table for Two, slanted into a bold italic divide sign. Fork is the strongest bubble with no straight cut running through it. Before final artwork, get a clearance search on the name itself: a bill-splitting app called Divi Money is already on the US App Store.",
+ "concepts": [
+  {
+   "id": "bubble-1",
+   "name": "Parallel Slices",
+   "direction": "Split Bubble: angled cuts",
+   "idea": "A round speech bubble is cut by two parallel slashes at 28\u00b0 into three unequal slices (33/18/49): the two left slices are charcoal, and the largest slice is sage and carries a classic tail at the bottom-right.",
+   "rationale": "It takes message-2's split and turns it to an angle, adding one more cut. The slices are cut like a shared loaf, and their unequal widths say 'pay for what you had'. The sage slice with the tail is your message and your share.",
+   "siteIcon": "/Users/titus/repos/colognewebsite/designs/logos/bubble-1/site-icon.svg",
+   "rank": 4,
+   "score": 5.5,
+   "verdict": "It is a clean, legible speech bubble with a sage tail share, but two parallel slashes read as '//' and do not really give you splits at different angles.",
+   "concerns": [
+    "Both cuts share the same 28\u00b0 angle, so it doesn't answer your 'different angles' request.",
+    "The parallel slashes in a disc read as a code-comment '//' and sit close to Help Scout's and Linear's slashed marks.",
+    "The sage slice is 49% of the area, so at 40px it reads as a two-tone bubble, not three shares."
+   ],
+   "trademark": {
+    "risk": "medium",
+    "summary": "Silhouette: a round speech bubble cut into three diagonal slices by two parallel slashes, with the tail at bottom-right. In one colour and at small sizes it reads as a disc sliced into diagonal strips. That is close to Help Scout's mark (three parallel diagonal bars with rounded ends) and, more loosely, to Linear's disc cut by parallel diagonals. I found nothing that copies it, but the slashed-disc look is crowded and owned in people's minds by those two software brands. Their registration status is not verified.",
+    "closestMarks": [
+     {
+      "name": "Help Scout mark (three parallel diagonal bars)",
+      "owner": "Help Scout PBC",
+      "industry": "Customer-support and messaging software",
+      "url": "https://apps.apple.com/us/app/help-scout/id966327660",
+      "similarity": "medium",
+      "why": "It is built the same way: a roughly round form cut into three parallel diagonal strips with clear gaps between them. Bubble-1 differs in its steeper angle, unequal slices, two colours and the speech-bubble tail. In mono or at 16-32 px, though, the '//' gaps are what people see, and that is Help Scout's device. The software classes and the messaging neighbourhood overlap."
+     },
+     {
+      "name": "Linear logo (disc with parallel diagonal cuts)",
+      "owner": "Linear (linear.app)",
+      "industry": "Software / project-management tools",
+      "url": "https://linear.app/brand",
+      "similarity": "medium",
+      "why": "Linear's mark is a solid disc sliced by parallel diagonal cuts. Bubble-1 is also a solid disc sliced by parallel diagonal cuts. Linear's cuts sit at 45 degrees in the lower-left edge and make thin slivers, while bubble-1's cuts go through the middle and it has a tail. Unrelated goods, so this is more a lookalike risk than a legal one."
+     },
+     {
+      "name": "Split Pay: Split Bills in Two (app icon)",
+      "owner": "Visible Ideas, Inc.",
+      "industry": "Bill-splitting app",
+      "url": "https://apps.apple.com/us/app/split-pay-split-bills-in-two/id6448634850",
+      "similarity": "low",
+      "why": "It is in the same industry and is a circle split by a diagonal cut. It has only one cut, no tail and a gradient, so it looks clearly different. It shows that 'diagonally cut circle = splitting' is already in use in this category."
+     }
+    ],
+    "howToReduceRisk": "Break the 'parallel diagonal strips' reading that Help Scout and Linear own. Options: (a) use one cut plus a visible offset or shift of the sage share, so it reads as a bubble pulled apart; (b) make the two cuts non-parallel, either converging or at clearly different angles; or (c) cut far off-centre so one share clearly dominates and no middle strip is left. Keep the tail as a strong part of the sage share so the bubble survives in mono. Also check 16-32 px renders: if they read as '//' in a disc, it is still too close. One more point: a slash through a speech bubble is also the common UI glyph for 'chat off / comments disabled', which is another reason to avoid a clean slash."
+   }
+  },
+  {
+   "id": "bubble-2",
+   "name": "Slash and D",
+   "direction": "Split Bubble: angled cuts",
+   "idea": "This is message-2 with one more cut: the vertical cut, the sage D and the tail hanging straight down from the cut are kept, and a slash at 14\u00b0 splits the charcoal half into a crescent and a tall middle share, giving three stepped shares of 23/35/42.",
+   "rationale": "It is the most direct iteration of the round-1 split bubble you found interesting. It keeps message-2's silhouette and tail exactly and adds the extra split you asked for at a different angle, so three people pay three clearly different amounts.",
+   "siteIcon": "/Users/titus/repos/colognewebsite/designs/logos/bubble-2/site-icon.svg",
+   "rank": 5,
+   "score": 5,
+   "verdict": "It is closest to the round-1 bubble you found interesting, plus one slash, but it barely reads as a speech bubble any more and portion-1 does the same job better.",
+   "concerns": [
+    "The tail is a point dropping straight down from the middle, so it looks like a pen nib, a sail or a knife, not a speech-bubble tail.",
+    "The '/|D' gaps can read as letters ('ID' or 'N') at 16px.",
+    "The D is 42% of the area, which drifts back toward the 50/50 reading."
+   ],
+   "trademark": {
+    "risk": "low",
+    "summary": "Silhouette: a circle split by a vertical cut into a sage half-disc (a 'D') on the right and, on the left, a crescent and a tall slanted middle piece that drops into a point below the circle. It hardly reads as a speech bubble and looks more like a slashed 'D' monogram. I found no logo with this construction. The nearest are D-in-a-round-shape marks, including Elegant Themes' DIVI theme icon, which shares the same name.",
+    "closestMarks": [
+     {
+      "name": "Divi WordPress theme icon (D in a circle)",
+      "owner": "Elegant Themes",
+      "industry": "Website-builder software (WordPress theme)",
+      "url": "https://www.elegantthemes.com/gallery/divi/",
+      "similarity": "low",
+      "why": "It is a purple circle with a ring and an outlined 'D'. Bubble-2's sage half-disc reads as a 'D' inside a round form. The shapes are quite different, but used with the identical name 'Divi', any D-in-circle reading strengthens an association with an established software brand called Divi. That is a name-clearance issue more than a logo one."
+     },
+     {
+      "name": "Disqus logo (round speech bubble with D)",
+      "owner": "Disqus, Inc.",
+      "industry": "Comments / online discussion software",
+      "url": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/disqus.svg",
+      "similarity": "low",
+      "why": "Both combine a round bubble with a 'D' reading. Disqus is a solid bubble with a bottom-left tail and a 'D' knocked out of it. Bubble-2 builds the D from a cut-off half-disc and has a centre-bottom point, so they look clearly different."
+     },
+     {
+      "name": "Charla Live Chat (app icon)",
+      "owner": "Charla LLC",
+      "industry": "Live-chat / messaging software",
+      "url": "https://apps.apple.com/us/app/charla-live-chat/id1528520468",
+      "similarity": "low",
+      "why": "Charla's speech-bubble tail hangs straight down from a vertical edge near the centre, just as bubble-2's point drops from its vertical cut. The rest is different: Charla uses stacked curved layers in red, orange and yellow, with no slash."
+     }
+    ],
+    "howToReduceRisk": "On visual grounds the logo is the safest of the three. Keep it from turning into a plain 'D-in-a-circle' monogram: don't enclose it in a ring or badge, and keep the slash and the dropped point prominent, because those are its distinctive features. If you want it to read as a speech bubble, make the point more clearly a tail. Separately, clear the word DIVI itself: Elegant Themes uses DIVI for widely known website-builder software, and pairing the name with a D-shaped mark leans further into that association."
+   }
+  },
+  {
+   "id": "bubble-3",
+   "name": "Slanted Layers",
+   "direction": "Split Bubble: angled cuts",
+   "idea": "A round speech bubble is cut by two low cuts that rise to the right at different angles (26\u00b0 and 16\u00b0 above horizontal, meeting far outside the bubble), giving a charcoal cap, a tapering charcoal band, and a sage bottom share with a classic tail at the bottom-left (35/26/39).",
+   "rationale": "It is the fan idea turned to low angles, which nods to your 'slant it a little' note on Table for Two. Each cut has its own angle, so no two shares are alike, and the sage share at the bottom carries the message.",
+   "siteIcon": "/Users/titus/repos/colognewebsite/designs/logos/bubble-3/site-icon.svg",
+   "rank": 8,
+   "score": 4,
+   "verdict": "The slanted layers make a clear chat bubble, but it looks like the generic 'chat with text lines' icon and sits too close to WhatsApp and Tikkie.",
+   "concerns": [
+    "The stripes across a bubble read as a generic 'message with lines' icon, or as a striped ball or burger.",
+    "A green bottom piece with the tail at the lower left is near WhatsApp and Tikkie (a payment-request app), and Charla's layered bubble is also nearby.",
+    "The 10\u00b0 fan between the cuts is invisible below 64px, so it reads as parallel stripes."
+   ],
+   "trademark": {
+    "risk": "medium",
+    "summary": "Silhouette: a round speech bubble with its tail at bottom-left, cut by two shallow cuts rising to the right into a charcoal cap, a charcoal band and a sage bottom piece that carries the tail. It looks like a striped bubble or a burger. Its closest neighbour is Charla's layered speech bubble. Its outline and green tail at bottom-left also sit close to WhatsApp and Tikkie, which offers Divi's exact service. At small sizes the stripes blur, and you are left with a generic 'green bubble, tail bottom-left'.",
+    "closestMarks": [
+     {
+      "name": "Charla Live Chat (app icon)",
+      "owner": "Charla LLC",
+      "industry": "Live-chat / messaging software",
+      "url": "https://apps.apple.com/us/app/charla-live-chat/id1528520468",
+      "similarity": "medium",
+      "why": "It is a round speech bubble made of stacked horizontal bands in red, orange and yellow, and the lowest band carries the tail. That is the same idea as bubble-3's cap, band and tail-bearing bottom share. Charla's bands are curved offset layers rather than straight slanted cuts, and its colours differ."
+     },
+     {
+      "name": "Tikkie (app icon)",
+      "owner": "ABN AMRO Bank N.V.",
+      "industry": "Payment requests sent over WhatsApp and other messengers",
+      "url": "https://apps.apple.com/us/app/tikkie/id1112935685",
+      "similarity": "low",
+      "why": "Tikkie offers the same service and its mark is a teal-green round bubble with the tail at bottom-left. Bubble-3's sage bottom share and bottom-left tail echo it directly. Tikkie has no cuts and puts a euro sign inside, which keeps the two apart."
+     },
+     {
+      "name": "WhatsApp logo",
+      "owner": "WhatsApp LLC (Meta Platforms)",
+      "industry": "Messaging",
+      "url": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg",
+      "similarity": "low",
+      "why": "The silhouette is the same family: a round bubble with the tail at bottom-left, in green, and Divi's avatar will sit inside WhatsApp chats. WhatsApp's is an outline with a phone handset, so the marks themselves differ. Still, the same channel and similar colour invite comparison."
+     }
+    ],
+    "howToReduceRisk": "Make the cuts the hero so the mark never collapses into a plain bubble with the tail at bottom-left. Options: steeper or more clearly converging cuts; wider gaps that survive at 16-32 px; or moving the tail to bottom-right, or into the line of a cut, to step away from the WhatsApp, Signal and Tikkie outline. Avoid an all-green or teal bubble in the app icon, and keep stacked bands straight and hard-edged rather than curved, offset layers like Charla's. Test the 16 px favicon and the WhatsApp avatar: if they read as just a bubble, it needs more contrast."
+   }
+  },
+  {
+   "id": "bubble-4",
+   "name": "Fork",
+   "direction": "Split Bubble: no through-cut",
+   "idea": "A round chat bubble with one cut that rises out of the tail on a diagonal, turns straight up, and sends a horizontal branch to the right edge. That gives three unequal shares of about 61/29/11: the speaking piece with the tail (charcoal on light, off-white on dark), a sage share, and a small corner share (dark sage #3E7A5B on light, light sage #8CC4A5 on dark).",
+   "rationale": "This is the closest descendant of the round-1 split bubble. It keeps the detail where the cut runs on as the edge of the tail, and adds the extra splits you asked for. The cuts run at three angles (diagonal, vertical, horizontal) and the cut line bends, so no straight cut runs through the bubble. The shares are clearly unequal, which fits Divi's 'pay for what you had'.",
+   "siteIcon": "/Users/titus/repos/colognewebsite/designs/logos/bubble-4/site-icon.svg",
+   "rank": 3,
+   "score": 6,
+   "verdict": "This is the most interesting answer to 'no single straight split': the cut bends and branches into three uneven shares and still runs on into the tail, but it partly reads as a map pin holding a pie chart.",
+   "concerns": [
+    "At 40-120px the speaking piece reads as a map pin or teardrop and the green pieces read as pie-chart wedges. The brief lists generic pie charts as something to avoid.",
+    "The 20\u00b0 bend where the diagonal turns vertical looks like a crooked cut, not a deliberate one.",
+    "The corner share is only 11%. At 16-32px it merges with the sage share, so you see two pieces, not three."
+   ],
+   "trademark": {
+    "risk": "medium",
+    "summary": "No registered mark copies Fork's cut. Its risks are two neighbours: a small bill-splitting app (Splitz) whose icon is also an off-white circle on a charcoal tile, cut by a diagonal gap into a large piece and a detached wedge; and WhatsApp's round bubble with a tail at the lower left, which WhatsApp has now filed for bill-payment services. Divi will appear inside WhatsApp chats, so a green-tinted bubble with a lower-left tail could look like an official WhatsApp feature.",
+    "closestMarks": [
+     {
+      "name": "WhatsApp bubble logo (US App. 99088567, Class 36 incl. bill payment, allowed Feb 2026; also US Reg. 7031241)",
+      "owner": "WhatsApp LLC (Meta)",
+      "industry": "messaging / payments",
+      "url": "https://tsdr.uspto.gov/statusview/sn99088567",
+      "similarity": "medium",
+      "why": "Same base shape: a round speech bubble with a short pointed tail at the lower left, in the green family. WhatsApp filed it in Class 36 for payments, including 'bill payment services', so the services overlap with Divi's. WhatsApp opposed the payments mark WHATSPAY partly on visual-similarity grounds (lawstreetmedia.com/?p=6103). Differences: Fork has no handset, is solid rather than an outline, is mostly charcoal, and is broken into three shares by a visible cut. The off-white-on-charcoal mono version is the closest to it."
+     },
+     {
+      "name": "Splitz: Track & Split Expenses (app icon)",
+      "owner": "Kushagra Agarwal (indie developer)",
+      "industry": "bill splitting",
+      "url": "https://apps.apple.com/us/app/-/id6743405186",
+      "similarity": "medium",
+      "why": "Same category and nearly the same icon recipe: an off-white circle on a dark charcoal tile, split by straight gaps (one diagonal) into a large piece and a small detached wedge on the right. At 32-64px, Fork's app icon, with its off-white main share and diagonal gap, reads close to it. No registration found, so legal weight is low, but users searching the App Store could confuse the two."
+     },
+     {
+      "name": "Tikkie (app icon)",
+      "owner": "ABN AMRO Bank N.V.",
+      "industry": "payment requests / bill splitting sent over WhatsApp (NL/BE/DE)",
+      "url": "https://apps.apple.com/us/app/tikkie/id1112935685",
+      "similarity": "medium",
+      "why": "A teal-green round bubble with its tail at the lower left, used for the same job (sending payment requests in chats). Tikkie's bubble is whole with a euro sign, while Fork's is cut into shares. Registration status was not confirmed in this screen."
+     }
+    ],
+    "howToReduceRisk": "1) Move away from WhatsApp's look: make the tail clearly different (bottom-right, a short square notch, or a centred point) or reduce it, and keep the bubble mostly charcoal rather than green. Don't use the off-white bubble on charcoal as the main WhatsApp/iMessage avatar, because that version is closest to WhatsApp and Signal. 2) Move away from Splitz: in the app icon, keep the three shares in three distinct tones (charcoal or off-white, sage, dark sage) and lean on the distinctive part, the cut that rises from the tail, bends upright and branches. Avoid an off-white circle with one diagonal gap and a single detached wedge. 3) Before filing, run a proper clearance search: USPTO design codes 01.15.17 (speech bubbles) and 26.01 (divided circles) in Classes 9, 36 and 42, plus EUIPO and BOIP for Tikkie. 4) Separately from the symbol: the word DIVI is claimed as a registered mark by Elegant Themes (website-builder software, elegantthemes.com/policy/trademark), and an Australian bill-splitting startup called DiviPay existed (startupdaily.net, 2017). The lockup's wordmark needs its own name clearance."
+   }
+  },
+  {
+   "id": "bubble-5",
+   "name": "Step",
+   "direction": "Split Bubble: no through-cut",
+   "idea": "A round chat bubble whose upper part is cut off by a line that runs across and steps down halfway, with a short cut dropping from the top edge to the step. The result is the message body with its tail (charcoal on light, off-white on dark) carrying two unequal shares on top: a wide sage one and a taller, narrower one (dark sage on light, light sage on dark). Shares are about 55/25/20.",
+   "rationale": "It answers 'no straight split through the whole shape' in a different way from Fork. It uses only horizontal and vertical cuts: the cross cut bends at the step and the cut from the top stops at it, so nothing runs through. The two shares of different heights read as portions of different sizes. Because the whole lower bubble and its tail stay in one piece, it reads first as a chat bubble at 40px and 16px.",
+   "siteIcon": "/Users/titus/repos/colognewebsite/designs/logos/bubble-5/site-icon.svg",
+   "rank": 7,
+   "score": 4.5,
+   "verdict": "It reads instantly as a chat bubble even at 16px, but the top looks like a pie chart and the outline is WhatsApp's.",
+   "concerns": [
+    "The two top shares are quarter-circles meeting at square corners, so it reads as a pie chart on a bubble, which is on the brief's avoid list.",
+    "A whole round bubble with its tail at the lower left matches the silhouette of WhatsApp (filed for payments) and of Tikkie. On the homepage it sits just above the WhatsApp button.",
+    "The tail no longer grows out of a cut, so it loses the round-1 split-bubble detail you liked."
+   ],
+   "trademark": {
+    "risk": "medium",
+    "summary": "No registered mark has Step's stepped cut. The main risk is that Step keeps a whole round bubble outline with a tail at the lower left, the same base shape as WhatsApp's bubble (now filed for bill-payment services) and Tikkie's payment-request bubble. Its detached top-right quarter on an off-white circle also echoes the bill-splitting app Splitz.",
+    "closestMarks": [
+     {
+      "name": "WhatsApp bubble logo (US App. 99088567, Class 36 incl. bill payment, allowed Feb 2026; also US Reg. 7031241)",
+      "owner": "WhatsApp LLC (Meta)",
+      "industry": "messaging / payments",
+      "url": "https://tsdr.uspto.gov/statusview/sn99088567",
+      "similarity": "medium",
+      "why": "Step's outer silhouette is still a complete round bubble with a pointed tail at the lower left, which is WhatsApp's outline. WhatsApp's filing covers payments and 'bill payment services', and WhatsApp has opposed a payments mark (WHATSPAY) on visual-similarity grounds. Differences: no handset, a solid shape with a stepped cut and two sage shares on top, and a charcoal body. The off-white-on-charcoal mono version, used as a chat avatar, is the closest to it."
+     },
+     {
+      "name": "Tikkie (app icon)",
+      "owner": "ABN AMRO Bank N.V.",
+      "industry": "payment requests / bill splitting sent over WhatsApp (NL/BE/DE)",
+      "url": "https://apps.apple.com/us/app/tikkie/id1112935685",
+      "similarity": "medium",
+      "why": "A round teal-green bubble with its tail at the lower left, used for the same job in the same chats. Step's whole-bubble outline makes the base silhouette match closely, but Tikkie fills its bubble with a euro sign while Step cuts its bubble into pie-style shares. Registration status was not confirmed in this screen."
+     },
+     {
+      "name": "Splitz: Track & Split Expenses (app icon)",
+      "owner": "Kushagra Agarwal (indie developer)",
+      "industry": "bill splitting",
+      "url": "https://apps.apple.com/us/app/-/id6743405186",
+      "similarity": "medium",
+      "why": "An off-white circle on a charcoal tile with one quarter detached by straight gaps. Step's app icon also shows an off-white body with a detached quarter-like share, though at the top right and with an extra step and a tail. Same category, so App Store users could confuse them. No registration found."
+     }
+    ],
+    "howToReduceRisk": "1) Break the WhatsApp/Tikkie outline: the whole round bubble with a lower-left tail is the shared element, so move the tail (bottom-right or centred), turn it into a short square notch, or let the step cut break the outer edge so the full bubble outline no longer reads at small sizes. 2) Keep the charcoal body dominant and avoid a mostly green or teal bubble. Don't use the off-white bubble on charcoal as the main WhatsApp/iMessage avatar. 3) To move away from Splitz and Split Money, make the stepped cut the hero, for example a clearly visible step or offset at icon size, so the top doesn't read as a plain pie chart with a detached quarter. 4) Before filing, run a full clearance search: USPTO design codes 01.15.17 (speech bubbles) and 26.01 (divided circles) in Classes 9, 36 and 42, plus EUIPO and BOIP for Tikkie. 5) Separately, the wordmark DIVI in the lockup is claimed as a registered mark by Elegant Themes (elegantthemes.com/policy/trademark), and a bill-splitting startup called DiviPay existed in Australia, so the name needs its own clearance."
+   }
+  },
+  {
+   "id": "slant-1",
+   "name": "Italic Split",
+   "direction": "Table for Two, slanted",
+   "idea": "A sage tabletop leaning 18\u00b0 like italic type, split by one gap at that same lean into a large share (64%) and a small share (36%), with a charcoal diner above the small share (top right) and one below the large share (bottom left), so the whole mark reads as an italic \u00f7.",
+   "rationale": "This is the most direct answer to your 'slant it a little' note. Round 1's Table for Two becomes an italic divide sign whose 18\u00b0 lean matches the V in the DIVI wordmark, and the clearly unequal split shows each person paying for what they had.",
+   "siteIcon": "/Users/titus/repos/colognewebsite/designs/logos/slant-1/app-icon.svg",
+   "rank": 2,
+   "score": 7,
+   "verdict": "This is exactly your 'slant it a little' note on Table for Two: a bold italic \u00f7 with one big share and one small share that reads at every size from 16px up, but it only splits the table once.",
+   "concerns": [
+    "It has only two shares. If your 'one or two more splits' note applies to the table too, this falls short, and slant-3 is a weaker fallback.",
+    "An italic \u00f7 is a maths symbol anyone can use. Ownability depends only on the lean and the uneven gap.",
+    "Divvy/BILL's leaning-stroke-plus-dot mark is nearby, and the name sounds almost the same."
+   ],
+   "trademark": {
+    "risk": "medium",
+    "summary": "Italic Split looks like a leaning \u00f7: two sage bars leaning like italic type, a large one on the left and a small one on the right, separated by a gap, with one charcoal dot above-right and one below-left. I found no payments brand that uses a leaning \u00f7. The closest registered mark is Divvy's \"V\" logo, owned by BILL. It is a large leaning rounded stroke beside a smaller circle, separated by a gap, registered for financial services. The name Divvy also sounds almost the same as Divi, so this concept sits closer to that brand than I'd like.",
+    "closestMarks": [
+     {
+      "name": "V (Divvy stylized V logo), US Reg. 6784829, plus V DIVVY Reg. 6329419",
+      "owner": "BILL Operations, LLC (formerly Divvy Pay)",
+      "industry": "Fintech: spend management, credit and payments (classes 35, 36, 42)",
+      "url": "https://tsdr.uspto.gov/statusview/sn90545019",
+      "similarity": "medium",
+      "why": "The USPTO record (live, registered 2022) describes the mark as a stylized V with a larger left stroke and a smaller right stroke, separated by white space, where the right stroke is a circle. I also looked at the archived Divvy logo: a white leaning rounded pill with a white dot at the top right, on black. Italic Split uses the same parts: leaning rounded bars with a big piece and a small piece split by a gap, plus a round dot at the top right. It is in the same industry. The word mark DIVVY is also registered in class 9 (serial 87814081, which Justia lists as registered in 2019), and a class 36 application is pending (serial 99424335). DIVI and DIVVY sound almost identical, so the logo adds to a name problem that already exists."
+     },
+     {
+      "name": "Divi Money (iOS app)",
+      "owner": "Marcus Daniel Williams (App Store seller)",
+      "industry": "Bill and group-expense splitting app",
+      "url": "https://apps.apple.com/us/app/divi-money/id6809222656",
+      "similarity": "low",
+      "why": "The icon is a white avocado outline on a green gradient, so the logos look nothing alike. I list it because it is a bill-splitting app called \"Divi\", released on the App Store on 2026-09-17 with almost the same pitch (dinners, trips, flatmates). That is a direct name conflict in the exact category, unless this app is yours."
+     },
+     {
+      "name": "Splitwise logo and app icon",
+      "owner": "Splitwise, Inc.",
+      "industry": "Bill and group-expense splitting",
+      "url": "https://www.splitwise.com",
+      "similarity": "low",
+      "why": "The shape is different: an outlined house with an S inside. But the market leader in the same category uses mint/teal green with charcoal on angled diagonal planes. Divi's sage green, charcoal and 18\u00b0 lean put it in the same colour family, which lowers distinctiveness in the app store."
+     }
+    ],
+    "howToReduceRisk": "1) Move away from Divvy's \"leaning rounded stroke + lone circle\" look. Make the bar ends crisper (sharper parallelogram corners, less pill-like). Make the two dots the same size and line them up on the axis of the gap, so the mark reads straight away as one \u00f7 and not as a stroke with a dot next to it. Never publish a crop or variant showing one bar with one dot. 2) Keep the sage bars in the circle avatar instead of an all-white version on black, which would sit close to Divvy's old white-on-black favicon. 3) Move away from Splitwise's mint-and-charcoal pairing: shift the green warmer or more olive, or add a distinctive accent colour. 4) Most important: get a trademark attorney to run a proper knockout search on the name before you commit. Check DIVI against DIVVY (BILL, registered in class 9 with class 36 pending; serials 87814081 and 99424335), the \"Divi Money\" bill-splitting iOS app launched September 2026, and the CITI DIVI application (serial 90759728; current status not checked). Changing the logo won't fix a name conflict."
+   }
+  },
+  {
+   "id": "slant-3",
+   "name": "Three Shares",
+   "direction": "Table for Two, slanted",
+   "idea": "The table tilted 18\u00b0 and cut into three graded shares (about 45/32/23 by width) by two cuts at different angles, one perpendicular to the table and one truly vertical. Three diners sit above the big share, below the medium share and above the small share, and each share is widest on its own diner's side.",
+   "rationale": "It applies your split-bubble notes (more splits, splits at different angles) to the Table for Two concept. Each person visibly gets a different-sized piece of one shared table, which is exactly what Divi does.",
+   "siteIcon": "/Users/titus/repos/colognewebsite/designs/logos/slant-3/app-icon.svg",
+   "rank": 6,
+   "score": 5,
+   "verdict": "It adds the extra splits to the slanted table, but with six parts it looks like a satellite or a broken plaster more than a shared table.",
+   "concerns": [
+    "At 120px the tilted segmented bar with dots reads as a satellite with solar panels, a band-aid or broken tiles.",
+    "It has six parts and two cut angles, which makes it hard to draw from memory and busy next to the clean DIVI wordmark.",
+    "At 16px the cuts disappear, leaving a tilted bar with three dots that is less distinctive than slant-1."
+   ],
+   "trademark": {
+    "risk": "low",
+    "summary": "Three Shares looks like a green bar tilted upward to the right, cut into three tiles of different sizes, with three charcoal dots around it. Together it reads a bit like a domino or a tilted seating plan. Nothing I found copies it. The nearest famous lookalike is Domino's tilted two-part tile with three dots, but its field (restaurants), colours and layout are different. The bigger open issue is the name Divi rather than this drawing.",
+    "closestMarks": [
+     {
+      "name": "Domino's domino-tile logo",
+      "owner": "Domino's Pizza",
+      "industry": "Restaurants and food delivery",
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Domino%27s_pizza_logo.svg/500px-Domino%27s_pizza_logo.svg.png",
+      "similarity": "medium",
+      "why": "Both are rounded tiles tilted upward to the right, split by gaps, with exactly three round dots. That is a 'domino' impression, and Divi touches the restaurant space, where Domino's is very well known. The differences are real: Domino's has two equal square halves at 45\u00b0 in red and blue with white pips inside, while Three Shares has three tiles of different sizes at about 18\u00b0 with the dots outside the bar. On a dark icon with white dots, it moves closer to a pip pattern."
+     },
+     {
+      "name": "Divvy (iOS app)",
+      "owner": "Totus Labs ApS",
+      "industry": "Group-expense splitting app",
+      "url": "https://apps.apple.com/us/app/divvy/id1662002655",
+      "similarity": "low",
+      "why": "The icon is a circle split into three swirling shares in three greens. It is the same idea (three green shares of a bill) in the same app category, under a name that sounds like Divi. The form is completely different: a round three-part swirl versus a tilted three-tile bar."
+     },
+     {
+      "name": "BILL / Finmark design mark, US Reg. 6695018",
+      "owner": "BILL Operations, LLC",
+      "industry": "Financial planning software and services (classes 36, 42)",
+      "url": "https://tsdr.uspto.gov/statusview/sn90056103",
+      "similarity": "low",
+      "why": "USPTO describes it as a right-pointing diagonal arrow above two diagonal lines ending in circles, with the lines getting shorter. It shares diagonal elements of graded lengths combined with circles, and the owner holds the DIVVY marks. There is no arrow, table or tile shape in Three Shares."
+     }
+    ],
+    "howToReduceRisk": "1) Keep it clearly not a domino. Keep the dots visibly outside and clear of the tiles, never on or touching them like pips. Keep the tilt shallow (around 18\u00b0, never near 45\u00b0). Keep the tiles one colour and never red and blue. 2) The graded 45/32/23 widths are what makes this mark distinctive and set it apart from Domino's two equal halves, so make the size differences more obvious if anything. 3) Use the light version (charcoal dots, sage tiles) as the main one. The white-dots-on-charcoal icon is the version that looks most like pips. 4) Avoid stepped diagonal lines ending in circles, which would move it toward BILL's registered Finmark design. 5) As with Italic Split, have an attorney clear the name DIVI separately: DIVVY (BILL; serials 87814081 and 99424335), the Divi Money iOS bill-splitting app (September 2026) and the Divvy group-expense app (Totus Labs) are all nearby, and changing the logo won't fix a name conflict."
+   }
+  },
+  {
+   "id": "portion-1",
+   "name": "Three Shares",
+   "direction": "Unequal shares",
+   "idea": "A round speech bubble cut by two slashes at clearly different angles (20\u00b0 and 8\u00b0 from vertical) into three visibly unequal shares: a small charcoal crescent (20%), a charcoal middle band (36%) whose left edge runs straight on past the rim to form the speech tail, and a forward-leaning sage D (44%) on the right.",
+   "rationale": "This is the direct follow-up to the round-1 split bubble you liked (split bubble, tail from the cut, sage D on the right). It adds the extra split you asked for, at a visibly different angle. The graded small, medium and large shares say 'everyone pays for what they had', not 50/50.",
+   "siteIcon": "/Users/titus/repos/colognewebsite/designs/logos/portion-1/site-icon.svg",
+   "rank": 1,
+   "score": 7.5,
+   "verdict": "This is the best follow-up to the split bubble you liked: three uneven shares cut at different angles, the tail still grows out of a cut, and the forward lean matches the DIVI wordmark.",
+   "concerns": [
+    "The two slashes differ by only 12\u00b0 (20\u00b0 vs 8\u00b0). Below about 64px they look parallel, so at 16-40px it reads as '//D', which brings back the bubble-1 and Help Scout echo.",
+    "It is close to bubble-2 (left crescent, slanted middle share, sage D), so you would only want one of the two.",
+    "At favicon size, two slashes through a disc can briefly look like \u00d8 or a no-entry sign."
+   ],
+   "trademark": {
+    "risk": "medium",
+    "summary": "I found no existing logo that copies this drawing. A charcoal-and-sage circle cut by two uneven forward slashes, with a speech tail coming off the middle band, looks fairly distinctive. The closest lookalikes are other split-circle and D-shaped speech-bubble marks in bill splitting and messaging. The bigger risk is the name: a bill-splitting app already called 'Divi' (Divi Money) launched on the US App Store in September 2026, and Elegant Themes claims DIVI as a registered trademark, along with its own 'D' logo.",
+    "closestMarks": [
+     {
+      "name": "Divvy (expense-sharing app icon)",
+      "owner": "Totus Labs ApS",
+      "industry": "Bill / expense splitting app (Finance)",
+      "url": "https://apps.apple.com/us/app/divvy/id1662002655",
+      "similarity": "medium",
+      "why": "It is in the same niche, has an almost identical name (Divvy / Divi), and its icon is a green circle divided into three pieces. The pieces differ: they are equal, curved and swirl-like, with gradients and white gaps. It has no straight slashes and no speech tail. Small app (2 ratings), probably unregistered, but name, logo idea and colour together raise the chance of confusion."
+     },
+     {
+      "name": "Split Pay: Split Bills in Two (app icon)",
+      "owner": "Visible Ideas, Inc.",
+      "industry": "Bill payments / fintech",
+      "url": "https://apps.apple.com/us/app/split-pay-split-bills-in-two/id6448634850",
+      "similarity": "medium",
+      "why": "Same core device: a white circle sliced on a diagonal to mean 'split the bill'. It is a single 45\u00b0 cut into two equal halves, with a gradient, on an orange tile, and it has no tail. The concept's two uneven slashes, three pieces and tail set it apart. Diagonally sliced circles are a common 'split' motif, so neither side gets much exclusivity."
+     },
+     {
+      "name": "Dixa logo (D-shaped speech bubble)",
+      "owner": "Dixa ApS",
+      "industry": "Customer messaging / support software",
+      "url": "https://www.dixa.com/",
+      "similarity": "medium",
+      "why": "A leaning D drawn as a speech bubble with a pointed tail at the lower left. The concept also reads as a 'D' plus speech bubble with a lower-left tail, and the four-letter names (Dixa / Divi) look somewhat alike. The difference: Dixa is one solid shape with a hole, with no circle and no slicing."
+     }
+    ],
+    "howToReduceRisk": "1) Keep what makes the drawing distinctive: two clearly uneven, non-parallel slashes, three pieces, and the tail coming off the charcoal middle band. Don't simplify it to a single 45\u00b0 cut into two equal halves (Split Pay), and don't make it an upright, symmetric bar inside a ring (Diners Club). 2) Keep charcoal as the main colour with sage as the accent. A mostly green circle split in three moves it closer to the Divvy (Totus Labs) icon in the same niche. 3) To stay clear of Dixa, don't tilt the whole bubble or put a hole in the D piece. Keep the tail on the slashed band, not on the D. 4) Sort out the name before spending more on the logo. Divi Money (the same bill-splitting service, launched Sept 2026), Elegant Themes' registered DIVI and Divi 'D' logo, an earlier DIVI application for credit-purchase tracking software (serial 86202603, current status not confirmed), and several 'Divvy' split apps all crowd the name. Have a professional run a knockout search for DIVI in Classes 9, 36 and 42 (US, UK, EU), and consider a more distinctive or compound name. 5) Once the name is cleared, file the logo as a design mark and have counsel run a USPTO design-code search for divided circles and speech bubbles. The USPTO search site is JavaScript-only and its API was not reachable from here, so that check was not done."
+   }
+  },
+  {
+   "id": "wild-1",
+   "name": "Split Check",
+   "direction": "Wildcard",
+   "idea": "A bold, round-ended sage tick cut by two vertical knife cuts into three unequal pieces (about 24 / 34 / 42 percent): a rounded stub of the short leg, a V at the vertex and the long blade.",
+   "rationale": "It makes 'split the check' literal. The tick is the same mark as the sage checks in the animation's 'tap what you had', cut into unequal shares instead of halves, and the vertical cuts and middle V echo the I's and V of DIVI. It gives more than one split without a single straight cut running through the whole shape.",
+   "siteIcon": "app-icon.svg",
+   "rank": 10,
+   "score": 3,
+   "verdict": "It is legible and on theme, but a broken tick is already used by Splitser, a direct bill-splitting competitor, and at small sizes it is just a generic 'done' check.",
+   "concerns": [
+    "High trademark risk: Splitser (WieBetaaltWat) uses a bold round-ended tick with its short leg broken off, and PayActiv has a live US registration for a segmented check mark.",
+    "The cuts vanish below 32px, leaving a plain tick (to-do apps, 'verified' badges, 'sent' ticks).",
+    "The lockup reads as 'DIVI \u2713 verified'."
+   ],
+   "trademark": {
+    "risk": "high",
+    "summary": "A tick cut into pieces is already in use. Splitser (WieBetaaltWat), a direct bill-splitting competitor in Europe, uses a bold round-ended tick with its short leg broken off as a separate pill, and PayActiv has a live US finance registration for a check mark with a segmented tail.",
+    "closestMarks": [
+     {
+      "name": "Splitser (formerly WieBetaaltWat) logo and app icon",
+      "owner": "Splitser BV",
+      "industry": "Group expense / bill-splitting app (Netherlands, Belgium, EU)",
+      "url": "https://www.splitser.com/",
+      "similarity": "high",
+      "why": "Same niche, same idea. It is a heavy round-ended tick with the short leg broken off as a separate rounded pill, so it reads as a split tick, which is Divi's concept. Colour (orange) and cut geometry differ, but the overall look and the story ('a tick split up, for splitting bills') match. I did not confirm whether the device is registered at BOIP or EUIPO."
+     },
+     {
+      "name": "PayActiv segmented check mark (US Reg. 6338092, SN 88849477; colour version Reg. 6338091, SN 88849476)",
+      "owner": "PayActiv, Inc.",
+      "industry": "Fintech: earned-wage access / financial counseling (Class 36)",
+      "url": "https://tsdr.uspto.gov/statusview/sn88849477",
+      "similarity": "medium",
+      "why": "A live, registered US mark described as 'a stylized check mark with the tail of the mark segmented', with no colour claimed, in the finance class. Theirs is a solid V with the long blade broken into shrinking rounded blocks. Divi's is three in-line pieces, but it falls in the same design-code bucket (24.17.15, check marks) with the same 'tick cut into pieces' idea."
+     },
+     {
+      "name": "Microsoft To Do app icon",
+      "owner": "Microsoft Corporation",
+      "industry": "Productivity / task app",
+      "url": "https://apps.apple.com/us/app/microsoft-to-do/id1212616790",
+      "similarity": "low",
+      "why": "A tick built from two separate pieces (a dark short leg and a lighter long blade). It is also a 'tick in pieces', but the pieces overlap with no gap, the colour is blue and the field is unrelated."
+     }
+    ],
+    "howToReduceRisk": "The 'tick broken into pieces' idea itself is the problem, because Splitser already owns that story in bill-splitting. Best option: drop the tick as the hero shape, or make the tick only one part of a more distinctive symbol. Smaller fixes if you keep it: (1) square off the short-leg stub, since Splitser's signature is a rounded, detached short-leg pill; (2) make the cuts read clearly as one knife slice through a solid object, for example pieces shifted up or down like a sliced item, and avoid evenly spaced blocks along the blade (PayActiv's segmented tail); (3) keep the middle piece from reading as a stand-alone V (Venmo, Verizon); (4) stay clear of orange and of a two-tick or 'W' reading. In WhatsApp, a green tick in the chat list can also be mistaken for message-status ticks. Before committing, have counsel search USPTO design code 24.17.15 in Classes 9, 36 and 42, plus EUIPO/BOIP for Splitser's device. File the symbol with the DIVI wordmark as a composite mark."
+   }
+  },
+  {
+   "id": "wild-2",
+   "name": "The Tab",
+   "direction": "Wildcard",
+   "idea": "A round sage beer coaster with a waiter's tally on it: four flat strokes plus a fifth slash knocked out of them, so the slash cuts each stroke at a different height.",
+   "rationale": "In Cologne beer halls the K\u00f6bes marks every round on your own coaster, so everyone pays exactly for what they had. That is Divi's promise, and the English idiom 'keep a tab' carries it too. The WhatsApp circle crop turns the full-bleed sage tile into the coaster, and on the homepage photo it sits on the wooden table like a real coaster.",
+   "siteIcon": "site-icon.svg",
+   "rank": 9,
+   "score": 4,
+   "verdict": "The Cologne beer-coaster story is lovely, but the mark reads as a tally or a barcode, uses exactly the one straight slash you wanted to move away from, and coaster-tally apps already own it.",
+   "concerns": [
+    "The fifth stroke is one straight cut through everything, the opposite of your 'no single straight split' request.",
+    "At 16px it is a sage square with dark hatching: tally, barcode or prison days, not bill-splitting.",
+    "Two bar-tab apps that launched in September 2026 already use a tally on a coaster, one of them round and green."
+   ],
+   "trademark": {
+    "risk": "medium",
+    "summary": "I found no registered tally-mark logo in finance or payments, and the five-bar tally is a common symbol. However, two beer-coaster bar-tab apps launched in September 2026 already use a tally on a coaster as their icon, one of them a round coaster on green, so this concept looks generic and would be hard to make Divi's own.",
+    "closestMarks": [
+     {
+      "name": "Bierdeckel Stammtisch app icon",
+      "owner": "Martin Schmid (individual developer)",
+      "industry": "Food & drink app: beer-coaster collection, 'one stroke per beer' (released Sept 2026)",
+      "url": "https://apps.apple.com/us/app/bierdeckel-stammtisch/id6810333407",
+      "similarity": "high",
+      "why": "Almost the same picture: a round beer coaster (cream with green rings, on dark green) with a four-strokes-plus-slash tally on it. Divi's version is a sage coaster with dark strokes and a knocked-out slash. The difference is in styling, not concept. It is an indie app and probably not registered."
+     },
+     {
+      "name": "Bierdeckel: Bar Tab Tally app icon",
+      "owner": "Richard Kuhn (individual developer)",
+      "industry": "Bar-tab tally app for pub tables (Food & Drink, released Sept 2026)",
+      "url": "https://apps.apple.com/us/app/bierdeckel-bar-tab-tally/id6808770243",
+      "similarity": "medium",
+      "why": "Same purpose (keeping a bar tab), same symbol: a dark five-bar tally on an amber, coaster-like square. It has no circle and different colours, but the use and the idea overlap closely with 'The Tab'."
+     },
+     {
+      "name": "Nokka \u2013 Tally Counter & Crew app icon",
+      "owner": "Larissa Bartschi (individual developer)",
+      "industry": "Group counter / tally utility app",
+      "url": "https://apps.apple.com/us/app/nokka-tally-counter-crew/id6771100624",
+      "similarity": "medium",
+      "why": "Bold, round-ended dark tally strokes with a heavy slash, on yellow. At small icon sizes its stroke style is very close to Divi's chunky strokes."
+     }
+    ],
+    "howToReduceRisk": "Legal risk from registered marks looks low. The bigger problem is that the four-strokes-plus-slash tally is a generic symbol (it ships as the free Lucide 'tally-5' icon) and 'tally on a beer coaster' is already the icon of two new bar-tab apps. That makes it weak as a protectable logo and easy to mistake for others. To make it Divi's own: (1) give it a twist only Divi has, for example strokes of unequal length that show shares of a bill, a slash that cuts the strokes into pieces that visibly separate, or a coaster with a slice or bite taken out; (2) don't run the slash edge to edge across a circle, since a circle with a diagonal bar also reads as a 'no / prohibited' sign; (3) move away from cream-on-green coaster styling (Bierdeckel Stammtisch) and from a plain green disc with dark lines (Spotify); (4) in the square app icon, avoid a plain row of upright bars in a tile (Intercom). Register it with the DIVI wordmark as a composite mark rather than the symbol alone."
+   }
+  }
+ ]
+}

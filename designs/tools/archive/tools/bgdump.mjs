@@ -1,0 +1,10 @@
+import { createRequire } from 'module';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 390, height: 664 }, deviceScaleFactor: 1 });
+await p.goto(`file:///Users/titus/repos/colognewebsite/designs/e-loop/index.html?tone=white&footer=charcoal&shot=1`);
+await p.waitForTimeout(800);
+await p.evaluate(() => { document.querySelector('[data-check="prompt"]').style.color = 'transparent'; });
+await p.screenshot({ path: process.argv[2] });
+await b.close();

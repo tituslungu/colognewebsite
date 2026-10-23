@@ -1,0 +1,12 @@
+import { createRequire } from 'module';
+import fs from 'fs';
+const require = createRequire('/Users/titus/.npm/_npx/e41f203b7505f1fb/node_modules/');
+const { chromium } = require('playwright');
+const D = '/Users/titus/repos/colognewebsite/designs/logos/dee-min';
+const S = '/private/tmp/claude-501/-Users-titus-repos-colognewebsite/c94fcea5-365f-47cd-a42a-021d194de6cf/scratchpad/deemin';
+const cw = process.argv[2] || 'blue';
+const ov = `<svg width=420 height=420 viewBox="0 0 256 256" style="position:absolute;left:0;top:0"><circle cx=128 cy=128 r=127.5 fill=none stroke="rgba(255,0,0,.5)" stroke-width=.6/><line x1=128 y1=0 x2=128 y2=256 stroke="rgba(255,0,0,.3)" stroke-width=.5/><line y1=128 x1=0 y2=128 x2=256 stroke="rgba(255,0,0,.3)" stroke-width=.5/></svg>`;
+const cell = src => `<div style="position:relative;width:420px;height:420px"><img src="${src}" width=420 height=420>${ov}</div>`;
+fs.writeFileSync(`${S}/big.html`, `<body style="margin:0;display:flex;gap:10px;padding:10px;background:#ccc">${cell('file:///Users/titus/repos/colognewebsite/assets/img/icon.png')}${cell(`file://${D}/upper-${cw}.svg`)}${cell(`file://${D}/lower-${cw}.svg`)}</body>`);
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1300, height: 440 } });
+await p.goto(`file://${S}/big.html`); await p.waitForTimeout(300); await p.screenshot({ path: `${S}/big-${cw}.png` }); await b.close();
