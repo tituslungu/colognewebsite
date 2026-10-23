@@ -4,132 +4,80 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Divi</title>
-    <meta name="description" content="Divi — split bills instantly, no app needed." />
+    <meta name="description" content="Text your receipt to Divi on iMessage or WhatsApp and it splits the bill — no app to download." />
     <meta name="theme-color" content="#2D2D2D" />
-    <link rel="icon" href="assets/img/icon.png" />
+    <link rel="icon" href="assets/img/icon.png" sizes="512x512" type="image/png" />
+    <link rel="icon" href="assets/img/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="assets/img/icon.png" />
+    <link rel="preload" as="image" href="assets/img/table.jpg" />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-    <main class="stage">
-      <div class="animation-container" id="animContainer">
-        <img id="anim" src="assets/img/divi-web-charcoal-sage.svg" alt="Divi" />
-      </div>
+    <div class="backdrop" aria-hidden="true">
+      <div class="photo photo-soft"><div class="photo-edge"></div><div></div></div>
+      <div class="photo photo-sharp"><div></div></div>
+      <div class="scrim"></div>
+      <div class="tint"></div>
+    </div>
 
-      <div class="controls" id="controls">
-        <button class="replay-btn" id="replay" aria-label="Replay animation">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
-          Replay
-        </button>
-      </div>
-
-      <div class="cta-section" id="ctaSection">
-        <p class="cta-prompt" id="ctaPrompt">Text us to split your bill</p>
-        <div class="cta-arrow" id="ctaArrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 16l-6-6h12z"/></svg>
+    <header class="hero">
+      <div class="hero-inner wrap">
+        <a class="mark" href="/" aria-label="Divi — home">
+          <img src="assets/img/icon.svg" alt="" width="44" height="44" />
+        </a>
+        <div class="wordmark-row">
+          <h1 class="wordmark">Divi</h1>
         </div>
-        <div class="cta-group">
-          <a class="cta-btn cta-whatsapp" href="https://wa.me/14785004378" target="_blank" rel="noopener noreferrer">
+      </div>
+    </header>
+
+    <main class="lower wrap">
+      <div class="stage">
+        <figure class="card">
+          <!-- The animation loops forever. With "reduce motion" on, the page
+               itself swaps in a still frame ("Tap what you had"): a media
+               query inside an SVG loaded by <img> is not reliably applied. -->
+          <picture>
+            <source media="(prefers-reduced-motion: reduce)" srcset="assets/img/divi-still.svg" />
+            <img
+              src="assets/img/divi-loop.svg"
+              alt="How Divi works: snap the receipt, everyone scans, tap what you had, settle up."
+              width="530"
+              height="655"
+            />
+          </picture>
+        </figure>
+      </div>
+
+      <section class="cta" aria-labelledby="cta-prompt">
+        <h2 class="prompt" id="cta-prompt">Text us to split <br />your bill</h2>
+        <div class="actions">
+          <a class="btn btn-imessage" href="sms:+14785004378">
+            <!-- Our own drawing: a solid, slightly wide oval bubble with a
+                 curved tail at the lower left (not Apple artwork). -->
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.12 14.74C2.8 17.2 2.4 20.6.7 22.4c2.5.2 4.7-2 6.09-3.83A11.3 9.25 0 1 0 2.12 14.74Z"/></svg>
+            <span><span class="long">Use on </span>iMessage</span>
+          </a>
+          <a class="btn btn-whatsapp" href="https://wa.me/14785004378" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Text Through WhatsApp
-          </a>
-          <a class="cta-btn cta-imessage" href="sms:+14785004378">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
-            Text Through iMessage
+            <span><span class="long">Use on </span>WhatsApp</span>
           </a>
         </div>
-        <p class="cta-hint">Text us and we'll send you a link to start splitting — no download required.</p>
-      </div>
+        <p class="hint">Text your receipt and Divi will split it&nbsp;— no app to download.</p>
+      </section>
     </main>
 
-    <footer class="footer" id="footer">
-      <div class="footer-group footer-legal">
-        <span>&copy; 2026 Divi. All rights reserved.</span>
-        <a href="mailto:hello@cologneagent.com">hello@cologneagent.com</a>
-      </div>
-      <div class="footer-group footer-links">
-        <a href="/tos">Terms of Service</a>
-        <a href="/privacy">Privacy Policy</a>
+    <footer class="footer">
+      <div class="footer-inner wrap">
+        <div class="footer-group footer-legal">
+          <span class="copyright">&copy; 2026 Divi. All rights reserved.</span>
+          <a href="mailto:hello@justdivi.com">hello@justdivi.com</a>
+        </div>
+        <div class="footer-group footer-links">
+          <a href="/tos">Terms of Service</a>
+          <a href="/privacy">Privacy Policy</a>
+        </div>
       </div>
     </footer>
-
-    <script>
-      const DURATION = 17.4;
-      const anim = document.getElementById('anim');
-      const replayBtn = document.getElementById('replay');
-      const ctaSection = document.getElementById('ctaSection');
-      const ctaPrompt = document.getElementById('ctaPrompt');
-      const ctaArrow = document.getElementById('ctaArrow');
-      const controls = document.getElementById('controls');
-      const footer = document.getElementById('footer');
-      const body = document.body;
-      let revealTimer = null;
-      const hasVisited = localStorage.getItem('divi-visited');
-
-      // Gentle zoom on first visit — large enough to feel immersive,
-      // small enough that most of the SVG stays visible
-      if (!hasVisited) {
-        document.getElementById('animContainer').style.setProperty('--zoom', '1.3');
-      }
-
-      function revealBottom() {
-        body.classList.add('revealed');
-
-        // Wait for the scale transition to finish, then show the rest
-        document.getElementById('animContainer').addEventListener('transitionend', function handler(e) {
-          if (e.propertyName !== 'transform') return;
-          e.target.removeEventListener('transitionend', handler);
-
-          controls.classList.add('visible');
-          ctaSection.classList.add('visible');
-          footer.classList.add('visible');
-
-          setTimeout(() => {
-            ctaPrompt.classList.add('visible');
-            ctaArrow.classList.add('visible');
-          }, 300);
-        });
-
-        localStorage.setItem('divi-visited', '1');
-      }
-
-      if (hasVisited) {
-        body.classList.add('revealed');
-        controls.classList.add('visible');
-        ctaSection.classList.add('visible');
-        footer.classList.add('visible');
-        ctaPrompt.classList.add('visible');
-        ctaArrow.classList.add('visible');
-      }
-
-      function startRevealTimer() {
-        if (hasVisited) return;
-        if (revealTimer) clearTimeout(revealTimer);
-        revealTimer = setTimeout(revealBottom, (DURATION + 2) * 1000);
-      }
-
-      function replay() {
-        ctaPrompt.classList.remove('visible');
-        ctaArrow.classList.remove('visible');
-        const src = anim.src.split('?')[0];
-        anim.src = '';
-        requestAnimationFrame(() => {
-          anim.src = src + '?' + Date.now();
-          if (revealTimer) clearTimeout(revealTimer);
-          revealTimer = setTimeout(() => {
-            ctaPrompt.classList.add('visible');
-            ctaArrow.classList.add('visible');
-          }, (DURATION + 2) * 1000);
-        });
-      }
-
-      replayBtn.addEventListener('click', replay);
-
-      if (anim.complete) {
-        startRevealTimer();
-      } else {
-        anim.addEventListener('load', startRevealTimer);
-      }
-    </script>
   </body>
 </html>

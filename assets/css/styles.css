@@ -1,12 +1,86 @@
+/* A white panel under a header photo that fades into it. The looping
+   animation card rises out of the panel into the fade.
+   Phones / portrait: photo + DIVI on top, card centred over the fade, call
+   to action underneath. Wide screens: DIVI and the call to action share a
+   left column; the card straddles the fade on the right. */
+
 :root {
   --charcoal: #2D2D2D;
-  --sage: #6FAF8E;
-  --sage-light: #8cc4a5;
-  --sage-dim: #4e7a62;
-  --white: #f0efed;
-  --white-dim: #8A8885;
-
+  --font: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system,
+    Arial, sans-serif;
   --edge: clamp(1.25rem, 4vw, 3rem);
+  --wrap: 1180px;
+
+  /* Panel */
+  --bg: #FAFAF8;
+  --text: #2D2D2D;
+  --muted: #66635F;
+  --prompt: #3E7A5B;
+  --focus: #3E7A5B;
+
+  /* Card: 1px light rim and shadow. The third shadow layer lifts the
+     card's top edge off the photo. */
+  --card-ring: rgba(255, 255, 255, 0.24);
+  --card-ring-low: rgba(255, 255, 255, 0.05);
+  --card-shadow: 0 34px 64px -26px rgba(45, 45, 45, 0.55),
+    0 12px 26px -14px rgba(45, 45, 45, 0.35),
+    0 -8px 26px -14px rgba(11, 11, 11, 0.4);
+
+  /* The photo fades into this colour (the panel, as r g b) */
+  --tint: 250 250 248;
+  /* The blurred copy: lifted and flattened so dark shirts and shadows do
+     not show through the fade as grey clouds; only a warm hint remains. */
+  --soft-blur: calc(var(--blur) * 1.25);
+  --photo-tone: brightness(1.15) contrast(0.75) saturate(0.9);
+  /* How much of the fade the dark scrim takes to clear */
+  --scrim-len: 0.45;
+
+  /* Footer band */
+  --footer-bg: var(--charcoal);
+  --footer-text: #A3A09C;
+  --footer-link: #F0EFED;
+  --footer-link-hover: #8CC4A5;
+  --footer-focus: #8CC4A5;
+
+  /* Geometry (phones / portrait first) */
+  --hero-h: clamp(170px, 33vh, 340px);
+  --overlap: calc(var(--hero-h) * 0.3);
+  --card-min: 13rem;
+  --card-max: 640px;
+  --wm: clamp(2.75rem, min(15vw, calc(var(--hero-h) * 0.3)), 7rem);
+
+  /* The fade. The photo is clear down to --fade-start (just under DIVI)
+     and has become the plain panel by --fade-end; the bottom of the band
+     sits inside the fade. */
+  --fade-start: calc(var(--hero-h) * 0.62);
+  --fade-end: calc(var(--hero-h) * 1.15);
+  --fade-len: calc(var(--fade-end) - var(--fade-start));
+  /* The blurred copy needs real pixels past the page edges, so the photo
+     is this much wider each side (kept small so the crop barely changes;
+     .photo-edge covers the rest of the blur's soft edge). */
+  --blur: 16px;
+  --overscan: var(--blur);
+
+  /* Buttons: pale WhatsApp-green and Messages-blue pills with deep text,
+     close to the platforms' colours but not their brand values. */
+  --im-tint: #E0ECFB;       /* --im-deep text 6.51:1 */
+  --im-tint-line: #CBDDF7;
+  --im-tint-hover: #CCE0F8; /* --im-deep text 5.78:1 */
+  --im-tint-line-hover: #B5D1F4;
+  --im-deep: #0B4FA8;
+  --im-ring: #0A57B8;       /* 6.55:1 on the panel */
+  --wa-tint: #E0F3E7;       /* --wa-deep text 5.61:1 */
+  --wa-tint-line: #CBEAD6;
+  --wa-tint-hover: #CDEBD9; /* --wa-deep text 5.10:1 */
+  --wa-tint-line-hover: #B6E0C6;
+  --wa-deep: #146C38;
+  --wa-ring: #136C38;       /* 6.22:1 on the panel */
+}
+
+@supports (height: 1svh) {
+  :root {
+    --hero-h: clamp(170px, 33svh, 340px);
+  }
 }
 
 *,
@@ -17,297 +91,767 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-}
-
-html, body {
-  height: 100%;
+  background: var(--bg);
 }
 
 body {
+  position: relative;
+  isolation: isolate; /* keeps the backdrop (z-index -1) above body */
   margin: 0;
-  height: 100svh;
-  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  background: var(--charcoal);
-  color: var(--white);
-  font-family: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system,
-    Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
-.stage {
-  flex: 1;
+.wrap {
+  width: 100%;
+  max-width: calc(var(--wrap) + 2 * var(--edge));
+  margin-inline: auto;
+  padding-inline: var(--edge);
+}
+
+/* ---------------- Backdrop: the photo and its fade ---------------- */
+
+/* Sits behind the band and runs on past it to --fade-end, where it has
+   become exactly the panel colour, so there is no line where it stops.
+   Layers, bottom to top: blurred copy, sharp copy (masked out through the
+   fade), legibility scrim, panel tint. */
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--fade-end);
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--bg);
+}
+
+.photo,
+.scrim,
+.tint {
+  position: absolute;
+  inset: 0;
+}
+
+/* Both copies share this geometry so the sharp-to-soft crossfade lines
+   up: cover the band, with the row 46% down the photo at 46% of the band,
+   just --overscan wider each side. On desktops the photo runs far past
+   the fade; on phones it ends a little below the band, where the tint has
+   already covered it. */
+.photo > div {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--hero-h) * 0.46);
+  width: max(
+    100% + 2 * var(--overscan),
+    var(--hero-h) * 2000 / 1335
+  );
+  aspect-ratio: 2000 / 1335;
+  transform: translate(-50%, -46%);
+  background: var(--charcoal) url("../img/table.jpg") center / cover no-repeat;
+}
+
+/* Very old browsers without aspect-ratio: just cover the backdrop. */
+@supports not (aspect-ratio: 1 / 1) {
+  .photo > div {
+    inset: calc(var(--overscan) * -1);
+    width: auto;
+    transform: none;
+    background-position: center 46%;
+  }
+}
+
+.photo-soft > div {
+  filter: blur(var(--soft-blur)) var(--photo-tone);
+}
+
+/* A blur goes see-through near its element's edges, and the photo is only
+   --overscan (under one blur radius) past the page edges, so on its own
+   the soft copy would let the panel show through at the far left and
+   right: a faint light halo. This lightly blurred copy underneath fills
+   that in with the photo's own colours, without widening the photo (which
+   would change the crop). */
+.photo-soft > .photo-edge {
+  filter: blur(calc(var(--soft-blur) * 0.4)) var(--photo-tone);
+}
+
+/* The sharp copy dissolves through the first part of the fade, so the
+   picture goes soft before it goes pale (eased stops: no visible line
+   where the fade starts or ends). */
+.photo-sharp {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 var(--fade-start),
+    rgba(0, 0, 0, 0.86) calc(var(--fade-start) + var(--fade-len) * 0.14),
+    rgba(0, 0, 0, 0.5) calc(var(--fade-start) + var(--fade-len) * 0.34),
+    rgba(0, 0, 0, 0.18) calc(var(--fade-start) + var(--fade-len) * 0.54),
+    rgba(0, 0, 0, 0.05) calc(var(--fade-start) + var(--fade-len) * 0.68),
+    transparent calc(var(--fade-start) + var(--fade-len) * 0.8)
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 var(--fade-start),
+    rgba(0, 0, 0, 0.86) calc(var(--fade-start) + var(--fade-len) * 0.14),
+    rgba(0, 0, 0, 0.5) calc(var(--fade-start) + var(--fade-len) * 0.34),
+    rgba(0, 0, 0, 0.18) calc(var(--fade-start) + var(--fade-len) * 0.54),
+    rgba(0, 0, 0, 0.05) calc(var(--fade-start) + var(--fade-len) * 0.68),
+    transparent calc(var(--fade-start) + var(--fade-len) * 0.8)
+  );
+}
+
+/* The scrim behind the icon and DIVI. It holds steady over the clear
+   photo and clears early in the fade, before the tint rises, so the fade
+   never turns muddy grey. */
+.scrim {
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 11, 11, 0.6) 0,
+    rgba(11, 11, 11, 0.44) calc(var(--hero-h) * 0.34),
+    rgba(11, 11, 11, 0.44) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 var(--fade-start),
+    rgba(0, 0, 0, 0.7) calc(var(--fade-start) + var(--fade-len) * var(--scrim-len) * 0.3),
+    rgba(0, 0, 0, 0.25) calc(var(--fade-start) + var(--fade-len) * var(--scrim-len) * 0.65),
+    transparent calc(var(--fade-start) + var(--fade-len) * var(--scrim-len))
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 var(--fade-start),
+    rgba(0, 0, 0, 0.7) calc(var(--fade-start) + var(--fade-len) * var(--scrim-len) * 0.3),
+    rgba(0, 0, 0, 0.25) calc(var(--fade-start) + var(--fade-len) * var(--scrim-len) * 0.65),
+    transparent calc(var(--fade-start) + var(--fade-len) * var(--scrim-len))
+  );
+}
+
+/* Panel tint: clear over the band, rising on an eased curve to the solid
+   panel colour at --fade-end (the backdrop's bottom edge). */
+.tint {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--tint) / 0) var(--fade-start),
+    rgb(var(--tint) / 0.06) calc(var(--fade-start) + var(--fade-len) * 0.12),
+    rgb(var(--tint) / 0.24) calc(var(--fade-start) + var(--fade-len) * 0.28),
+    rgb(var(--tint) / 0.5) calc(var(--fade-start) + var(--fade-len) * 0.46),
+    rgb(var(--tint) / 0.75) calc(var(--fade-start) + var(--fade-len) * 0.63),
+    rgb(var(--tint) / 0.9) calc(var(--fade-start) + var(--fade-len) * 0.78),
+    rgb(var(--tint) / 0.97) calc(var(--fade-start) + var(--fade-len) * 0.9),
+    rgb(var(--tint) / 1) 100%
+  );
+}
+
+/* ---------------- Photo band ---------------- */
+
+.hero {
+  position: relative;
+  flex: none;
+  height: var(--hero-h);
+  color: #fff;
+}
+
+.hero-inner {
+  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  padding-top: clamp(0.875rem, 2.6vh, 1.75rem);
+  padding-bottom: var(--overlap);
+}
+
+.mark {
+  position: relative;
+  align-self: flex-start;
+  display: inline-block;
+  line-height: 0;
+  border-radius: 8px;
+}
+
+/* 36px icon on phones; keep the tap area at least 44px */
+.mark::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+}
+
+.mark img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.mark:hover img {
+  opacity: 0.8;
+}
+
+.wordmark-row {
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem var(--edge);
-  gap: clamp(0.3rem, 0.8vh, 0.5rem);
   min-height: 0;
 }
 
-/* SVG container — fixed size, uses transform:scale for jank-free transition */
-.animation-container {
-  width: 100%;
-  height: 50vh;
-  max-width: 480px;
-  flex-shrink: 0;
+.wordmark {
+  margin: 0;
+  font-size: var(--wm);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+  /* The icon adds weight above; sit the word a hair high. */
+  transform: translateY(-6%);
+}
+
+/* ---------------- Lower panel ---------------- */
+
+.lower {
+  flex: 1 1 auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Holds the card. It takes whatever height is left over, and its size
+   (not its content) drives the card, so the animation is the part that
+   flexes. */
+.stage {
+  position: relative;
+  z-index: 2;
+  flex: 1 1 0;
+  min-height: var(--card-min);
+  /* Never taller than the card can get, so on very tall screens the spare
+     height goes around the call to action, not under the card. */
+  max-height: min(
+    var(--card-max),
+    calc((100vw - 2 * var(--edge)) * 655 / 530)
+  );
+  margin-top: calc(-1 * var(--overlap));
+  container-type: size;
+  display: flex;
   justify-content: center;
-  transform: scale(var(--zoom, 1));
-  transform-origin: center center;
-  transition: transform 1.2s cubic-bezier(.25,.1,.25,1);
-  will-change: transform;
+  align-items: flex-start;
 }
 
-body.revealed .animation-container {
-  transform: scale(1);
+.card {
+  /* Height from the leftover space (stage container), width from the
+     SVG's own 530:655 ratio, so the frame hugs the illustration. */
+  --card-h: min(100cqh, calc(100cqw * 655 / 530), var(--card-max));
+  position: relative;
+  flex: none;
+  margin: 0;
+  height: var(--card-h);
+  width: calc(var(--card-h) * 530 / 655);
+  container-type: inline-size;
+  border-radius: 16px;
+  overflow: hidden;
+  /* 1px light rim, brighter at the top edge where it meets the photo */
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--charcoal), var(--charcoal)) padding-box,
+    linear-gradient(to bottom, var(--card-ring), var(--card-ring-low) 55%) border-box;
+  box-shadow: var(--card-shadow);
 }
 
-.animation-container img {
+/* <picture> only picks the file; the img fills the card. */
+.card picture {
+  display: contents;
+}
+
+.card img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-/* Controls */
-.controls {
-  display: flex;
-  align-items: center;
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
+/* ---------------- Call to action ---------------- */
 
-.controls.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.replay-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: none;
-  border: none;
-  padding: 0.25rem 0.5rem;
-  cursor: pointer;
-  color: var(--white-dim);
-  font-family: inherit;
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-  transition: color 0.2s ease;
-  line-height: 1;
-}
-
-.replay-btn svg {
-  width: 16px;
-  height: 16px;
-}
-
-.replay-btn:hover {
-  color: var(--sage);
-}
-
-/* CTA section */
-.cta-section {
+.cta {
+  flex: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(0.25rem, 0.8vh, 0.5rem);
-  opacity: 0;
-  transform: translateY(15px);
-  pointer-events: none;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  text-align: center;
+  margin-block: auto;
+  padding-top: clamp(0.9rem, 2.6vh, 1.75rem);
 }
 
-.cta-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+.prompt br {
+  display: none;
 }
 
-.cta-prompt {
+.prompt {
   margin: 0;
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  font-weight: 600;
-  color: var(--sage);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  font-size: clamp(1.125rem, 3vh, 1.5rem);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  color: var(--prompt);
 }
 
-.cta-prompt.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.cta-arrow {
-  opacity: 0;
-  transition: opacity 0.5s ease 0.2s;
-}
-
-.cta-arrow.visible {
-  opacity: 1;
-  animation: bounce 1.8s ease-in-out infinite 0.7s;
-}
-
-.cta-arrow svg {
-  width: 18px;
-  height: 18px;
-  color: var(--sage);
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
-}
-
-.cta-group {
+.actions {
   display: flex;
-  gap: 0.6rem;
-  flex-wrap: wrap;
   justify-content: center;
+  gap: 0.625rem;
+  width: 100%;
+  margin-top: clamp(0.6rem, 1.6vh, 0.9rem);
 }
 
-.cta-btn {
+.btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.55rem 1.25rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0 1.3rem;
+  border-radius: 999px;
+  border: 2px solid var(--b-line);
+  background: var(--b-bg);
+  color: var(--b-ink);
+  font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  line-height: 1.1;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease, transform 0.15s ease;
 }
 
-.cta-btn:active {
+.btn:active {
   transform: scale(0.97);
 }
 
-.cta-btn svg {
+.btn svg {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
 }
 
-.cta-whatsapp {
-  background: var(--sage);
-  color: var(--charcoal);
+.btn:hover {
+  background: var(--b-bg-hover);
+  border-color: var(--b-line-hover);
+  color: var(--b-ink-hover);
 }
 
-.cta-whatsapp:hover,
-.cta-whatsapp:focus-visible {
-  background: var(--sage-light);
+.btn:focus-visible {
+  outline-color: var(--b-ring);
 }
 
-.cta-imessage {
-  background: transparent;
-  color: var(--white);
-  border: 2px solid var(--sage);
+/* Each button only sets these, and the border is always 2px, so the two
+   pills match in size. Tinted pills with deep text; a hair-darker rim
+   keeps the pale pill's edge on the white panel. */
+.btn-imessage {
+  --b-bg: var(--im-tint);
+  --b-line: var(--im-tint-line);
+  --b-ink: var(--im-deep);
+  --b-bg-hover: var(--im-tint-hover);
+  --b-line-hover: var(--im-tint-line-hover);
+  --b-ink-hover: var(--im-deep);
+  --b-ring: var(--im-ring);
 }
 
-.cta-imessage:hover,
-.cta-imessage:focus-visible {
-  background: var(--sage-dim);
-  border-color: var(--sage-dim);
+.btn-whatsapp {
+  --b-bg: var(--wa-tint);
+  --b-line: var(--wa-tint-line);
+  --b-ink: var(--wa-deep);
+  --b-bg-hover: var(--wa-tint-hover);
+  --b-line-hover: var(--wa-tint-line-hover);
+  --b-ink-hover: var(--wa-deep);
+  --b-ring: var(--wa-ring);
 }
 
-.cta-hint {
-  margin: 0;
-  font-size: 0.7rem;
-  color: var(--white-dim);
-  letter-spacing: 0.02em;
-  opacity: 0.7;
+.hint {
+  margin: clamp(0.5rem, 1.4vh, 0.8rem) 0 0;
+  max-width: 34ch;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  text-wrap: pretty;
 }
 
-/* Footer */
+/* ---------------- Footer ---------------- */
+
 .footer {
+  flex: none;
+  /* The band needs air above it; the card absorbs the difference. */
+  margin-top: clamp(0.75rem, 2.2vh, 1.25rem);
+  /* at least 14px, so the links' enlarged tap areas stay inside */
+  padding-block: clamp(0.875rem, 2.2vh, 1.25rem);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  color: var(--footer-text);
+  background: var(--footer-bg);
+}
+
+/* Short screens: the card is already at its floor, so keep the air small. */
+@media (max-height: 600px) {
+  .footer {
+    margin-top: 0.5rem;
+  }
+}
+
+.footer-inner {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 0.35rem 2rem;
-  padding: 0.4rem var(--edge);
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  color: var(--white-dim);
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.footer.visible {
-  opacity: 1;
-  transform: translateY(0);
+  gap: 0.5rem 2rem;
 }
 
 .footer-group {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.35rem 2rem;
+  gap: 0.4rem 1.75rem;
 }
 
 .footer a {
-  color: var(--white);
+  position: relative;
+  color: var(--footer-link);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.footer a:hover,
-.footer a:focus-visible {
-  color: var(--sage-light);
+/* 44px+ tap area for the small links, without moving anything */
+.footer a::after {
+  content: "";
+  position: absolute;
+  inset: -14px -8px;
+}
+
+.footer a:hover {
+  color: var(--footer-link-hover);
 }
 
 :focus-visible {
-  outline: 2px solid var(--sage);
-  outline-offset: 4px;
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
 }
 
-@media (max-width: 50rem) {
-  .footer {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0.35rem;
-  }
+.footer :focus-visible {
+  outline-color: var(--footer-focus);
+}
 
-  .footer-group {
-    justify-content: center;
-    flex-wrap: nowrap;
-  }
+.hero :focus-visible {
+  outline-color: #fff;
+}
 
-  .footer-links {
-    order: -1;
-  }
+/* ---------------- Phones ---------------- */
 
-  .footer-legal {
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .footer-legal a {
-    order: -1;
+/* Narrow phones and short landscape phones: short labels keep both
+   buttons on one row; the hidden words keep the accessible name complete
+   ("Use on WhatsApp"). */
+@media (max-width: 539px), (max-height: 520px) and (orientation: landscape) {
+  .btn .long {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 }
 
-@media (max-width: 28rem) {
-  .cta-group {
-    flex-direction: column;
-    width: 100%;
+@media (max-width: 539px) {
+  .btn {
+    flex: 1 1 0;
+    max-width: 11rem;
     padding: 0 1rem;
   }
 
-  .cta-btn {
+  .footer {
+    letter-spacing: 0.02em;
+  }
+
+  .footer-inner,
+  .footer-group {
     justify-content: center;
+    text-align: center;
+  }
+
+  .footer-inner {
+    gap: 0.35rem 1rem;
+  }
+
+  /* Links on one line, copyright under them. Only the (non-focusable)
+     copyright moves, so tab order still matches what you see. */
+  .footer-group {
+    display: contents;
+  }
+
+  .copyright {
+    order: 1;
+    flex-basis: 100%;
+  }
+}
+
+/* Tablet portrait and up (still stacked) */
+@media (min-width: 600px) {
+  .mark img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .card {
+    border-radius: 20px;
+  }
+}
+
+/* Big portrait tablets (e.g. iPad Pro): a taller photo and a bigger card,
+   so the spare height goes to the animation, not to gaps. (The wide
+   layout below sets its own values for these.) */
+@media (min-width: 900px) {
+  :root {
+    --card-max: 860px;
+    --hero-h: clamp(170px, 31vh, 420px);
+  }
+
+  @supports (height: 1svh) {
+    :root {
+      --hero-h: clamp(170px, 31svh, 420px);
+    }
+  }
+}
+
+/* ---------------- Wide: DIVI + CTA left, card right ---------------- */
+
+@media (min-width: 900px) and (min-aspect-ratio: 5/4),
+  (min-width: 560px) and (orientation: landscape) and (max-height: 520px) {
+  :root {
+    --hero-h: clamp(140px, 35vh, 420px);
+    --overlap: calc(var(--hero-h) * 0.58);
+    --wm: clamp(3.25rem, min(11vw, calc(var(--hero-h) * 0.46)), 10rem);
+    --footer-gap: clamp(1rem, 3vh, 2rem);
+    /* Wider canvas on big monitors so the card can keep growing */
+    --wrap: clamp(1180px, 62vw, 1480px);
+    --card-max: 900px;
+    /* DIVI sits lower in the band here (its foot is ~0.76 of the band),
+       so the fade starts later; it ends well above the headline. */
+    --fade-start: calc(var(--hero-h) * 0.8);
+    --fade-end: calc(var(--hero-h) * 1.22);
+    --blur: 22px;
+  }
+
+  @supports (height: 1svh) {
+    :root {
+      --hero-h: clamp(140px, 35svh, 420px);
+    }
+  }
+
+  /* DIVI is left-set here, so firm up the scrim behind it */
+  .scrim {
+    background:
+      linear-gradient(
+        to right,
+        rgba(11, 11, 11, 0.32) 0%,
+        rgba(11, 11, 11, 0.12) 40%,
+        rgba(11, 11, 11, 0) 60%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(11, 11, 11, 0.6) 0,
+        rgba(11, 11, 11, 0.44) calc(var(--hero-h) * 0.34),
+        rgba(11, 11, 11, 0.44) 100%
+      );
+  }
+
+  .hero-inner {
+    padding-top: clamp(1rem, 3.6vh, 2.5rem);
+    padding-bottom: clamp(0.75rem, 3vh, 2rem);
+  }
+
+  .wordmark-row {
+    justify-content: flex-start;
+  }
+
+  .wordmark {
+    /* Left-set: drop the centring indent, nudge the D's side bearing */
+    text-indent: 0;
+    margin-left: -0.05em;
+    transform: none;
+  }
+
+  .lower {
+    flex: 1 1 0;
+    min-height: 15rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-content: start;
+    column-gap: clamp(2rem, 5vw, 5rem);
+    container-type: size;
+  }
+
+  .stage {
+    grid-column: 2;
+    grid-row: 1;
+    container-type: normal;
+    min-height: 0;
+    max-height: none;
+    justify-content: flex-end;
+  }
+
+  .card {
+    --card-h: min(
+      calc(100cqh + var(--overlap) - var(--footer-gap)),
+      calc(48cqw * 655 / 530),
+      var(--card-max)
+    );
+    border-radius: 22px;
+  }
+
+  .cta {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    align-items: flex-start;
+    text-align: left;
+    margin: 0;
+    /* symmetric, so centring is unchanged; keeps air under the photo when
+       the block is taller than the card's lower half */
+    padding: clamp(1rem, 3.5vh, 2rem) 0;
+  }
+
+  .prompt {
+    font-size: clamp(1.5rem, min(3.3vw, 6.4vh), 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+
+  .prompt br {
+    display: inline;
+  }
+
+  .actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: auto;
+    gap: 0.75rem;
+    margin-top: clamp(1.1rem, 3.2vh, 1.75rem);
+  }
+
+  .btn {
+    min-height: 48px;
+    padding: 0 1.4rem;
+  }
+
+  .hint {
+    margin-top: clamp(0.75rem, 2vh, 1.1rem);
+    max-width: 36em;
+    font-size: 0.875rem;
+  }
+}
+
+/* Large monitors: the card keeps growing, so let the call to action and
+   footer step up a size to stay in proportion with it. */
+@media (min-width: 2200px) and (min-height: 1000px) and (min-aspect-ratio: 5/4) {
+  .prompt {
+    font-size: clamp(1.5rem, min(3.3vw, 6.4vh), 4rem);
+  }
+
+  .btn {
+    min-height: 54px;
+    padding: 0 1.6rem;
+    font-size: 1.0625rem;
+  }
+
+  .btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hint {
+    font-size: 1rem;
+  }
+
+  .footer {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Short landscape phones: smaller mark so DIVI keeps its air, and a
+   one-line prompt so the whole page fits without scrolling. */
+@media (max-height: 520px) and (orientation: landscape) {
+  /* The headline starts just under the band here, so the fade is shorter
+     and finishes before it. */
+  :root {
+    --fade-start: calc(var(--hero-h) * 0.78);
+    --fade-end: calc(var(--hero-h) * 1.12);
+  }
+
+  .mark img {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* .lower is a size container, so it can't grow to fit the call to
+     action by itself; this floor is the call to action's height here
+     (one-line prompt, one row of buttons, one-line hint). */
+  .lower {
+    min-height: 9rem;
+  }
+
+  .cta {
+    padding-block: 0.625rem;
+  }
+
+  .prompt br {
+    display: none;
+  }
+
+  /* keeps the two short buttons on one row down to 560px wide */
+  .actions {
+    gap: 0.625rem;
+  }
+
+  .btn {
+    padding: 0 1.1rem;
+  }
+}
+
+/* Smaller landscape phones: the hint wraps to two lines */
+@media (max-height: 520px) and (orientation: landscape) and (max-width: 799px) {
+  .lower {
+    min-height: 10.75rem;
+  }
+}
+
+/* Browsers without container units: a sensible fixed-ratio card */
+@supports not (width: 1cqw) {
+  .card {
+    height: auto;
+    width: min(100%, 22rem, 46vh);
+    aspect-ratio: 530 / 655;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  .btn:active {
+    transform: none;
   }
 }
