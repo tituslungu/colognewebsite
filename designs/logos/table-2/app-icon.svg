@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Divi app icon">
+<title>Divi app icon</title>
+<rect width="256" height="256" fill="#2D2D2D"/>
+<path fill="#6FAF8E" d="M161.48 91.68A49.4 49.4 0 0 1 177.36 130.01A25.65 25.65 0 0 0 164.32 161.48A49.4 49.4 0 0 1 125.99 177.36A25.65 25.65 0 0 0 94.52 164.32A49.4 49.4 0 0 1 78.64 125.99A25.65 25.65 0 0 0 91.68 94.52A49.4 49.4 0 0 1 130.01 78.64A25.65 25.65 0 0 0 161.48 91.68Z"/>
+<circle cx="153.08" cy="67.44" r="19.95" fill="#FAFAF8"/>
+<circle cx="188.56" cy="153.08" r="19.95" fill="#FAFAF8"/>
+<circle cx="102.92" cy="188.56" r="19.95" fill="#FAFAF8"/>
+<circle cx="67.44" cy="102.92" r="19.95" fill="#FAFAF8"/>
+</svg>

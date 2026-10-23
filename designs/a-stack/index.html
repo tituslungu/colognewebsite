@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script src="../preview.js"></script>
+    <title>Divi</title>
+    <meta name="description" content="Divi — split bills instantly, no app needed." />
+    <meta name="theme-color" content="#2D2D2D" />
+    <link rel="icon" href="../../assets/img/icon.png" />
+    <link rel="apple-touch-icon" href="../../assets/img/icon.png" />
+    <link rel="preload" as="image" href="../../assets/img/table.jpg" />
+    <style>
+      /* ---------------------------------------------------------------
+         Tokens. Gray is the default tone; white and sage override the
+         lower-area palette only. The photo band never changes.
+         --------------------------------------------------------------- */
+      :root {
+        --bg: #2d2d2d;
+        --text: #f0efed;
+        --muted: #a3a09c;
+        --accent-text: #6faf8e;
+        --focus: #8cc4a5;
+        --btn-fill: #6faf8e;
+        --btn-fill-hover: #8cc4a5;
+        --btn-fill-text: #2d2d2d;
+        --btn-line: #6faf8e;
+        --btn-line-text: #f0efed;
+        --btn-line-hover-bg: rgba(111, 175, 142, 0.16);
+        --replay-hover-bg: rgba(240, 239, 237, 0.07);
+        --rule: rgba(240, 239, 237, 0.09);
+
+        /* Gray: no card. The SVG's own background is the page colour; its
+           viewBox crops the right-hand plate (and the first scene's hand at
+           the bottom), so those two edges are feathered instead. */
+        --anim-mask: linear-gradient(to left, transparent 0, #000 9%),
+          linear-gradient(to top, transparent 0, #000 5%);
+        --anim-radius: 0;
+        --anim-ring: transparent;
+        --anim-shadow: none;
+
+        --edge: clamp(1.25rem, 4vw, 3rem);
+        --hero-h: clamp(8rem, 33svh, 27.5rem);
+        --gap-s: clamp(0.25rem, 1svh, 0.75rem);
+        --gap-m: clamp(0.625rem, 2.1svh, 1.5rem);
+        --gap-top: clamp(0.75rem, 2.9svh, 2rem);
+        --card-radius: clamp(14px, 6cqh, 22px);
+        --replay-h: 1.75rem;
+        --replay-space: 0px; /* height reserved under the art (phones only) */
+        --font: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system,
+          Arial, sans-serif;
+      }
+
+      :root[data-tone="white"] {
+        --bg: #fbfaf8;
+        --text: #2d2d2d;
+        --muted: #66635f;
+        --accent-text: #3e7a5b;
+        --focus: #3e7a5b;
+        --btn-fill: #6faf8e;
+        --btn-fill-hover: #8cc4a5;
+        --btn-fill-text: #2d2d2d;
+        --btn-line: #3e7a5b;
+        --btn-line-text: #2d2d2d;
+        --btn-line-hover-bg: rgba(62, 122, 91, 0.1);
+        --replay-hover-bg: rgba(45, 45, 45, 0.06);
+        --rule: rgba(45, 45, 45, 0.1);
+
+        /* The animation becomes a deliberate charcoal card. */
+        --anim-mask: none;
+        --anim-radius: var(--card-radius);
+        --anim-ring: rgba(255, 255, 255, 0.06);
+        --anim-shadow: 0 1px 2px rgba(45, 45, 45, 0.08),
+          0 14px 34px -10px rgba(45, 45, 45, 0.42);
+      }
+
+      :root[data-tone="sage"] {
+        --bg: #24382e;
+        --text: #f0efed;
+        --muted: #a9bdb2;
+        --accent-text: #8cc4a5;
+        --focus: #8cc4a5;
+        --btn-fill: #6faf8e;
+        --btn-fill-hover: #8cc4a5;
+        --btn-fill-text: #2d2d2d;
+        --btn-line: #6faf8e;
+        --btn-line-text: #f0efed;
+        --btn-line-hover-bg: rgba(111, 175, 142, 0.16);
+        --replay-hover-bg: rgba(240, 239, 237, 0.08);
+        --rule: rgba(240, 239, 237, 0.1);
+
+        --anim-mask: none;
+        --anim-radius: var(--card-radius);
+        --anim-ring: rgba(255, 255, 255, 0.06);
+        --anim-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 18px 40px -12px rgba(0, 0, 0, 0.6);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        background: var(--bg);
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font);
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      /* ---------------------------------------------------------------
+         Photo band: the original design, compressed to about a third
+         of the viewport. Same scrim, same wordmark, same masthead.
+         --------------------------------------------------------------- */
+      .hero {
+        position: relative;
+        flex: none;
+        height: var(--hero-h);
+        display: grid;
+        place-items: center;
+        background-color: #1d1b19;
+        background-image: linear-gradient(
+            to bottom,
+            rgba(11, 11, 11, 0.62) 0%,
+            rgba(11, 11, 11, 0.42) 30%,
+            rgba(11, 11, 11, 0.42) 66%,
+            rgba(11, 11, 11, 0.72) 100%
+          ),
+          url("../../assets/img/table.jpg");
+        background-size: cover;
+        background-position: center 46%;
+        background-repeat: no-repeat;
+        color: #fff;
+      }
+
+      .masthead {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: var(--edge);
+        padding-top: max(var(--edge), env(safe-area-inset-top));
+        padding-left: max(var(--edge), env(safe-area-inset-left));
+      }
+
+      .mark {
+        display: block;
+        line-height: 0;
+        border-radius: 10px;
+      }
+
+      .mark img {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        display: block;
+        transition: opacity 0.2s ease;
+      }
+
+      .mark:hover img,
+      .mark:focus-visible img {
+        opacity: 0.75;
+      }
+
+      .mark:focus-visible {
+        outline-color: #fff;
+      }
+
+      .wordmark {
+        margin: 0;
+        font-size: clamp(2.75rem, min(19vw, 13.5svh), 10rem);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0.12em;
+        text-indent: 0.12em;
+        text-transform: uppercase;
+        color: #fff;
+        white-space: nowrap;
+        text-shadow: 0 2px 28px rgba(0, 0, 0, 0.28);
+        /* The original's optical centring: the masthead adds weight up top,
+           so the mark sits slightly above true centre. */
+        transform: translateY(-4%);
+      }
+
+      /* ---------------------------------------------------------------
+         Lower area: one centred column. The animation is the flexible
+         element; everything else keeps its natural height.
+         --------------------------------------------------------------- */
+      .stage {
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Only matters once the animation reaches its max size (very tall
+           screens): spare height is shared above and below the column. */
+        justify-content: center;
+        padding: var(--gap-top) var(--edge) 0;
+        padding-left: max(var(--edge), env(safe-area-inset-left));
+        padding-right: max(var(--edge), env(safe-area-inset-right));
+      }
+
+      /* The animation box is the flexible element: it takes whatever height
+         is left and the art is fitted inside it (container units), so the
+         card's corners and shadow always sit exactly on the art. */
+      .anim-box {
+        --art-h: min(100cqh - var(--replay-space), 100cqw * 655 / 530);
+        position: relative;
+        flex: 1 1 0;
+        width: 100%;
+        min-height: calc(clamp(9rem, 28svh, 13rem) + var(--replay-space));
+        max-height: 42rem;
+        container-type: size;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .anim {
+        display: block;
+        flex: none;
+        height: var(--art-h); /* see @supports fallback at the end */
+        width: auto;
+        aspect-ratio: 530 / 655;
+        border-radius: var(--anim-radius);
+        outline: 1px solid var(--anim-ring);
+        outline-offset: -1px;
+        box-shadow: var(--anim-shadow);
+        -webkit-mask-image: var(--anim-mask);
+        -webkit-mask-composite: source-in;
+        mask-image: var(--anim-mask);
+        mask-composite: intersect;
+      }
+
+      /* Replay: a quiet control tucked against the art's bottom-right
+         corner, so it reads as part of the animation and costs no height. */
+      .replay {
+        position: absolute;
+        /* Label's baseline region lines up with the art's bottom edge. */
+        bottom: calc(50% - var(--art-h) / 2 - (var(--replay-h) - 0.8125rem) / 2);
+        left: calc(50% + var(--art-h) * 530 / 655 / 2 + 0.375rem);
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        height: var(--replay-h);
+        padding: 0 0.75rem 0 0.625rem;
+        border: 0;
+        border-radius: 999px;
+        background: none;
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.8125rem;
+        letter-spacing: 0.03em;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 0.2s ease, background-color 0.2s ease;
+      }
+
+      .replay svg {
+        width: 16px;
+        height: 16px;
+        flex: none;
+      }
+
+      .replay:hover {
+        color: var(--accent-text);
+        background: var(--replay-hover-bg);
+      }
+
+      /* Invisible hit-area extension so the compact control is still a
+         comfortable tap target without taking more layout space. */
+      .replay::after {
+        content: "";
+        position: absolute;
+        inset: -9px -4px;
+      }
+
+      .cta {
+        flex: none;
+        /* Same distance below the animation as above it. */
+        margin-top: var(--gap-top);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+      }
+
+      .cta-prompt {
+        margin: 0;
+        font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.3125rem);
+        font-weight: 600;
+        line-height: 1.3;
+        letter-spacing: 0.005em;
+        color: var(--accent-text);
+      }
+
+      /* Two equal-width pills: each column is as wide as the longer label. */
+      .cta-group {
+        margin-top: clamp(0.625rem, 1.5svh, 0.875rem);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        width: max-content;
+        max-width: 100%;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 3rem;
+        padding: 0 1.5rem;
+        border-radius: 999px;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        line-height: 1.2;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+          transform 0.15s ease;
+      }
+
+      .btn svg {
+        width: 19px;
+        height: 19px;
+        flex: none;
+      }
+
+      .btn:active {
+        transform: scale(0.97);
+      }
+
+      .btn-whatsapp {
+        background: var(--btn-fill);
+        color: var(--btn-fill-text);
+        border: 2px solid var(--btn-fill);
+      }
+
+      .btn-whatsapp:hover {
+        background: var(--btn-fill-hover);
+        border-color: var(--btn-fill-hover);
+      }
+
+      .btn-imessage {
+        background: transparent;
+        color: var(--btn-line-text);
+        border: 2px solid var(--btn-line);
+      }
+
+      .btn-imessage:hover {
+        background: var(--btn-line-hover-bg);
+      }
+
+      .cta-hint {
+        margin: clamp(0.5rem, 1.3svh, 0.75rem) 0 0;
+        max-width: 34rem;
+        font-size: 0.8125rem;
+        line-height: 1.45;
+        letter-spacing: 0.01em;
+        color: var(--muted);
+        text-wrap: balance;
+      }
+
+      /* ---------------------------------------------------------------
+         Footer: the original's quiet bottom edge.
+         --------------------------------------------------------------- */
+      .footer {
+        flex: none;
+        margin-top: var(--gap-m);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem 2.25rem;
+        padding: clamp(0.625rem, 1.6svh, 1.125rem) var(--edge);
+        padding-left: max(var(--edge), env(safe-area-inset-left));
+        padding-right: max(var(--edge), env(safe-area-inset-right));
+        padding-bottom: max(clamp(0.625rem, 1.6svh, 1.125rem), env(safe-area-inset-bottom));
+        border-top: 1px solid var(--rule);
+        /* Keeps the links' enlarged hit areas from adding scroll height. */
+        overflow: hidden;
+        overflow: clip;
+        font-size: 0.8125rem;
+        line-height: 1.4;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+      }
+
+      .footer-group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 2.25rem;
+      }
+
+      .footer a {
+        position: relative;
+        color: var(--text);
+        text-decoration: none;
+        border-radius: 3px;
+        transition: color 0.2s ease;
+      }
+
+      .footer a::after {
+        content: "";
+        position: absolute;
+        inset: -13px -8px;
+      }
+
+      .footer a:hover {
+        color: var(--accent-text);
+      }
+
+      /* Phones and short desktop windows: the band gives up a little height
+         so the animation keeps at least a third of the screen. */
+      @media (max-width: 37.5rem), (max-height: 44rem) {
+        :root {
+          --hero-h: clamp(8rem, 30svh, 27.5rem);
+        }
+      }
+
+      /* Landscape phones: a 44px icon is too heavy for a 128px band. */
+      @media (max-height: 30rem) {
+        .masthead {
+          padding: 1rem;
+          padding-left: max(1rem, env(safe-area-inset-left));
+          padding-top: max(1rem, env(safe-area-inset-top));
+        }
+
+        .mark img {
+          width: 36px;
+          height: 36px;
+          border-radius: 7px;
+        }
+      }
+
+      /* ---------------------------------------------------------------
+         Tablet and below: the footer centres on two lines, every link on
+         the first and the copyright as the closing line (as the original
+         did). Links share one row, so their enlarged tap areas never
+         overlap one another, and visual order matches tab order.
+         --------------------------------------------------------------- */
+      @media (max-width: 50rem) {
+        .footer {
+          justify-content: center;
+          text-align: center;
+          gap: 0.375rem 1.25rem;
+          font-size: 0.75rem;
+          letter-spacing: 0.03em;
+        }
+
+        .footer-legal {
+          display: contents;
+        }
+
+        .footer-links {
+          flex-wrap: nowrap;
+          gap: 1.25rem;
+        }
+
+        .footer-copy {
+          order: 1;
+          flex-basis: 100%;
+        }
+      }
+
+      /* Phones: the replay control drops under the art (there is no room
+         beside it), and the two buttons sit side by side at equal width.
+         The prompt above already says "Text us", so the visible label
+         drops "Text Through" while the accessible name stays complete. */
+      @media (max-width: 37.5rem) {
+        :root {
+          --gap-top: var(--gap-m);
+          --replay-space: calc(var(--replay-h) + var(--gap-s));
+        }
+
+        .replay {
+          position: relative;
+          bottom: auto;
+          left: auto;
+          margin-top: var(--gap-s);
+        }
+
+        .masthead {
+          padding: 1rem;
+          padding-top: max(1rem, env(safe-area-inset-top));
+        }
+
+        .mark img {
+          width: 36px;
+          height: 36px;
+          border-radius: 7px;
+        }
+
+        .cta-group {
+          width: 100%;
+          max-width: 23.5rem;
+          gap: 0.625rem;
+        }
+
+        .btn {
+          min-width: 0;
+          padding: 0 1rem;
+        }
+
+        .btn .long {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          margin: -1px;
+          padding: 0;
+          overflow: hidden;
+          clip: rect(0 0 0 0);
+          white-space: nowrap;
+          border: 0;
+        }
+
+        .cta-hint {
+          font-size: 0.75rem;
+          max-width: 22rem;
+        }
+      }
+
+      /* Small phones (360-375px): tighten so the footer links keep to one
+         row and the buttons keep comfortable side padding. */
+      @media (max-width: 23.5rem) {
+        .footer {
+          column-gap: 1rem;
+          letter-spacing: 0.01em;
+        }
+
+        .footer-links {
+          gap: 1rem;
+        }
+      }
+
+      @media (max-width: 22rem) {
+        .cta-group {
+          gap: 0.5rem;
+        }
+
+        .btn {
+          gap: 0.4rem;
+          padding: 0 0.75rem;
+        }
+      }
+
+      /* Browsers without container units: a plain fixed-size animation
+         with the replay control underneath. */
+      @supports not (height: 1cqh) {
+        .anim-box {
+          flex: none;
+          min-height: 0;
+          max-height: none;
+        }
+
+        .anim {
+          height: 40vh;
+        }
+
+        .replay {
+          position: relative;
+          bottom: auto;
+          left: auto;
+          margin-top: var(--gap-s);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero" data-check="hero">
+      <div class="masthead">
+        <a class="mark" href="./" aria-label="Divi — home">
+          <img data-check="icon" src="../../assets/img/icon.png" alt="" width="44" height="44" />
+        </a>
+      </div>
+      <h1 class="wordmark" data-check="wordmark">Divi</h1>
+    </header>
+
+    <main class="stage">
+      <div class="anim-box">
+        <img
+          class="anim"
+          id="anim"
+          data-check="anim"
+          src="../../assets/img/divi-web-charcoal-sage.svg"
+          alt="How Divi works: snap the receipt, everyone scans, tap what you had, settle up."
+          width="530"
+          height="655"
+        />
+        <button class="replay" id="replay" type="button" data-check="replay" aria-label="Replay animation">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+          Replay
+        </button>
+      </div>
+
+      <section class="cta" aria-labelledby="cta-prompt">
+        <p class="cta-prompt" id="cta-prompt" data-check="prompt">Text us to split your bill</p>
+        <div class="cta-group">
+          <a class="btn btn-whatsapp" data-check="whatsapp" href="https://wa.me/14785004378" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span><span class="long">Text Through </span>WhatsApp</span>
+          </a>
+          <a class="btn btn-imessage" data-check="imessage" href="sms:+14785004378">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+            <span><span class="long">Text Through </span>iMessage</span>
+          </a>
+        </div>
+        <p class="cta-hint" data-check="hint">Text us and we'll send you a link to start splitting — no download required.</p>
+      </section>
+    </main>
+
+    <footer class="footer" data-check="footer">
+      <div class="footer-group footer-legal">
+        <span class="footer-copy" data-check="copyright">&copy; 2026 Divi. All rights reserved.</span>
+        <a data-check="email" href="mailto:hello@justdivi.com">hello@justdivi.com</a>
+      </div>
+      <nav class="footer-group footer-links" aria-label="Legal">
+        <a data-check="tos" href="/tos">Terms of Service</a>
+        <a data-check="privacy" href="/privacy">Privacy Policy</a>
+      </nav>
+    </footer>
+
+    <script>
+      // Restart the one-shot SVG animation: a fresh query string makes the
+      // browser treat it as a new image, so the animation timeline restarts.
+      (function () {
+        var anim = document.getElementById('anim');
+        document.getElementById('replay').addEventListener('click', function () {
+          var src = anim.src.split('?')[0];
+          anim.src = src + '?' + Date.now();
+        });
+      })();
+    </script>
+  </body>
+</html>

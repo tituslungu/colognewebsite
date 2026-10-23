@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Divi Logo Concepts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* Layout: ranked concept rows; notes on the left, the live SVG tiles and homepage context on the right. */
+  :root {
+    --bg: #f2f3f1; --surface: #ffffff; --fg: #2d2d2d; --muted: #63665f; --line: #d9dcd7;
+    --accent: #3e7a5b; --tile-light: #fafaf8; --tile-dark: #2d2d2d;
+    --ok-bg: #dcefe4; --ok-fg: #24573c; --warn-bg: #f6e7c8; --warn-fg: #6b4a0e; --bad-bg: #f5d5d0; --bad-fg: #7a2318;
+    --font: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #1d1f1e; --surface: #272a28; --fg: #eeeeeb; --muted: #a4a8a2; --line: #3a3d3b; --accent: #8cc4a5;
+    --ok-bg: #23402f; --ok-fg: #a8dcbd; --warn-bg: #4a3a17; --warn-fg: #f0d394; --bad-bg: #4d2420; --bad-fg: #f3b3a9; color-scheme: dark } }
+  :root[data-theme="dark"] {
+    --bg: #1d1f1e; --surface: #272a28; --fg: #eeeeeb; --muted: #a4a8a2; --line: #3a3d3b; --accent: #8cc4a5;
+    --ok-bg: #23402f; --ok-fg: #a8dcbd; --warn-bg: #4a3a17; --warn-fg: #f0d394; --bad-bg: #4d2420; --bad-fg: #f3b3a9; color-scheme: dark }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.55 var(--font); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding-block: 40px 64px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  header { display: grid; gap: 14px; margin-bottom: 28px; }
+  .eyebrow { margin: 0; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; color: var(--accent); }
+  h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.1; letter-spacing: -.01em; text-wrap: balance; }
+  .lede { margin: 0; max-width: 66ch; color: var(--muted); }
+  .rec { margin: 0; max-width: 78ch; padding: 14px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+  .concept { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 32px; padding-block: 32px; border-top: 1px solid var(--line); }
+  .notes p { margin: 0 0 10px; }
+  .meta { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .rank { display: inline-block; min-width: 2.2em; padding: 2px 7px; margin-right: 4px; border-radius: 999px; background: var(--fg); color: var(--bg); text-align: center; letter-spacing: .02em; }
+  h2 { margin: 0 0 10px; font-size: 24px; line-height: 1.2; text-wrap: balance; }
+  .why { color: var(--muted); }
+  .verdict { padding-top: 6px; }
+  .concerns { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13.5px; }
+  .concerns li + li { margin-top: 4px; }
+  .tm { margin-top: 16px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-size: 13.5px; }
+  .tm p { margin: 0 0 8px; }
+  .tm-head { font-weight: 700; display: flex; gap: 8px; align-items: center; }
+  .risk { padding: 2px 8px; border-radius: 999px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+  .risk-low { background: var(--ok-bg); color: var(--ok-fg); }
+  .risk-medium { background: var(--warn-bg); color: var(--warn-fg); }
+  .risk-high { background: var(--bad-bg); color: var(--bad-fg); }
+  .marks { margin: 0; padding-left: 18px; }
+  .marks li + li { margin-top: 4px; }
+  .marks a { color: var(--accent); }
+  .sim { color: var(--muted); }
+  .visuals { display: grid; gap: 16px; min-width: 0; align-content: start; }
+  .round + .round { margin-top: 48px; }
+  .round-head { display: grid; gap: 10px; margin-bottom: 16px; }
+  .round-head h2 { margin: 0; font-size: clamp(22px, 3vw, 30px); line-height: 1.15; }
+  .ref { display: flex; align-items: center; gap: 12px; }
+  .ref img { border-radius: 14px; }
+  .dee { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 28px; padding-block: 28px; border-top: 1px solid var(--line); }
+  .dee h3 { margin: 0 0 10px; font-size: 24px; line-height: 1.2; }
+  .dee .notes p { margin: 0 0 10px; }
+  .dvis { display: grid; gap: 14px; min-width: 0; align-content: start; }
+  .mtx-scroll { overflow-x: auto; }
+  .mtx { border-collapse: separate; border-spacing: 8px 8px; margin: -8px; }
+  .mtx th { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-align: left; white-space: nowrap; padding-right: 6px; }
+  .mtx thead th { text-align: center; }
+  .dcell { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+  .dcell .big { width: 88px; height: 88px; border-radius: 20px; }
+  .dvis .wide { max-width: 360px; }
+  .dvis .wide img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
+  .mtx.fork th[scope="row"] { white-space: normal; min-width: 150px; max-width: 190px; text-transform: none; letter-spacing: 0; vertical-align: middle; }
+  .fname { display: block; font-size: 15px; color: var(--fg); margin-bottom: 4px; }
+  .fdesc { display: block; font-size: 12.5px; font-weight: 400; color: var(--muted); line-height: 1.4; }
+  .fbg { width: 104px; height: 104px; border-radius: 14px; display: grid; place-items: center; }
+  .fbg.bordered { border: 1px solid var(--line); }
+  .fbg img { width: 82px; height: 82px; }
+  .fapps { display: flex; gap: 10px; align-items: center; padding: 10px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+  .tab.light { background: #dee1e6; color: #222; }
+  .tab.dark { background: #35363a; color: #e8eaed; }
+  .fhero { display: block; width: 220px; height: auto; border-radius: 10px; }
+  .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  figure { margin: 0; display: grid; gap: 6px; min-width: 0; align-content: start; }
+  figcaption { font-size: 12px; color: var(--muted); letter-spacing: .02em; }
+  .tile { aspect-ratio: 1; max-width: 100%; border-radius: 12px; display: grid; place-items: center; overflow: hidden; }
+  .tile > img:only-child { width: 62%; height: 62%; }
+  .tile.light { background: var(--tile-light); border: 1px solid var(--line); }
+  .tile.icon > img { width: 100%; height: 100%; }
+  .words { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .word { height: 96px; border-radius: 12px; display: grid; place-items: center; padding: 16px 20px; }
+  .word img { max-width: 100%; max-height: 52px; }
+  .word.light { background: var(--tile-light); border: 1px solid var(--line); }
+  .word.dark { background: var(--tile-dark); }
+  .tile.photo { background-size: cover; background-position: center; }
+  .tile.sizes { background: var(--surface); border: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; align-content: center; padding: 8px; }
+  .circle { border-radius: 50%; }
+  .tab { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 6px; background: var(--bg); font-size: 12px; font-weight: 500; }
+  .tab img { border-radius: 3px; }
+  .context { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 150px); gap: 12px; align-items: end; }
+  .context img { display: block; width: 100%; height: auto; max-width: 100%; border: 1px solid var(--line); background: #2d2d2d; }
+  .wide img { border-radius: 10px; }
+  .ph img { border-radius: 18px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  @media (max-width: 900px) { .concept, .dee { grid-template-columns: minmax(0, 1fr); gap: 18px; } }
+  @media (max-width: 560px) {
+    .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .dcell .big { width: 64px; height: 64px; border-radius: 15px; }
+    .words { grid-template-columns: minmax(0, 1fr); }
+    .context { grid-template-columns: minmax(0, 1fr); }
+    .ph { max-width: 200px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">justdivi.com</p>
+    <h1>Divi logo concepts</h1>
+    <p class="lede">Newest at the top: round 4, the stylised D. Below it, Fork with white outlines for dark backgrounds, then round 3 (the tilted Table for Two and Fork).
+      Each shows the mark on white, as an app icon, on the table photo, as a round chat avatar (how most people will see it in WhatsApp and iMessage),
+      and in the corner of the homepage. Nothing on the site has changed.</p>
+    
+  </header>
+  
+  <section class="round" aria-labelledby="dee-title">
+    <div class="round-head">
+      <p class="eyebrow">Round 4</p>
+      <h2 id="dee-title">Stylised D</h2>
+      <p class="lede">A D in the style of the old Cologne C, plus two more minimal versions, each as an uppercase D and a lowercase d in five colour schemes, from a large tile down to a round chat avatar and a 16px browser tab. Each has its own trademark screen.</p>
+      <figure class="ref"><img src="cologne-c.png" width="72" height="70" alt="The original Cologne C icon"><figcaption>The original Cologne C, for reference</figcaption></figure>
+    </div>
+    
+    <section class="dee" id="dee-ribbon" aria-labelledby="dee-ribbon-name">
+      <div class="notes">
+        <h3 id="dee-ribbon-name">Cologne-style D</h3>
+        <p>The uppercase D is the Cologne C mirrored into a bowl and closed with a straight stem; the C's hooks become rounded loops in the stem's corners. The lowercase d uses the Cologne C itself as its bowl, attached to a tall stem.</p>
+        <p class="why">Same doubled line, hairpin turns, crescent and stroke weight as the C. Watch-outs: the lowercase can look like a © sign at 24–40px, and at 16px the d's inner lines merge into a solid bowl.</p>
+        
+      <div class="tm">
+        <p class="tm-head"><span class="risk risk-medium">medium risk</span> Uppercase D, trademark screen</p>
+        <p>Line-drawn Ds are common. The closest are Dailymotion's icon (a D with a second D line inside it) and Elegant Themes' Divi icon (an outlined D in a ring). Neither is in payments, and no payments or messaging brand found uses a double-line D.</p>
+        <ul class="marks"><li><a href="https://static.neon-ssr.dailymotion.com/neon-user-ssr/static/favicons/android-icon-192x192.12ce02f3a914dc2f3d6d.png" target="_blank" rel="noopener noreferrer">Dailymotion (current D icon)</a> <span class="sim">Online video platform &middot; medium similarity</span></li><li><a href="https://www.elegantthemes.com/images/favicon/favicon-divi-192.png" target="_blank" rel="noopener noreferrer">Divi by Elegant Themes (product icon)</a> <span class="sim">WordPress theme and website builder software &middot; medium similarity</span></li><li><a href="https://www.dash.org/wp-content/themes/dash-theme/img/icons/favicon/favicon-96x96.png" target="_blank" rel="noopener noreferrer">Dash (cryptocurrency)</a> <span class="sim">Crypto and payments &middot; low similarity</span></li></ul>
+      </div>
+        
+      <div class="tm">
+        <p class="tm-head"><span class="risk risk-medium">medium risk</span> Lowercase d, trademark screen</p>
+        <p>The closest is Deliverect, restaurant ordering software whose icon is a green lowercase d, and it sells to the same restaurants. D-EDGE (hotel software) is also similar.</p>
+        <ul class="marks"><li><a href="https://www.deliverect.com/images/apple-touch-icon.png" target="_blank" rel="noopener noreferrer">Deliverect</a> <span class="sim">Restaurant ordering and delivery software &middot; medium similarity</span></li><li><a href="https://www.d-edge.com/wp-content/themes/d-edge/img/apple-touch-icon.png" target="_blank" rel="noopener noreferrer">D-EDGE</a> <span class="sim">Hotel booking and distribution software &middot; medium similarity</span></li><li><a href="https://www.dayforce.com/favicon.ico" target="_blank" rel="noopener noreferrer">Dayforce</a> <span class="sim">Payroll, pay and HR software &middot; low similarity</span></li></ul>
+      </div>
+      </div>
+      <div class="dvis">
+        <div class="mtx-scroll"><table class="mtx">
+          <thead><tr><th></th><th>Uppercase D</th><th>Lowercase d</th></tr></thead>
+          <tbody><tr><th scope="row">Original blue</th><td><div class="dcell">
+        <img class="big" src="dee-ribbon/upper-blue.svg" alt="">
+        <img class="circle" src="dee-ribbon/upper-blue.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-ribbon/upper-blue.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-ribbon/lower-blue.svg" alt="">
+        <img class="circle" src="dee-ribbon/lower-blue.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-ribbon/lower-blue.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">Sage on white</th><td><div class="dcell">
+        <img class="big" src="dee-ribbon/upper-sage.svg" alt="">
+        <img class="circle" src="dee-ribbon/upper-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-ribbon/upper-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-ribbon/lower-sage.svg" alt="">
+        <img class="circle" src="dee-ribbon/lower-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-ribbon/lower-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">Sage on charcoal</th><td><div class="dcell">
+        <img class="big" src="dee-ribbon/upper-sage-dark.svg" alt="">
+        <img class="circle" src="dee-ribbon/upper-sage-dark.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-ribbon/upper-sage-dark.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-ribbon/lower-sage-dark.svg" alt="">
+        <img class="circle" src="dee-ribbon/lower-sage-dark.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-ribbon/lower-sage-dark.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">Charcoal</th><td><div class="dcell">
+        <img class="big" src="dee-ribbon/upper-charcoal.svg" alt="">
+        <img class="circle" src="dee-ribbon/upper-charcoal.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-ribbon/upper-charcoal.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-ribbon/lower-charcoal.svg" alt="">
+        <img class="circle" src="dee-ribbon/lower-charcoal.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-ribbon/lower-charcoal.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">White on sage</th><td><div class="dcell">
+        <img class="big" src="dee-ribbon/upper-white-sage.svg" alt="">
+        <img class="circle" src="dee-ribbon/upper-white-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-ribbon/upper-white-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-ribbon/lower-white-sage.svg" alt="">
+        <img class="circle" src="dee-ribbon/lower-white-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-ribbon/lower-white-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr></tbody>
+        </table></div>
+        <figure class="wide"><img src="dee-ribbon/preview/dee-hero.jpg" width="720" height="400" loading="lazy" alt="The Cologne-style D uppercase D, sage on charcoal, at the top left of option E"><figcaption>Uppercase D, sage on charcoal, at the top left of option E</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="dee" id="dee-mono" aria-labelledby="dee-mono-name">
+      <div class="notes">
+        <h3 id="dee-mono-name">Minimal D</h3>
+        <p>Each letter is one round-capped line that never quite closes: the D runs down its stem, round the bowl and stops just short of the stem; the d does the same around its bowl.</p>
+        <p class="why">Keeps the C's round-ended line, its weight and its open, not-quite-closed mouth, without the doubled line. At 16px the small gap closes up.</p>
+        
+      <div class="tm">
+        <p class="tm-head"><span class="risk risk-high">high risk</span> Uppercase D, trademark screen</p>
+        <p>Too close to OneDosh's registered D (US Reg. 8442961, registered Sept 2026 for payments and money transfer): a D drawn as one continuous curved line with a hook, inside a circle, which is how this D looks as a round chat avatar. I checked the registration myself.</p>
+        <ul class="marks"><li><a href="https://tsdr.uspto.gov/statusview/sn99152729" target="_blank" rel="noopener noreferrer">OneDosh's registered D (US Reg. 8442961)</a> <span class="sim">Payments and money transfer &middot; high similarity</span></li><li><a href="https://a.storyblok.com/f/267449/192x192/1aadc7dccc/fav.png/m/512x512" target="_blank" rel="noopener noreferrer">Dojo (Paymentsense) site icon 'D'</a> <span class="sim">Card payments and POS for restaurants and hospitality &middot; medium similarity</span></li><li><a href="https://www.elegantthemes.com/images/favicon/favicon-divi-192.png" target="_blank" rel="noopener noreferrer">Elegant Themes 'Divi' logo</a> <span class="sim">WordPress theme and website-builder software &middot; medium similarity</span></li></ul>
+      </div>
+        
+      <div class="tm">
+        <p class="tm-head"><span class="risk risk-low">low risk</span> Lowercase d, trademark screen</p>
+        <p>Reads as a plain rounded d; nothing found that copies it. The closest is Dayforce's lowercase d (payroll software).</p>
+        <ul class="marks"><li><a href="https://www.dayforce.com/favicon.ico" target="_blank" rel="noopener noreferrer">Dayforce lowercase 'd' logo</a> <span class="sim">HR, payroll and workforce software &middot; medium similarity</span></li><li><a href="https://www.deliverect.com/images/apple-touch-icon.png" target="_blank" rel="noopener noreferrer">Deliverect icon</a> <span class="sim">Restaurant online-ordering and delivery integration software &middot; low similarity</span></li><li><a href="https://tsdr.uspto.gov/statusview/sn88303744" target="_blank" rel="noopener noreferrer">NTT DOCOMO 'd' design mark (USPTO Serial 88303744)</a> <span class="sim">Mobile payments and payment software &middot; low similarity</span></li></ul>
+      </div>
+      </div>
+      <div class="dvis">
+        <div class="mtx-scroll"><table class="mtx">
+          <thead><tr><th></th><th>Uppercase D</th><th>Lowercase d</th></tr></thead>
+          <tbody><tr><th scope="row">Original blue</th><td><div class="dcell">
+        <img class="big" src="dee-mono/upper-blue.svg" alt="">
+        <img class="circle" src="dee-mono/upper-blue.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-mono/upper-blue.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-mono/lower-blue.svg" alt="">
+        <img class="circle" src="dee-mono/lower-blue.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-mono/lower-blue.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">Sage on white</th><td><div class="dcell">
+        <img class="big" src="dee-mono/upper-sage.svg" alt="">
+        <img class="circle" src="dee-mono/upper-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-mono/upper-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-mono/lower-sage.svg" alt="">
+        <img class="circle" src="dee-mono/lower-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-mono/lower-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">Sage on charcoal</th><td><div class="dcell">
+        <img class="big" src="dee-mono/upper-sage-dark.svg" alt="">
+        <img class="circle" src="dee-mono/upper-sage-dark.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-mono/upper-sage-dark.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-mono/lower-sage-dark.svg" alt="">
+        <img class="circle" src="dee-mono/lower-sage-dark.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-mono/lower-sage-dark.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">Charcoal</th><td><div class="dcell">
+        <img class="big" src="dee-mono/upper-charcoal.svg" alt="">
+        <img class="circle" src="dee-mono/upper-charcoal.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-mono/upper-charcoal.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-mono/lower-charcoal.svg" alt="">
+        <img class="circle" src="dee-mono/lower-charcoal.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-mono/lower-charcoal.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">White on sage</th><td><div class="dcell">
+        <img class="big" src="dee-mono/upper-white-sage.svg" alt="">
+        <img class="circle" src="dee-mono/upper-white-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-mono/upper-white-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-mono/lower-white-sage.svg" alt="">
+        <img class="circle" src="dee-mono/lower-white-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-mono/lower-white-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr></tbody>
+        </table></div>
+        <figure class="wide"><img src="dee-mono/preview/dee-hero.jpg" width="720" height="400" loading="lazy" alt="The Minimal D uppercase D, sage on charcoal, at the top left of option E"><figcaption>Uppercase D, sage on charcoal, at the top left of option E</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="dee" id="dee-min" aria-labelledby="dee-min-name">
+      <div class="notes">
+        <h3 id="dee-min-name">Most minimal D</h3>
+        <p>Each letter is just two round-capped strokes: a straight stem and a circular arc whose round tips rest on the stem. The uppercase is a stem with a reversed half-circle; the lowercase uses the Cologne C as its bowl on a tall stem.</p>
+        <p class="why">The C distilled to its round stroke and touching tips. It sits close to a rounded geometric font, so it is the least distinctive of the three.</p>
+        
+      <div class="tm">
+        <p class="tm-head"><span class="risk risk-high">high risk</span> Uppercase D, trademark screen</p>
+        <p>Very close to Elegant Themes' Divi icon, a white single-line D inside a ring; as a round chat avatar this D looks almost the same. DEUNA (payments) is also similar.</p>
+        <ul class="marks"><li><a href="https://www.elegantthemes.com/images/favicon/favicon-divi-192.png" target="_blank" rel="noopener noreferrer">Divi theme 'D' icon (Elegant Themes)</a> <span class="sim">Website-builder software / WordPress theme &middot; high similarity</span></li><li><a href="https://cdn.prod.website-files.com/6a8c5235b238a3ee4fb01363/6a8c5235b238a3ee4fb0147d_WEBCLIP.webp" target="_blank" rel="noopener noreferrer">DEUNA app icon</a> <span class="sim">Payments / checkout infrastructure &middot; medium similarity</span></li><li><a href="https://static.neon-ssr.dailymotion.com/neon-user-ssr/static/favicons/apple-icon-precomposed.12ce02f3a914dc2f3d6d.png" target="_blank" rel="noopener noreferrer">Dailymotion 'D' icon (2023)</a> <span class="sim">Video platform &middot; low similarity</span></li></ul>
+      </div>
+        
+      <div class="tm">
+        <p class="tm-head"><span class="risk risk-low">low risk</span> Lowercase d, trademark screen</p>
+        <p>Reads like the d of a rounded font; nothing found that copies it. The closest is Deel's 'd.' icon (payroll and payments).</p>
+        <ul class="marks"><li><a href="https://deel.com/apple-icon.png" target="_blank" rel="noopener noreferrer">Deel 'd.' icon</a> <span class="sim">Payroll / HR / global payments &middot; medium similarity</span></li><li><a href="https://commons.wikimedia.org/wiki/File:Dailymotion+Icon+Square.svg" target="_blank" rel="noopener noreferrer">Dailymotion lowercase 'd' icon (2015 to 2023, retired)</a> <span class="sim">Video platform &middot; low similarity</span></li><li><a href="https://deliverect.com/images/apple-touch-icon.png" target="_blank" rel="noopener noreferrer">Deliverect mark</a> <span class="sim">Restaurant online-ordering / order-management software &middot; low similarity</span></li></ul>
+      </div>
+      </div>
+      <div class="dvis">
+        <div class="mtx-scroll"><table class="mtx">
+          <thead><tr><th></th><th>Uppercase D</th><th>Lowercase d</th></tr></thead>
+          <tbody><tr><th scope="row">Original blue</th><td><div class="dcell">
+        <img class="big" src="dee-min/upper-blue.svg" alt="">
+        <img class="circle" src="dee-min/upper-blue.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-min/upper-blue.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-min/lower-blue.svg" alt="">
+        <img class="circle" src="dee-min/lower-blue.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-min/lower-blue.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">Sage on white</th><td><div class="dcell">
+        <img class="big" src="dee-min/upper-sage.svg" alt="">
+        <img class="circle" src="dee-min/upper-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-min/upper-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-min/lower-sage.svg" alt="">
+        <img class="circle" src="dee-min/lower-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-min/lower-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">Sage on charcoal</th><td><div class="dcell">
+        <img class="big" src="dee-min/upper-sage-dark.svg" alt="">
+        <img class="circle" src="dee-min/upper-sage-dark.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-min/upper-sage-dark.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-min/lower-sage-dark.svg" alt="">
+        <img class="circle" src="dee-min/lower-sage-dark.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-min/lower-sage-dark.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">Charcoal</th><td><div class="dcell">
+        <img class="big" src="dee-min/upper-charcoal.svg" alt="">
+        <img class="circle" src="dee-min/upper-charcoal.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-min/upper-charcoal.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-min/lower-charcoal.svg" alt="">
+        <img class="circle" src="dee-min/lower-charcoal.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-min/lower-charcoal.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr><tr><th scope="row">White on sage</th><td><div class="dcell">
+        <img class="big" src="dee-min/upper-white-sage.svg" alt="">
+        <img class="circle" src="dee-min/upper-white-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-min/upper-white-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td><td><div class="dcell">
+        <img class="big" src="dee-min/lower-white-sage.svg" alt="">
+        <img class="circle" src="dee-min/lower-white-sage.svg" width="40" height="40" alt="">
+        <span class="tab"><img src="dee-min/lower-white-sage.svg" width="16" height="16" alt="">Divi</span>
+      </div></td></tr></tbody>
+        </table></div>
+        <figure class="wide"><img src="dee-min/preview/dee-hero.jpg" width="720" height="400" loading="lazy" alt="The Most minimal D uppercase D, sage on charcoal, at the top left of option E"><figcaption>Uppercase D, sage on charcoal, at the top left of option E</figcaption></figure>
+      </div>
+    </section>
+  </section>
+  
+  <section class="round" aria-labelledby="fork-title">
+    <div class="round-head">
+      <p class="eyebrow">Fork, dark backgrounds</p>
+      <h2 id="fork-title">Fork in charcoal and two greens, on any background</h2>
+      <p class="lede">The version you liked, with a white edge so the charcoal piece still shows on dark backgrounds. The outlines follow each of the three pieces' contours. On white the edge disappears, and the app icon and chat avatar are plain white with no dark shape behind the logo.</p>
+    </div>
+    <div class="mtx-scroll"><table class="mtx fork">
+      <thead><tr><th></th><th>White</th><th>Light gray</th><th>Charcoal</th><th>Deep sage</th><th>Photo</th><th>App icon · avatar · tabs</th><th>Homepage corner</th></tr></thead>
+      <tbody>
+      <tr>
+        <th scope="row"><span class="fname">Original</span><span class="fdesc">The light-background Fork as it was: charcoal, sage and dark sage. On dark backgrounds the charcoal piece disappears.</span></th>
+        <td><div class="fbg bordered" style="background:var(--tile-light)"><img src="fork-dark/original-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#ecebe8"><img src="fork-dark/original-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#2d2d2d"><img src="fork-dark/original-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#24382e"><img src="fork-dark/original-mark.svg" alt=""></div></td><td><div class="fbg" style="background:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg') center/cover"><img src="fork-dark/original-mark.svg" alt=""></div></td>
+        <td><div class="fapps"><img src="fork-dark/original-app.svg" width="64" height="64" style="border-radius:15px" alt=""><img src="fork-dark/original-app.svg" width="40" height="40" style="border-radius:50%" alt="">
+          <span class="tab light"><img src="fork-dark/original-mark.svg" width="16" height="16" alt="">Divi</span><span class="tab dark"><img src="fork-dark/original-mark.svg" width="16" height="16" alt="">Divi</span></div></td>
+        <td><img class="fhero" src="fork-dark/preview/hero-original.jpg" width="300" height="143" loading="lazy" alt="Original at the top left of option E"></td>
+      </tr>
+      <tr>
+        <th scope="row"><span class="fname">Thin outline</span><span class="fdesc">A thin white line around each of the three pieces, following their contours.</span></th>
+        <td><div class="fbg bordered" style="background:var(--tile-light)"><img src="fork-dark/thin-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#ecebe8"><img src="fork-dark/thin-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#2d2d2d"><img src="fork-dark/thin-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#24382e"><img src="fork-dark/thin-mark.svg" alt=""></div></td><td><div class="fbg" style="background:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg') center/cover"><img src="fork-dark/thin-mark.svg" alt=""></div></td>
+        <td><div class="fapps"><img src="fork-dark/thin-app.svg" width="64" height="64" style="border-radius:15px" alt=""><img src="fork-dark/thin-app.svg" width="40" height="40" style="border-radius:50%" alt="">
+          <span class="tab light"><img src="fork-dark/thin-mark.svg" width="16" height="16" alt="">Divi</span><span class="tab dark"><img src="fork-dark/thin-mark.svg" width="16" height="16" alt="">Divi</span></div></td>
+        <td><img class="fhero" src="fork-dark/preview/hero-thin.jpg" width="300" height="143" loading="lazy" alt="Thin outline at the top left of option E"></td>
+      </tr>
+      <tr>
+        <th scope="row"><span class="fname">Medium outline</span><span class="fdesc">The same contour outline, a little heavier, so it holds up at small sizes.</span></th>
+        <td><div class="fbg bordered" style="background:var(--tile-light)"><img src="fork-dark/medium-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#ecebe8"><img src="fork-dark/medium-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#2d2d2d"><img src="fork-dark/medium-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#24382e"><img src="fork-dark/medium-mark.svg" alt=""></div></td><td><div class="fbg" style="background:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg') center/cover"><img src="fork-dark/medium-mark.svg" alt=""></div></td>
+        <td><div class="fapps"><img src="fork-dark/medium-app.svg" width="64" height="64" style="border-radius:15px" alt=""><img src="fork-dark/medium-app.svg" width="40" height="40" style="border-radius:50%" alt="">
+          <span class="tab light"><img src="fork-dark/medium-mark.svg" width="16" height="16" alt="">Divi</span><span class="tab dark"><img src="fork-dark/medium-mark.svg" width="16" height="16" alt="">Divi</span></div></td>
+        <td><img class="fhero" src="fork-dark/preview/hero-medium.jpg" width="300" height="143" loading="lazy" alt="Medium outline at the top left of option E"></td>
+      </tr>
+      <tr>
+        <th scope="row"><span class="fname">Heavy outline</span><span class="fdesc">A bolder contour outline; the three outlines still stay separate.</span></th>
+        <td><div class="fbg bordered" style="background:var(--tile-light)"><img src="fork-dark/heavy-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#ecebe8"><img src="fork-dark/heavy-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#2d2d2d"><img src="fork-dark/heavy-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#24382e"><img src="fork-dark/heavy-mark.svg" alt=""></div></td><td><div class="fbg" style="background:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg') center/cover"><img src="fork-dark/heavy-mark.svg" alt=""></div></td>
+        <td><div class="fapps"><img src="fork-dark/heavy-app.svg" width="64" height="64" style="border-radius:15px" alt=""><img src="fork-dark/heavy-app.svg" width="40" height="40" style="border-radius:50%" alt="">
+          <span class="tab light"><img src="fork-dark/heavy-mark.svg" width="16" height="16" alt="">Divi</span><span class="tab dark"><img src="fork-dark/heavy-mark.svg" width="16" height="16" alt="">Divi</span></div></td>
+        <td><img class="fhero" src="fork-dark/preview/hero-heavy.jpg" width="300" height="143" loading="lazy" alt="Heavy outline at the top left of option E"></td>
+      </tr>
+      <tr>
+        <th scope="row"><span class="fname">Sticker</span><span class="fdesc">The outlines grow until they merge into one white backing around the whole shape.</span></th>
+        <td><div class="fbg bordered" style="background:var(--tile-light)"><img src="fork-dark/sticker-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#ecebe8"><img src="fork-dark/sticker-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#2d2d2d"><img src="fork-dark/sticker-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#24382e"><img src="fork-dark/sticker-mark.svg" alt=""></div></td><td><div class="fbg" style="background:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg') center/cover"><img src="fork-dark/sticker-mark.svg" alt=""></div></td>
+        <td><div class="fapps"><img src="fork-dark/sticker-app.svg" width="64" height="64" style="border-radius:15px" alt=""><img src="fork-dark/sticker-app.svg" width="40" height="40" style="border-radius:50%" alt="">
+          <span class="tab light"><img src="fork-dark/sticker-mark.svg" width="16" height="16" alt="">Divi</span><span class="tab dark"><img src="fork-dark/sticker-mark.svg" width="16" height="16" alt="">Divi</span></div></td>
+        <td><img class="fhero" src="fork-dark/preview/hero-sticker.jpg" width="300" height="143" loading="lazy" alt="Sticker at the top left of option E"></td>
+      </tr>
+      <tr>
+        <th scope="row"><span class="fname">White circle</span><span class="fdesc">A white circle behind the logo, laid out exactly like the original round app icon.</span></th>
+        <td><div class="fbg bordered" style="background:var(--tile-light)"><img src="fork-dark/disc-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#ecebe8"><img src="fork-dark/disc-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#2d2d2d"><img src="fork-dark/disc-mark.svg" alt=""></div></td><td><div class="fbg" style="background:#24382e"><img src="fork-dark/disc-mark.svg" alt=""></div></td><td><div class="fbg" style="background:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg') center/cover"><img src="fork-dark/disc-mark.svg" alt=""></div></td>
+        <td><div class="fapps"><img src="fork-dark/disc-app.svg" width="64" height="64" style="border-radius:15px" alt=""><img src="fork-dark/disc-app.svg" width="40" height="40" style="border-radius:50%" alt="">
+          <span class="tab light"><img src="fork-dark/disc-mark.svg" width="16" height="16" alt="">Divi</span><span class="tab dark"><img src="fork-dark/disc-mark.svg" width="16" height="16" alt="">Divi</span></div></td>
+        <td><img class="fhero" src="fork-dark/preview/hero-disc.jpg" width="300" height="143" loading="lazy" alt="White circle at the top left of option E"></td>
+      </tr></tbody>
+    </table></div>
+  </section>
+  <section class="round" aria-labelledby="older-title"><div class="round-head"><p class="eyebrow">Round 3</p><h2 id="older-title">Table for Two, tilted, and Fork</h2></div>
+    <section class="concept" id="tilt-up-30" aria-labelledby="tilt-up-30-name">
+      <div class="notes">
+        <p class="meta">Table for Two, tilted</p>
+        <h2 id="tilt-up-30-name">Tilted 30°, rising</h2>
+        <p>The original Table for Two with nothing changed: a sage table with one diner above its left end and one below its right end, rotated so the table rises to the right at 30°.</p>
+        <p class="why">Rising to the right puts the two diners exactly where the circles of a % sign go, so this direction reads as a percent sign at small sizes.</p>
+        
+        
+        
+        <div class="tm">
+          <p class="tm-head"><span class="risk risk-medium">medium risk</span> Trademark screen</p>
+          <p>Everyone will read it as a percent sign. The closest real logo is Percent's, a slash rising to the right with a dot at top-left and bottom-right. Percent signs are common in finance and discount branding, so this would be hard to own even though no single owner looks likely to win a claim.</p>
+          <ul class="marks"><li><a href="https://percent.com" target="_blank" rel="noopener noreferrer">Percent logo (a slash with two solid dots)</a> <span class="sim">Fintech, private credit &middot; medium similarity</span></li><li><a href="https://trademark.justia.com/791/97/n-79197716.html" target="_blank" rel="noopener noreferrer">Coral percent sign with a smile band (US Reg. 5483039)</a> <span class="sim">Advertising and price comparison &middot; low similarity</span></li><li><a href="https://trademark.justia.com/791/95/arabica-79195078.html" target="_blank" rel="noopener noreferrer">% Arabica (US Reg. 5197858)</a> <span class="sim">Coffee shops &middot; low similarity</span></li></ul>
+        </div>
+      </div>
+      <div class="visuals">
+        <div class="tiles">
+          <figure><div class="tile light"><img src="tilt-up-30/mark.svg" alt="Tilted 30°, rising mark on white"></div><figcaption>On white</figcaption></figure>
+          <figure><div class="tile icon"><img src="tilt-up-30/app-icon.svg" alt="Tilted 30°, rising app icon"></div><figcaption>App icon</figcaption></figure>
+          <figure><div class="tile photo" style="background-image:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg')"><img src="tilt-up-30/mark-mono.svg" alt="Tilted 30°, rising one-colour mark on the photo"></div><figcaption>One colour</figcaption></figure>
+          <figure><div class="tile sizes">
+              <img class="circle" src="tilt-up-30/app-icon.svg" width="72" height="72" alt="Tilted 30°, rising as a round chat avatar">
+              <img class="circle" src="tilt-up-30/app-icon.svg" width="40" height="40" alt="">
+              <span class="tab"><img src="tilt-up-30/app-icon.svg" width="16" height="16" alt="">Divi</span>
+            </div><figcaption>Avatar &middot; 40px &middot; tab</figcaption></figure>
+        </div>
+        <div class="words">
+          <figure><div class="word light"><img src="tilt-up-30/lockup.svg" alt="Tilted 30°, rising with the DIVI wordmark on white"></div></figure>
+          <figure><div class="word dark"><img src="tilt-up-30/lockup-reverse.svg" alt="Tilted 30°, rising with the DIVI wordmark on charcoal"></div></figure>
+        </div>
+        <div class="context">
+          <figure class="wide"><img src="tilt-up-30/preview/hero.jpg" width="1200" height="480" loading="lazy" alt="Top-left of the homepage with the Tilted 30°, rising icon"><figcaption>Homepage corner</figcaption></figure>
+          <figure class="ph"><img src="tilt-up-30/preview/e-phone.jpg" width="329" height="560" loading="lazy" alt="Option E on a phone with the Tilted 30°, rising icon"><figcaption>Option E, phone</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="tilt-up-40" aria-labelledby="tilt-up-40-name">
+      <div class="notes">
+        <p class="meta">Table for Two, tilted</p>
+        <h2 id="tilt-up-40-name">Tilted 40°, rising</h2>
+        <p>The original Table for Two with nothing changed: a sage table with one diner above its left end and one below its right end, rotated so the table rises to the right at 40°.</p>
+        <p class="why">The steeper angle makes the table read more like a slash, so the % resemblance is even stronger than at 30°.</p>
+        
+        
+        
+        <div class="tm">
+          <p class="tm-head"><span class="risk risk-medium">medium risk</span> Trademark screen</p>
+          <p>The same percent-sign reading, and at 40° it sits even closer to the 45° slash in Percent's logo, so of the four this is the one most likely to be seen as their kind of mark.</p>
+          <ul class="marks"><li><a href="https://percent.com" target="_blank" rel="noopener noreferrer">Percent logo (a slash with two solid dots)</a> <span class="sim">Fintech, private credit &middot; medium similarity</span></li><li><a href="https://trademark.justia.com/791/97/n-79197716.html" target="_blank" rel="noopener noreferrer">Coral percent sign with a smile band (US Reg. 5483039)</a> <span class="sim">Advertising and price comparison &middot; low similarity</span></li><li><a href="https://trademark.justia.com/791/95/arabica-79195078.html" target="_blank" rel="noopener noreferrer">% Arabica (US Reg. 5197858)</a> <span class="sim">Coffee shops &middot; low similarity</span></li></ul>
+        </div>
+      </div>
+      <div class="visuals">
+        <div class="tiles">
+          <figure><div class="tile light"><img src="tilt-up-40/mark.svg" alt="Tilted 40°, rising mark on white"></div><figcaption>On white</figcaption></figure>
+          <figure><div class="tile icon"><img src="tilt-up-40/app-icon.svg" alt="Tilted 40°, rising app icon"></div><figcaption>App icon</figcaption></figure>
+          <figure><div class="tile photo" style="background-image:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg')"><img src="tilt-up-40/mark-mono.svg" alt="Tilted 40°, rising one-colour mark on the photo"></div><figcaption>One colour</figcaption></figure>
+          <figure><div class="tile sizes">
+              <img class="circle" src="tilt-up-40/app-icon.svg" width="72" height="72" alt="Tilted 40°, rising as a round chat avatar">
+              <img class="circle" src="tilt-up-40/app-icon.svg" width="40" height="40" alt="">
+              <span class="tab"><img src="tilt-up-40/app-icon.svg" width="16" height="16" alt="">Divi</span>
+            </div><figcaption>Avatar &middot; 40px &middot; tab</figcaption></figure>
+        </div>
+        <div class="words">
+          <figure><div class="word light"><img src="tilt-up-40/lockup.svg" alt="Tilted 40°, rising with the DIVI wordmark on white"></div></figure>
+          <figure><div class="word dark"><img src="tilt-up-40/lockup-reverse.svg" alt="Tilted 40°, rising with the DIVI wordmark on charcoal"></div></figure>
+        </div>
+        <div class="context">
+          <figure class="wide"><img src="tilt-up-40/preview/hero.jpg" width="1200" height="480" loading="lazy" alt="Top-left of the homepage with the Tilted 40°, rising icon"><figcaption>Homepage corner</figcaption></figure>
+          <figure class="ph"><img src="tilt-up-40/preview/e-phone.jpg" width="329" height="560" loading="lazy" alt="Option E on a phone with the Tilted 40°, rising icon"><figcaption>Option E, phone</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="tilt-down-30" aria-labelledby="tilt-down-30-name">
+      <div class="notes">
+        <p class="meta">Table for Two, tilted</p>
+        <h2 id="tilt-down-30-name">Tilted 30°, falling</h2>
+        <p>The original Table for Two with nothing changed: a sage table with one diner above its left end and one below its right end, rotated so the table falls to the right at 30°.</p>
+        <p class="why">Falling to the right keeps the diners at the outer ends of the table, so it reads as a tilted divide sign rather than a %.</p>
+        
+        
+        
+        <div class="tm">
+          <p class="tm-head"><span class="risk risk-low">low risk</span> Trademark screen</p>
+          <p>Reads as a tilted divide sign. No fintech, payments or restaurant brand found uses one; it shares only loose traits with Cash App's $, the Zelle Z and BILL's Divvy V. The lowest risk of the four.</p>
+          <ul class="marks"><li><a href="https://tsdr.uspto.gov/statusview/sn90545019" target="_blank" rel="noopener noreferrer">BILL's Divvy V mark (US Reg. 6784829)</a> <span class="sim">Spend management &middot; low similarity</span></li><li><a href="https://cash.app/us/en/legal/copyright-trademark" target="_blank" rel="noopener noreferrer">Cash App $ icon</a> <span class="sim">Payments &middot; low similarity</span></li><li><a href="https://www.earlywarning.com/early-warning-trademarks" target="_blank" rel="noopener noreferrer">Zelle Z</a> <span class="sim">Bank payments &middot; low similarity</span></li></ul>
+        </div>
+      </div>
+      <div class="visuals">
+        <div class="tiles">
+          <figure><div class="tile light"><img src="tilt-down-30/mark.svg" alt="Tilted 30°, falling mark on white"></div><figcaption>On white</figcaption></figure>
+          <figure><div class="tile icon"><img src="tilt-down-30/app-icon.svg" alt="Tilted 30°, falling app icon"></div><figcaption>App icon</figcaption></figure>
+          <figure><div class="tile photo" style="background-image:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg')"><img src="tilt-down-30/mark-mono.svg" alt="Tilted 30°, falling one-colour mark on the photo"></div><figcaption>One colour</figcaption></figure>
+          <figure><div class="tile sizes">
+              <img class="circle" src="tilt-down-30/app-icon.svg" width="72" height="72" alt="Tilted 30°, falling as a round chat avatar">
+              <img class="circle" src="tilt-down-30/app-icon.svg" width="40" height="40" alt="">
+              <span class="tab"><img src="tilt-down-30/app-icon.svg" width="16" height="16" alt="">Divi</span>
+            </div><figcaption>Avatar &middot; 40px &middot; tab</figcaption></figure>
+        </div>
+        <div class="words">
+          <figure><div class="word light"><img src="tilt-down-30/lockup.svg" alt="Tilted 30°, falling with the DIVI wordmark on white"></div></figure>
+          <figure><div class="word dark"><img src="tilt-down-30/lockup-reverse.svg" alt="Tilted 30°, falling with the DIVI wordmark on charcoal"></div></figure>
+        </div>
+        <div class="context">
+          <figure class="wide"><img src="tilt-down-30/preview/hero.jpg" width="1200" height="480" loading="lazy" alt="Top-left of the homepage with the Tilted 30°, falling icon"><figcaption>Homepage corner</figcaption></figure>
+          <figure class="ph"><img src="tilt-down-30/preview/e-phone.jpg" width="329" height="560" loading="lazy" alt="Option E on a phone with the Tilted 30°, falling icon"><figcaption>Option E, phone</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="tilt-down-40" aria-labelledby="tilt-down-40-name">
+      <div class="notes">
+        <p class="meta">Table for Two, tilted</p>
+        <h2 id="tilt-down-40-name">Tilted 40°, falling</h2>
+        <p>The original Table for Two with nothing changed: a sage table with one diner above its left end and one below its right end, rotated so the table falls to the right at 40°.</p>
+        <p class="why">At 40° the diners sit almost directly above and below the table's ends, which makes the divide-sign reading strongest.</p>
+        
+        
+        
+        <div class="tm">
+          <p class="tm-head"><span class="risk risk-low">low risk</span> Trademark screen</p>
+          <p>Also a tilted divide sign with no brand found using one. At 40° the top dot shifts toward the upper right, a small step closer to BILL's Divvy V (a falling bar with one circle) and to a slanted $. Still low, but slightly above the 30° version.</p>
+          <ul class="marks"><li><a href="https://tsdr.uspto.gov/statusview/sn90545019" target="_blank" rel="noopener noreferrer">BILL's Divvy V mark (US Reg. 6784829)</a> <span class="sim">Spend management &middot; low similarity</span></li><li><a href="https://cash.app/us/en/legal/copyright-trademark" target="_blank" rel="noopener noreferrer">Cash App $ icon</a> <span class="sim">Payments &middot; low similarity</span></li><li><a href="https://www.earlywarning.com/early-warning-trademarks" target="_blank" rel="noopener noreferrer">Zelle Z</a> <span class="sim">Bank payments &middot; low similarity</span></li></ul>
+        </div>
+      </div>
+      <div class="visuals">
+        <div class="tiles">
+          <figure><div class="tile light"><img src="tilt-down-40/mark.svg" alt="Tilted 40°, falling mark on white"></div><figcaption>On white</figcaption></figure>
+          <figure><div class="tile icon"><img src="tilt-down-40/app-icon.svg" alt="Tilted 40°, falling app icon"></div><figcaption>App icon</figcaption></figure>
+          <figure><div class="tile photo" style="background-image:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg')"><img src="tilt-down-40/mark-mono.svg" alt="Tilted 40°, falling one-colour mark on the photo"></div><figcaption>One colour</figcaption></figure>
+          <figure><div class="tile sizes">
+              <img class="circle" src="tilt-down-40/app-icon.svg" width="72" height="72" alt="Tilted 40°, falling as a round chat avatar">
+              <img class="circle" src="tilt-down-40/app-icon.svg" width="40" height="40" alt="">
+              <span class="tab"><img src="tilt-down-40/app-icon.svg" width="16" height="16" alt="">Divi</span>
+            </div><figcaption>Avatar &middot; 40px &middot; tab</figcaption></figure>
+        </div>
+        <div class="words">
+          <figure><div class="word light"><img src="tilt-down-40/lockup.svg" alt="Tilted 40°, falling with the DIVI wordmark on white"></div></figure>
+          <figure><div class="word dark"><img src="tilt-down-40/lockup-reverse.svg" alt="Tilted 40°, falling with the DIVI wordmark on charcoal"></div></figure>
+        </div>
+        <div class="context">
+          <figure class="wide"><img src="tilt-down-40/preview/hero.jpg" width="1200" height="480" loading="lazy" alt="Top-left of the homepage with the Tilted 40°, falling icon"><figcaption>Homepage corner</figcaption></figure>
+          <figure class="ph"><img src="tilt-down-40/preview/e-phone.jpg" width="329" height="560" loading="lazy" alt="Option E on a phone with the Tilted 40°, falling icon"><figcaption>Option E, phone</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="bubble-4" aria-labelledby="bubble-4-name">
+      <div class="notes">
+        <p class="meta">From round 2</p>
+        <h2 id="bubble-4-name">Fork</h2>
+        <p>A round chat bubble with one cut that rises out of the tail on a diagonal, turns straight up, and sends a horizontal branch to the right edge. That gives three unequal shares of about 61/29/11: the speaking piece with the tail (charcoal on light, off-white on dark), a sage share, and a small corner share (dark sage #3E7A5B on light, light sage #8CC4A5 on dark).</p>
+        <p class="why">This is the closest descendant of the round-1 split bubble. It keeps the detail where the cut runs on as the edge of the tail, and adds the extra splits you asked for. The cuts run at three angles (diagonal, vertical, horizontal) and the cut line bends, so no straight cut runs through the bubble. The shares are clearly unequal, which fits Divi's 'pay for what you had'.</p>
+        <p class="verdict"><strong>Status:</strong> Still a maybe from round 2.</p>
+        <ul class="concerns"><li>At 40-120px the speaking piece reads as a map pin or teardrop and the green pieces read as pie-chart wedges. The brief lists generic pie charts as something to avoid.</li><li>The 20° bend where the diagonal turns vertical looks like a crooked cut, not a deliberate one.</li></ul>
+        
+        <div class="tm">
+          <p class="tm-head"><span class="risk risk-medium">medium risk</span> Trademark screen</p>
+          <p>No registered mark copies Fork's cut. Its risks are two neighbours: a small bill-splitting app (Splitz) whose icon is also an off-white circle on a charcoal tile, cut by a diagonal gap into a large piece and a detached wedge; and WhatsApp's round bubble with a tail at the lower left, which WhatsApp has now filed for bill-payment services. Divi will appear inside WhatsApp chats, so a green-tinted bubble with a lower-left tail could look like an official WhatsApp feature.</p>
+          <ul class="marks"><li><a href="https://tsdr.uspto.gov/statusview/sn99088567" target="_blank" rel="noopener noreferrer">WhatsApp bubble logo (US App. 99088567, Class 36 incl. bill payment, allowed Feb 2026; also US Reg. 7031241)</a> <span class="sim">messaging / payments &middot; medium similarity</span></li><li><a href="https://apps.apple.com/us/app/-/id6743405186" target="_blank" rel="noopener noreferrer">Splitz: Track &amp; Split Expenses (app icon)</a> <span class="sim">bill splitting &middot; medium similarity</span></li><li><a href="https://apps.apple.com/us/app/tikkie/id1112935685" target="_blank" rel="noopener noreferrer">Tikkie (app icon)</a> <span class="sim">payment requests / bill splitting sent over WhatsApp (NL/BE/DE) &middot; medium similarity</span></li></ul>
+        </div>
+      </div>
+      <div class="visuals">
+        <div class="tiles">
+          <figure><div class="tile light"><img src="bubble-4/mark.svg" alt="Fork mark on white"></div><figcaption>On white</figcaption></figure>
+          <figure><div class="tile icon"><img src="bubble-4/app-icon.svg" alt="Fork app icon"></div><figcaption>App icon</figcaption></figure>
+          <figure><div class="tile photo" style="background-image:linear-gradient(rgba(11,11,11,.5),rgba(11,11,11,.42)),url('../../assets/img/table.jpg')"><img src="bubble-4/mark-mono.svg" alt="Fork one-colour mark on the photo"></div><figcaption>One colour</figcaption></figure>
+          <figure><div class="tile sizes">
+              <img class="circle" src="bubble-4/app-icon.svg" width="72" height="72" alt="Fork as a round chat avatar">
+              <img class="circle" src="bubble-4/app-icon.svg" width="40" height="40" alt="">
+              <span class="tab"><img src="bubble-4/app-icon.svg" width="16" height="16" alt="">Divi</span>
+            </div><figcaption>Avatar &middot; 40px &middot; tab</figcaption></figure>
+        </div>
+        <div class="words">
+          <figure><div class="word light"><img src="bubble-4/lockup.svg" alt="Fork with the DIVI wordmark on white"></div></figure>
+          <figure><div class="word dark"><img src="bubble-4/lockup-reverse.svg" alt="Fork with the DIVI wordmark on charcoal"></div></figure>
+        </div>
+        <div class="context">
+          <figure class="wide"><img src="bubble-4/preview/hero.jpg" width="1200" height="480" loading="lazy" alt="Top-left of the homepage with the Fork icon"><figcaption>Homepage corner</figcaption></figure>
+          <figure class="ph"><img src="bubble-4/preview/e-phone.jpg" width="329" height="560" loading="lazy" alt="Option E on a phone with the Fork icon"><figcaption>Option E, phone</figcaption></figure>
+        </div>
+      </div>
+    </section></section>
+</div>
+</body>
+</html>

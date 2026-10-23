@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="en" data-footer-variants>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="../preview.js"></script>
+    <title>Divi</title>
+    <meta name="description" content="Divi — split bills instantly, no app needed." />
+    <meta name="theme-color" content="#2D2D2D" />
+    <link rel="icon" href="../../assets/img/icon.png" />
+    <link rel="apple-touch-icon" href="../../assets/img/icon.png" />
+    <link rel="preload" as="image" href="../../assets/img/table.jpg" />
+    <style>
+      /* ------------------------------------------------------------------
+         Concept C — "Overlap card"
+         The animation is a charcoal card that rises out of the lower panel
+         and over the bottom edge of the photo, tying the two halves together.
+         Phones / portrait: photo + DIVI on top, card centred over the edge,
+         call to action underneath. Wide screens: DIVI and the call to action
+         share a left column; the card straddles the edge on the right.
+         ------------------------------------------------------------------ */
+
+      :root {
+        --charcoal: #2D2D2D;
+        --font: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system,
+          Arial, sans-serif;
+        --edge: clamp(1.25rem, 4vw, 3rem);
+        --wrap: 1180px;
+
+        /* Tone tokens — gray (default) */
+        --bg: #2D2D2D;
+        --text: #F0EFED;
+        --muted: #A3A09C;
+        --prompt: #6FAF8E;
+        --fill: #6FAF8E;
+        --fill-hover: #8CC4A5;
+        --on-fill: #2D2D2D;
+        --line: #6FAF8E;
+        --on-line: #F0EFED;
+        --line-hover: rgba(111, 175, 142, 0.16);
+        --link: #F0EFED;
+        --link-hover: #8CC4A5;
+        --focus: #8CC4A5;
+        /* Gray: the panel is the card's own charcoal, so the rim does the
+           work of marking the card's edge all the way round. */
+        --card-ring: rgba(255, 255, 255, 0.2);
+        --card-ring-low: rgba(255, 255, 255, 0.08);
+        --card-shadow: 0 34px 70px -22px rgba(0, 0, 0, 0.8),
+          0 14px 28px -14px rgba(0, 0, 0, 0.55);
+        /* Footer follows the tone unless a footer variant overrides it */
+        --footer-bg: transparent;
+        --footer-text: var(--muted);
+        --footer-link: var(--link);
+        --footer-link-hover: var(--link-hover);
+        --footer-focus: var(--focus);
+
+        /* Geometry (phones / portrait first) */
+        --hero-h: clamp(170px, 33vh, 340px);
+        --overlap: calc(var(--hero-h) * 0.3);
+        --card-min: 13rem;
+        --card-max: 640px;
+        --wm: clamp(2.75rem, min(15vw, calc(var(--hero-h) * 0.3)), 7rem);
+      }
+
+      @supports (height: 1svh) {
+        :root {
+          --hero-h: clamp(170px, 33svh, 340px);
+        }
+      }
+
+      html[data-tone="white"] {
+        --bg: #FAFAF8;
+        --text: #2D2D2D;
+        --muted: #66635F;
+        --prompt: #3E7A5B;
+        --fill: #6FAF8E;
+        --fill-hover: #8CC4A5;
+        --on-fill: #2D2D2D;
+        --line: #3E7A5B;
+        --on-line: #2D2D2D;
+        --line-hover: rgba(62, 122, 91, 0.09);
+        --link: #2D2D2D;
+        --link-hover: #3E7A5B;
+        --focus: #3E7A5B;
+        --card-ring: rgba(255, 255, 255, 0.14);
+        --card-ring-low: rgba(255, 255, 255, 0.04);
+        --card-shadow: 0 34px 64px -26px rgba(45, 45, 45, 0.55),
+          0 12px 26px -14px rgba(45, 45, 45, 0.35);
+      }
+
+      /* White tone with a gray footer band: charcoal (the card's colour) or a
+         light gray one step down from the white panel. */
+      html[data-tone="white"][data-footer="charcoal"] {
+        --footer-bg: #2D2D2D;
+        --footer-text: #A3A09C;
+        --footer-link: #F0EFED;
+        --footer-link-hover: #8CC4A5;
+        --footer-focus: #8CC4A5;
+      }
+
+      html[data-tone="white"][data-footer="light"] {
+        --footer-bg: #ECEBE8;
+        --footer-text: #5F5C58;
+        --footer-link: #2D2D2D;
+        --footer-link-hover: #3E7A5B;
+        --footer-focus: #3E7A5B;
+      }
+
+      html[data-tone="sage"] {
+        --bg: #24382E;
+        --text: #F0EFED;
+        --muted: #A9BDB2;
+        --prompt: #8CC4A5;
+        --fill: #6FAF8E;
+        --fill-hover: #8CC4A5;
+        --on-fill: #1F2F27;
+        --line: #6FAF8E;
+        --on-line: #F0EFED;
+        --line-hover: rgba(111, 175, 142, 0.18);
+        --link: #F0EFED;
+        --link-hover: #8CC4A5;
+        --focus: #8CC4A5;
+        --card-ring: rgba(255, 255, 255, 0.14);
+        --card-ring-low: rgba(255, 255, 255, 0.04);
+        --card-shadow: 0 34px 70px -22px rgba(6, 16, 11, 0.75),
+          0 14px 28px -14px rgba(6, 16, 11, 0.5);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        background: var(--bg);
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font);
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wrap {
+        width: 100%;
+        max-width: calc(var(--wrap) + 2 * var(--edge));
+        margin-inline: auto;
+        padding-inline: var(--edge);
+      }
+
+      /* ---------------- Photo band ---------------- */
+
+      .hero {
+        position: relative;
+        flex: none;
+        height: var(--hero-h);
+        background: var(--charcoal) url("../../assets/img/table.jpg") center 46% / cover no-repeat;
+        color: #fff;
+      }
+
+      /* The original scrim, a touch firmer because the band is short. */
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(11, 11, 11, 0.6) 0%,
+          rgba(11, 11, 11, 0.44) 34%,
+          rgba(11, 11, 11, 0.46) 70%,
+          rgba(11, 11, 11, 0.7) 100%
+        );
+      }
+
+      .hero-inner {
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-top: clamp(0.875rem, 2.6vh, 1.75rem);
+        padding-bottom: var(--overlap);
+      }
+
+      .mark {
+        position: relative;
+        align-self: flex-start;
+        display: inline-block;
+        line-height: 0;
+        border-radius: 8px;
+      }
+
+      /* 36px icon on phones; keep the tap area at least 44px */
+      .mark::after {
+        content: "";
+        position: absolute;
+        inset: -5px;
+      }
+
+      .mark img {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: block;
+        transition: opacity 0.2s ease;
+      }
+
+      .mark:hover img {
+        opacity: 0.8;
+      }
+
+      .wordmark-row {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+      }
+
+      .wordmark {
+        margin: 0;
+        font-size: var(--wm);
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-indent: 0.12em;
+        text-transform: uppercase;
+        color: #fff;
+        white-space: nowrap;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+        /* The icon adds weight above; sit the word a hair high. */
+        transform: translateY(-6%);
+      }
+
+      /* ---------------- Lower panel ---------------- */
+
+      .lower {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      /* Holds the card. It takes whatever height is left over, and its size
+         (not its content) drives the card, so the animation is the part that
+         flexes. */
+      .stage {
+        position: relative;
+        z-index: 2;
+        flex: 1 1 0;
+        min-height: var(--card-min);
+        /* Never taller than the card can get, so on very tall screens the
+           spare height goes around the call to action, not under the card. */
+        max-height: min(
+          var(--card-max),
+          calc((100vw - 2 * var(--edge)) * 655 / 530)
+        );
+        margin-top: calc(-1 * var(--overlap));
+        container-type: size;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .card {
+        /* Height from the leftover space (stage container), width from the
+           SVG's own 530:655 ratio, so the frame hugs the illustration. */
+        --card-h: min(100cqh, calc(100cqw * 655 / 530), var(--card-max));
+        position: relative;
+        flex: none;
+        margin: 0;
+        height: var(--card-h);
+        width: calc(var(--card-h) * 530 / 655);
+        container-type: inline-size;
+        border-radius: 16px;
+        overflow: hidden;
+        /* 1px light rim, brighter at the top edge where it meets the photo */
+        border: 1px solid transparent;
+        background:
+          linear-gradient(var(--charcoal), var(--charcoal)) padding-box,
+          linear-gradient(to bottom, var(--card-ring), var(--card-ring-low) 55%) border-box;
+        box-shadow: var(--card-shadow);
+      }
+
+      .card img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      /* Top-right corner: the one region of the illustration that never
+         animates (the hand, labels and dots all live lower down). */
+      .replay {
+        position: absolute;
+        top: clamp(7px, 2.8cqw, 14px);
+        right: clamp(7px, 2.8cqw, 14px);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+        padding: 0.6em 0.95em 0.6em 0.8em;
+        border: 1px solid rgba(240, 239, 237, 0.16);
+        border-radius: 999px;
+        background: rgba(45, 45, 45, 0.82);
+        color: #D9D7D3;
+        font: 600 clamp(11px, 4.6cqw, 12.5px)/1 var(--font);
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+
+      /* Bigger hit area without changing the pill's look */
+      .replay::after {
+        content: "";
+        position: absolute;
+        inset: -10px -6px;
+      }
+
+      .replay svg {
+        width: 1.25em;
+        height: 1.25em;
+      }
+
+      .replay:hover {
+        color: #8CC4A5;
+        border-color: rgba(140, 196, 165, 0.5);
+      }
+
+      /* ---------------- Call to action ---------------- */
+
+      .cta {
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-block: auto;
+        padding-top: clamp(0.9rem, 2.6vh, 1.75rem);
+      }
+
+      .prompt br {
+        display: none;
+      }
+
+      .prompt {
+        margin: 0;
+        font-size: clamp(1.125rem, 3vh, 1.5rem);
+        line-height: 1.25;
+        font-weight: 700;
+        letter-spacing: 0.005em;
+        color: var(--prompt);
+      }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+        gap: 0.625rem;
+        width: 100%;
+        margin-top: clamp(0.6rem, 1.6vh, 0.9rem);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 46px;
+        padding: 0 1.3rem;
+        border-radius: 999px;
+        border: 2px solid transparent;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color 0.2s ease, border-color 0.2s ease,
+          color 0.2s ease, transform 0.15s ease;
+      }
+
+      .btn:active {
+        transform: scale(0.97);
+      }
+
+      .btn svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+
+      .btn-whatsapp {
+        background: var(--fill);
+        border-color: var(--fill);
+        color: var(--on-fill);
+      }
+
+      .btn-whatsapp:hover {
+        background: var(--fill-hover);
+        border-color: var(--fill-hover);
+      }
+
+      .btn-imessage {
+        background: transparent;
+        border-color: var(--line);
+        color: var(--on-line);
+      }
+
+      .btn-imessage:hover {
+        background: var(--line-hover);
+      }
+
+      .hint {
+        margin: clamp(0.5rem, 1.4vh, 0.8rem) 0 0;
+        max-width: 34ch;
+        font-size: 0.8125rem;
+        line-height: 1.45;
+        letter-spacing: 0.01em;
+        color: var(--muted);
+        text-wrap: pretty;
+      }
+
+      /* ---------------- Footer ---------------- */
+
+      .footer {
+        flex: none;
+        /* at least 14px, so the links' enlarged tap areas stay inside */
+        padding-block: clamp(0.875rem, 2.2vh, 1.25rem);
+        font-size: 0.75rem;
+        line-height: 1.4;
+        letter-spacing: 0.04em;
+        color: var(--footer-text);
+        background: var(--footer-bg);
+      }
+
+      /* A coloured band needs air above it; the card absorbs the difference. */
+      html[data-tone="white"][data-footer] .footer {
+        margin-top: clamp(0.75rem, 2.2vh, 1.25rem);
+      }
+
+      /* Short screens: the card is already at its floor, so keep the air small. */
+      @media (max-height: 600px) {
+        html[data-tone="white"][data-footer] .footer {
+          margin-top: 0.5rem;
+        }
+      }
+
+      .footer-inner {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem 2rem;
+      }
+
+      .footer-group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.4rem 1.75rem;
+      }
+
+      .footer a {
+        position: relative;
+        color: var(--footer-link);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      /* 44px+ tap area for the small links, without moving anything */
+      .footer a::after {
+        content: "";
+        position: absolute;
+        inset: -14px -8px;
+      }
+
+      .footer a:hover {
+        color: var(--footer-link-hover);
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      .footer :focus-visible {
+        outline-color: var(--footer-focus);
+      }
+
+      .hero :focus-visible {
+        outline-color: #fff;
+      }
+
+      .card .replay:focus-visible {
+        outline-color: #8CC4A5;
+      }
+
+      /* ---------------- Phones ---------------- */
+
+      /* Narrow phones and short landscape phones: short labels keep both
+         buttons on one row; the hidden words keep the accessible name
+         complete ("Text Through WhatsApp"). */
+      @media (max-width: 539px), (max-height: 520px) and (orientation: landscape) {
+        .btn .long {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0 0 0 0);
+          white-space: nowrap;
+        }
+      }
+
+      @media (max-width: 539px) {
+        .btn {
+          flex: 1 1 0;
+          max-width: 11rem;
+          padding: 0 1rem;
+        }
+
+        .footer {
+          letter-spacing: 0.02em;
+        }
+
+        .footer-inner,
+        .footer-group {
+          justify-content: center;
+          text-align: center;
+        }
+
+        .footer-inner {
+          gap: 0.35rem 1rem;
+        }
+
+        /* Links on one line, copyright under them. Only the (non-focusable)
+           copyright moves, so tab order still matches what you see. */
+        .footer-group {
+          display: contents;
+        }
+
+        .copyright {
+          order: 1;
+          flex-basis: 100%;
+        }
+      }
+
+      /* Tablet portrait and up (still stacked) */
+      @media (min-width: 600px) {
+        .mark img {
+          width: 44px;
+          height: 44px;
+        }
+
+        .card {
+          border-radius: 20px;
+        }
+      }
+
+      /* Big portrait tablets (e.g. iPad Pro): a taller photo and a bigger
+         card, so the spare height goes to the animation, not to gaps.
+         (The wide layout below sets its own values for these.) */
+      @media (min-width: 900px) {
+        :root {
+          --card-max: 860px;
+          --hero-h: clamp(170px, 31vh, 420px);
+        }
+
+        @supports (height: 1svh) {
+          :root {
+            --hero-h: clamp(170px, 31svh, 420px);
+          }
+        }
+      }
+
+      /* ---------------- Wide: DIVI + CTA left, card right ---------------- */
+
+      @media (min-width: 900px) and (min-aspect-ratio: 5/4),
+        (min-width: 560px) and (orientation: landscape) and (max-height: 520px) {
+        :root {
+          --hero-h: clamp(140px, 35vh, 420px);
+          --overlap: calc(var(--hero-h) * 0.58);
+          --wm: clamp(3.25rem, min(11vw, calc(var(--hero-h) * 0.46)), 10rem);
+          --footer-gap: clamp(1rem, 3vh, 2rem);
+          /* Wider canvas on big monitors so the card can keep growing */
+          --wrap: clamp(1180px, 62vw, 1480px);
+          --card-max: 900px;
+        }
+
+        @supports (height: 1svh) {
+          :root {
+            --hero-h: clamp(140px, 35svh, 420px);
+          }
+        }
+
+        /* DIVI is left-set here, so firm up the scrim behind it */
+        .hero::before {
+          background:
+            linear-gradient(
+              to right,
+              rgba(11, 11, 11, 0.32) 0%,
+              rgba(11, 11, 11, 0.12) 40%,
+              rgba(11, 11, 11, 0) 60%
+            ),
+            linear-gradient(
+              to bottom,
+              rgba(11, 11, 11, 0.6) 0%,
+              rgba(11, 11, 11, 0.44) 34%,
+              rgba(11, 11, 11, 0.46) 70%,
+              rgba(11, 11, 11, 0.7) 100%
+            );
+        }
+
+        .hero-inner {
+          padding-top: clamp(1rem, 3.6vh, 2.5rem);
+          padding-bottom: clamp(0.75rem, 3vh, 2rem);
+        }
+
+        .wordmark-row {
+          justify-content: flex-start;
+        }
+
+        .wordmark {
+          /* Left-set: drop the centring indent, nudge the D's side bearing */
+          text-indent: 0;
+          margin-left: -0.05em;
+          transform: none;
+        }
+
+        .lower {
+          flex: 1 1 0;
+          min-height: 15rem;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto;
+          align-content: start;
+          column-gap: clamp(2rem, 5vw, 5rem);
+          container-type: size;
+        }
+
+        .stage {
+          grid-column: 2;
+          grid-row: 1;
+          container-type: normal;
+          min-height: 0;
+          max-height: none;
+          justify-content: flex-end;
+        }
+
+        .card {
+          --card-h: min(
+            calc(100cqh + var(--overlap) - var(--footer-gap)),
+            calc(48cqw * 655 / 530),
+            var(--card-max)
+          );
+          border-radius: 22px;
+        }
+
+        .cta {
+          grid-column: 1;
+          grid-row: 1;
+          align-self: center;
+          align-items: flex-start;
+          text-align: left;
+          margin: 0;
+          /* symmetric, so centring is unchanged; keeps air under the photo
+             when the block is taller than the card's lower half */
+          padding: clamp(1rem, 3.5vh, 2rem) 0;
+        }
+
+        .prompt {
+          font-size: clamp(1.5rem, min(3.3vw, 6.4vh), 3.25rem);
+          line-height: 1.08;
+          letter-spacing: -0.015em;
+        }
+
+        .prompt br {
+          display: inline;
+        }
+
+        .actions {
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          width: auto;
+          gap: 0.75rem;
+          margin-top: clamp(1.1rem, 3.2vh, 1.75rem);
+        }
+
+        .btn {
+          min-height: 48px;
+          padding: 0 1.4rem;
+        }
+
+        .hint {
+          margin-top: clamp(0.75rem, 2vh, 1.1rem);
+          max-width: 36em;
+          font-size: 0.875rem;
+        }
+      }
+
+      /* Large monitors: the card keeps growing, so let the call to action
+         and footer step up a size to stay in proportion with it. */
+      @media (min-width: 2200px) and (min-height: 1000px) and (min-aspect-ratio: 5/4) {
+        .prompt {
+          font-size: clamp(1.5rem, min(3.3vw, 6.4vh), 4rem);
+        }
+
+        .btn {
+          min-height: 54px;
+          padding: 0 1.6rem;
+          font-size: 1.0625rem;
+        }
+
+        .btn svg {
+          width: 20px;
+          height: 20px;
+        }
+
+        .hint {
+          font-size: 1rem;
+        }
+
+        .footer {
+          font-size: 0.8125rem;
+        }
+      }
+
+      /* Short landscape phones: smaller mark so DIVI keeps its air, and a
+         one-line prompt so the whole page fits without scrolling. */
+      @media (max-height: 520px) and (orientation: landscape) {
+        .mark img {
+          width: 32px;
+          height: 32px;
+        }
+
+        /* .lower is a size container, so it can't grow to fit the call to
+           action by itself; this floor is the call to action's height here
+           (one-line prompt, one row of buttons, one-line hint). */
+        .lower {
+          min-height: 9rem;
+        }
+
+        .cta {
+          padding-block: 0.625rem;
+        }
+
+        .prompt br {
+          display: none;
+        }
+
+        /* keeps the two short buttons on one row down to 560px wide */
+        .actions {
+          gap: 0.625rem;
+        }
+
+        .btn {
+          padding: 0 1.1rem;
+        }
+      }
+
+      /* Smaller landscape phones: the hint wraps to two lines */
+      @media (max-height: 520px) and (orientation: landscape) and (max-width: 799px) {
+        .lower {
+          min-height: 10.75rem;
+        }
+      }
+
+      /* Browsers without container units: a sensible fixed-ratio card */
+      @supports not (width: 1cqw) {
+        .card {
+          height: auto;
+          width: min(100%, 22rem, 46vh);
+          aspect-ratio: 530 / 655;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+        }
+
+        .btn:active {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero" data-check="hero">
+      <div class="hero-inner wrap">
+        <a class="mark" href="./" aria-label="Divi — home">
+          <img data-check="icon" src="../../assets/img/icon.png" alt="" width="44" height="44" />
+        </a>
+        <div class="wordmark-row">
+          <h1 class="wordmark" data-check="wordmark">Divi</h1>
+        </div>
+      </div>
+    </header>
+
+    <main class="lower wrap">
+      <div class="stage">
+        <figure class="card">
+          <img
+            id="anim"
+            data-check="anim"
+            src="../../assets/img/divi-web-charcoal-sage.svg"
+            alt="How Divi works: snap the receipt, everyone scans, tap what you had, settle up."
+            width="530"
+            height="655"
+          />
+          <button class="replay" id="replay" data-check="replay" type="button" aria-label="Replay animation">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+            Replay
+          </button>
+        </figure>
+      </div>
+
+      <section class="cta" aria-labelledby="cta-prompt">
+        <h2 class="prompt" id="cta-prompt" data-check="prompt">Text us to split <br />your bill</h2>
+        <div class="actions">
+          <a class="btn btn-whatsapp" data-check="whatsapp" href="https://wa.me/14785004378" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span><span class="long">Text Through </span>WhatsApp</span>
+          </a>
+          <a class="btn btn-imessage" data-check="imessage" href="sms:+14785004378">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+            <span><span class="long">Text Through </span>iMessage</span>
+          </a>
+        </div>
+        <p class="hint" data-check="hint">Text us and we'll send you a link to start splitting&nbsp;— no download required.</p>
+      </section>
+    </main>
+
+    <footer class="footer" data-check="footer">
+      <div class="footer-inner wrap">
+        <div class="footer-group footer-legal">
+          <span class="copyright" data-check="copyright">&copy; 2026 Divi. All rights reserved.</span>
+          <a data-check="email" href="mailto:hello@justdivi.com">hello@justdivi.com</a>
+        </div>
+        <div class="footer-group footer-links">
+          <a data-check="tos" href="/tos">Terms of Service</a>
+          <a data-check="privacy" href="/privacy">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Restart the one-shot SVG animation by reloading it under a fresh URL.
+      (function () {
+        var anim = document.getElementById('anim');
+        var replay = document.getElementById('replay');
+        replay.addEventListener('click', function () {
+          var src = anim.src.split('?')[0];
+          anim.src = '';
+          requestAnimationFrame(function () {
+            anim.src = src + '?' + Date.now();
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

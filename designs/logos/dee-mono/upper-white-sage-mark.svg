@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>Divi - minimal D (uppercase)</title>
+  <!-- One 24-unit round-capped line: down the stem, a soft 35-radius turn into the bowl (an arc of a radius-82 circle), round and over the top, stopping 16 units short of the stem top (the gap of the Cologne C's hairpins), so the letter never quite closes. Ink gradient runs almost left to right like the C: deep stem, light upper-right bowl. Shifted 2 units right of geometric centre to balance the heavy straight stem against the round side. -->
+  <defs>
+    <linearGradient id="tile-g" x1="0" y1="0" x2="0" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6FAF8E"/>
+      <stop offset="1" stop-color="#3E7A5B"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="54" y1="160" x2="216" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  
+  <path d="M69.5 46V174.73A35 35 0 0 0 100.78 209.53A82 82 0 1 0 109.5 46" fill="none" stroke="url(#ink)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

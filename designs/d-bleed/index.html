@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en" data-footer-variants>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="../preview.js"></script>
+    <title>Divi</title>
+    <meta name="description" content="Divi — split bills instantly, no app needed." />
+    <meta name="theme-color" content="#2D2D2D" />
+    <link rel="icon" href="../../assets/img/icon.png" />
+    <link rel="apple-touch-icon" href="../../assets/img/icon.png" />
+    <link rel="preload" as="image" href="../../assets/img/table.jpg" />
+    <style>
+      /* ------------------------------------------------------------------
+         Concept D, "Photo bleed": one photograph spans the whole page. The
+         top third shows it clearly under the DIVI wordmark; below that the
+         same photo carries on, heavily blurred and tinted, so the lower half
+         reads as a calm panel that is still made of the picture.
+         ------------------------------------------------------------------ */
+      :root {
+        --font: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system,
+          Arial, sans-serif;
+        --edge: clamp(1.25rem, 4vw, 3rem);
+        /* The clear photo band: roughly a third of the visible height. */
+        --hero-h: clamp(150px, 32svh, 400px);
+        /* Photo geometry. Its scale follows the page width (and at least
+           --photo-zoom x the band height), never the page height, so tall
+           phone screens see the whole table instead of a close-up. The row
+           at --photo-focus (the middle of the table) sits under DIVI. The
+           photo is at least --overscan wider than the page on each side, so
+           the blurred copy has real pixels past the edges (no light halo). */
+        --overscan: 56px;
+        --photo-zoom: 2;
+        --photo-focus: 0.46;
+        --mark-top: clamp(0.9rem, 3.4svh, 2.5rem);
+        --blur: 26px;
+
+        /* Tone: gray (default) */
+        --base: #2d2d2d;
+        --tint: 45 45 45;
+        --tint-a0: 0.36;
+        --scrim-end: 1.1;
+        --tint-a1: 0.8;
+        --tint-a2: 0.9;
+        --tint-a3: 0.95;
+        --photo-filter: blur(var(--blur)) brightness(0.6) saturate(0.7);
+        --text: #f0efed;
+        --text-2: #a9a6a2;
+        --replay: #bdbab5;
+        --prompt: #8cc4a5;
+        --link: #f0efed;
+        --link-hover: #8cc4a5;
+        --fill: #6faf8e;
+        --fill-hover: #8cc4a5;
+        --fill-text: #2d2d2d;
+        --line: #6faf8e;
+        --line-text: #f0efed;
+        --line-hover-bg: rgba(111, 175, 142, 0.18);
+        --focus: #8cc4a5;
+        --card-ring: rgba(255, 255, 255, 0.08);
+        --card-shadow: 0 18px 38px -20px rgba(0, 0, 0, 0.75),
+          0 3px 12px -5px rgba(0, 0, 0, 0.45);
+        --rule: rgba(240, 239, 237, 0.1);
+        /* Footer follows the tone unless a footer variant overrides it */
+        --footer-bg: transparent;
+        --footer-text: var(--text-2);
+        --footer-link: var(--link);
+        --footer-link-hover: var(--link-hover);
+        --footer-focus: var(--focus);
+      }
+
+      html[data-tone="white"] {
+        --base: #fafaf8;
+        --tint: 250 250 248;
+        --tint-a0: 0.45;
+        --scrim-end: 0.94;
+        --tint-a1: 0.88;
+        --tint-a2: 0.95;
+        --tint-a3: 0.97;
+        /* Lift and flatten the blurred copy so dark shirts and shadows do not
+           show through the milk as grey clouds; only a warm hint remains. */
+        --photo-filter: blur(calc(var(--blur) * 1.25)) brightness(1.15)
+          contrast(0.75) saturate(0.9);
+        --text: #2d2d2d;
+        --text-2: #5c5955;
+        --replay: #45423e;
+        --prompt: #2d2d2d;
+        --link: #2d2d2d;
+        --link-hover: #3e7a5b;
+        --fill: #6faf8e;
+        --fill-hover: #8cc4a5;
+        --fill-text: #1f2a24;
+        --line: #3e7a5b;
+        --line-text: #2d2d2d;
+        --line-hover-bg: rgba(62, 122, 91, 0.1);
+        --focus: #3e7a5b;
+        --card-ring: rgba(0, 0, 0, 0.06);
+        --card-shadow: 0 18px 34px -22px rgba(28, 28, 28, 0.6),
+          0 2px 8px -3px rgba(28, 28, 28, 0.2);
+        --rule: rgba(45, 45, 45, 0.1);
+      }
+
+      /* White tone with a gray footer band: charcoal (the card's colour) or a
+         light gray one step down from the white panel. */
+      html[data-tone="white"][data-footer="charcoal"] {
+        --footer-bg: #2d2d2d;
+        --footer-text: #a9a6a2;
+        --footer-link: #f0efed;
+        --footer-link-hover: #8cc4a5;
+        --footer-focus: #8cc4a5;
+      }
+
+      html[data-tone="white"][data-footer="light"] {
+        --footer-bg: #ecebe8;
+        --footer-text: #5c5955;
+        --footer-link: #2d2d2d;
+        --footer-link-hover: #3e7a5b;
+        --footer-focus: #3e7a5b;
+      }
+
+      html[data-tone="sage"] {
+        --base: #24382e;
+        --tint: 36 56 46;
+        --tint-a0: 0.36;
+        --scrim-end: 1.1;
+        --tint-a1: 0.8;
+        --tint-a2: 0.9;
+        --tint-a3: 0.95;
+        --photo-filter: blur(var(--blur)) brightness(0.6) saturate(1.1);
+        --text: #f0efed;
+        --text-2: #b0c3b8;
+        --replay: #c3d3ca;
+        --prompt: #f0efed;
+        --link: #f0efed;
+        --link-hover: #8cc4a5;
+        --fill: #6faf8e;
+        --fill-hover: #8cc4a5;
+        --fill-text: #1b2a22;
+        --line: #8cc4a5;
+        --line-text: #f0efed;
+        --line-hover-bg: rgba(140, 196, 165, 0.16);
+        --focus: #8cc4a5;
+        --card-ring: rgba(255, 255, 255, 0.07);
+        --card-shadow: 0 18px 38px -20px rgba(5, 14, 10, 0.75),
+          0 3px 12px -5px rgba(5, 14, 10, 0.45);
+        --rule: rgba(240, 239, 237, 0.1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        background: var(--base);
+      }
+
+      body {
+        margin: 0;
+        background: var(--base);
+        color: var(--text);
+        font-family: var(--font);
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        position: relative;
+        isolation: isolate;
+        min-height: 100vh;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ---------------- Backdrop: one photo, two treatments ---------------- */
+      .backdrop {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+        background: var(--base);
+      }
+
+      .photo {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* Both copies use this one geometry, so the sharp-to-soft crossfade
+         lines up. Below the photo's own bottom edge the blurred copy simply
+         feathers out into --base, which the tint has almost covered anyway. */
+      .photo > div {
+        position: absolute;
+        left: 50%;
+        top: calc(var(--hero-h) * 0.46);
+        width: max(
+          100% + 2 * var(--overscan),
+          var(--hero-h) * var(--photo-zoom) * 2000 / 1335
+        );
+        aspect-ratio: 2000 / 1335;
+        transform: translate(-50%, calc(var(--photo-focus) * -100%));
+        background: url("../../assets/img/table.jpg") center / cover no-repeat;
+      }
+
+      /* Very old browsers without aspect-ratio: just cover the whole page. */
+      @supports not (aspect-ratio: 1 / 1) {
+        .photo > div {
+          inset: calc(var(--overscan) * -1);
+          width: auto;
+          transform: none;
+        }
+      }
+
+      .photo-soft > div {
+        filter: var(--photo-filter);
+      }
+
+      /* The sharp copy dissolves just below the band, so the picture seems
+         to melt into the panel rather than stop at an edge. */
+      .photo-sharp {
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          #000 calc(var(--hero-h) * 0.62),
+          rgba(0, 0, 0, 0.5) calc(var(--hero-h) * 0.84),
+          transparent calc(var(--hero-h) * 1.04)
+        );
+        mask-image: linear-gradient(
+          to bottom,
+          #000 calc(var(--hero-h) * 0.62),
+          rgba(0, 0, 0, 0.5) calc(var(--hero-h) * 0.84),
+          transparent calc(var(--hero-h) * 1.04)
+        );
+      }
+
+      /* Legibility scrim for the band, same in every tone (as the original). */
+      .scrim {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(11, 11, 11, 0.6) 0,
+          rgba(11, 11, 11, 0.38) calc(var(--hero-h) * 0.4),
+          rgba(11, 11, 11, 0.42) calc(var(--hero-h) * 0.7),
+          rgba(11, 11, 11, 0) calc(var(--hero-h) * var(--scrim-end))
+        );
+      }
+
+      /* Tone tint: clear over the band, nearly solid where content sits. */
+      .tint {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgb(var(--tint) / 0) 0,
+          rgb(var(--tint) / 0) calc(var(--hero-h) * 0.55),
+          rgb(var(--tint) / var(--tint-a0)) calc(var(--hero-h) * 0.8),
+          rgb(var(--tint) / var(--tint-a1)) calc(var(--hero-h) + 8px),
+          rgb(var(--tint) / var(--tint-a2)) calc(var(--hero-h) + 140px),
+          rgb(var(--tint) / var(--tint-a3)) 100%
+        );
+      }
+
+      /* ---------------- Hero band ---------------- */
+      .hero {
+        position: relative;
+        flex: none;
+        height: var(--hero-h);
+        display: grid;
+        place-items: center;
+        /* Centre DIVI in the part of the band that is still crisp. */
+        padding-bottom: calc(var(--hero-h) * 0.08);
+      }
+
+      .mark {
+        position: absolute;
+        top: var(--mark-top);
+        left: var(--edge);
+        display: block;
+        line-height: 0;
+        border-radius: 10px;
+      }
+
+      .mark img {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        display: block;
+        transition: opacity 0.2s ease;
+      }
+
+      .mark:hover img {
+        opacity: 0.8;
+      }
+
+      .wordmark {
+        margin: 0;
+        font-size: min(18vw, var(--hero-h) * 0.5, 10rem);
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        /* letter-spacing pads the right edge; pull it back so it reads centred */
+        text-indent: 0.12em;
+        text-transform: uppercase;
+        color: #fff;
+        white-space: nowrap;
+        text-shadow: 0 2px 30px rgba(0, 0, 0, 0.22);
+      }
+
+      /* ---------------- Panel ---------------- */
+      .panel {
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Only matters once the animation reaches its max size (big monitors):
+           the spare height is shared above and below instead of pooling over
+           the footer. */
+        justify-content: center;
+        padding: clamp(0.6rem, 1.8svh, 1.4rem) var(--edge) 0;
+      }
+
+      /* The animation is the flexible element: it takes whatever height is
+         left once the band, the call to action and the footer are placed.
+         .demo is a size container so the card can be sized to the SVG's exact
+         aspect ratio (rounded corners and shadow hug the artwork). */
+      .demo {
+        --row: 2.3rem; /* height reserved under the card for Replay */
+        --card-min: 190px;
+        position: relative;
+        flex: 1 1 0;
+        width: 100%;
+        min-height: calc(var(--card-min) + var(--row));
+        max-height: calc(520px + var(--row));
+        margin: 0;
+        container-type: size;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .demo img {
+        display: block;
+        flex: none;
+        /* Fallback without container units: fill the height, keep the ratio. */
+        height: calc(100% - var(--row));
+        width: auto;
+        max-width: 100%;
+        aspect-ratio: 530 / 655;
+        background: #2d2d2d;
+        border-radius: 16px;
+        border-radius: clamp(12px, 5.5cqw, 20px);
+        box-shadow: 0 0 0 1px var(--card-ring), var(--card-shadow);
+      }
+
+      /* Replay sits under the card by default (phones); see the wide-screen
+         rule below for the side placement. */
+      .replay {
+        position: relative;
+        margin-top: 0.3rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        min-height: 32px;
+        padding: 0 0.6rem;
+        border: 0;
+        border-radius: 999px;
+        background: none;
+        color: var(--replay);
+        font: 500 0.8125rem/1 var(--font);
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+
+      @supports (width: 1cqw) {
+        .demo img {
+          width: min(100cqw, (100cqh - var(--row)) * 530 / 655);
+          height: auto;
+        }
+
+        /* Wide screens: Replay hangs off the card's bottom-right corner, like
+           a caption control, so it costs no height and the card grows. */
+        @media (min-width: 521px) {
+          .demo {
+            --row: 0px;
+          }
+
+          .replay {
+            position: absolute;
+            bottom: 0;
+            left: calc(50% + min(100cqw, 100cqh * 530 / 655) / 2 + 0.6rem);
+            margin-top: 0;
+          }
+        }
+      }
+
+      .replay svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      .replay:hover {
+        color: var(--text);
+      }
+
+      .cta {
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: clamp(0.75rem, 3svh, 2rem) 0 clamp(0.75rem, 2.2svh, 1.6rem);
+      }
+
+      .cta-prompt {
+        margin: 0;
+        font-size: clamp(1.15rem, 0.95rem + 0.7vw, 1.4rem);
+        line-height: 1.25;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        color: var(--prompt);
+      }
+
+      .cta-group {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: clamp(0.6rem, 1.6svh, 1rem);
+      }
+
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 46px;
+        padding: 0 1.4rem;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color 0.2s ease, border-color 0.2s ease,
+          transform 0.15s ease;
+      }
+
+      .cta-btn:active {
+        transform: scale(0.97);
+      }
+
+      .cta-btn svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+
+      .cta-whatsapp {
+        background: var(--fill);
+        color: var(--fill-text);
+        border: 2px solid var(--fill);
+      }
+
+      .cta-whatsapp:hover {
+        background: var(--fill-hover);
+        border-color: var(--fill-hover);
+      }
+
+      .cta-imessage {
+        background: transparent;
+        color: var(--line-text);
+        border: 2px solid var(--line);
+      }
+
+      .cta-imessage:hover {
+        background: var(--line-hover-bg);
+      }
+
+      .cta-hint {
+        margin: clamp(0.5rem, 1.3svh, 0.8rem) 0 0;
+        max-width: 34rem;
+        font-size: 0.78rem;
+        line-height: 1.45;
+        letter-spacing: 0.01em;
+        color: var(--text-2);
+        text-wrap: balance;
+      }
+
+      .short {
+        display: none;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* ---------------- Footer ---------------- */
+      .footer {
+        flex: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem 2rem;
+        margin: 0 var(--edge);
+        padding: clamp(0.6rem, 1.6svh, 1rem) 0 clamp(0.7rem, 2svh, 1.25rem);
+        border-top: 1px solid var(--rule);
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        color: var(--footer-text);
+        background: var(--footer-bg);
+      }
+
+      /* A footer variant is a full-width band instead of an inset rule. */
+      html[data-tone="white"][data-footer] .footer {
+        margin: clamp(0.5rem, 1.6svh, 0.875rem) 0 0;
+        padding-inline: var(--edge);
+        border-top: 0;
+      }
+
+      .footer-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem 2rem;
+      }
+
+      .footer a {
+        position: relative;
+        border-radius: 3px;
+        color: var(--footer-link);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      /* Larger invisible hit areas for small controls, without changing layout.
+         Kept inside the footer's bottom padding so they never add scroll; the
+         phone rule below grows footer links to 44px+. */
+      .footer a::after,
+      .replay::after,
+      .mark::after {
+        content: "";
+        position: absolute;
+        inset: -10px -6px;
+      }
+
+      .replay::after {
+        inset: -6px 0;
+      }
+
+      .mark::after {
+        inset: -6px;
+      }
+
+      .footer a:hover {
+        color: var(--footer-link-hover);
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: 4px;
+      }
+
+      .footer :focus-visible {
+        outline-color: var(--footer-focus);
+      }
+
+      .hero :focus-visible {
+        outline-color: #fff;
+      }
+
+      .cta-whatsapp:focus-visible {
+        outline-offset: 3px;
+      }
+
+      /* ---------------- Narrower layouts ---------------- */
+      @media (max-width: 760px) {
+        .footer {
+          flex-wrap: wrap;
+          justify-content: center;
+          text-align: center;
+          gap: 0.3rem 1.25rem;
+        }
+
+        .footer-group {
+          display: contents;
+        }
+
+        .footer a {
+          order: 1;
+        }
+
+        /* Links sit on the first row, above the copyright line, so their
+           44px+ hit areas stay inside the footer. */
+        .footer a::after {
+          inset: -14px -8px;
+        }
+
+        .footer [data-check="email"] {
+          order: 2;
+        }
+
+        .footer [data-check="copyright"] {
+          order: 3;
+          flex-basis: 100%;
+        }
+      }
+
+      /* In a narrow band the icon and the wordmark would sit side by side, so
+         drop DIVI below the icon row instead. */
+      @media (max-width: 600px) {
+        .hero {
+          padding-top: calc(var(--mark-top) + 22px);
+          padding-bottom: calc(var(--hero-h) * 0.07);
+        }
+
+        .wordmark {
+          font-size: min(21vw, var(--hero-h) * 0.42);
+        }
+      }
+
+      @media (max-width: 520px) {
+        :root {
+          --hero-h: clamp(150px, 30svh, 300px);
+        }
+
+        .panel {
+          padding-top: clamp(0.5rem, 1.4svh, 1rem);
+        }
+
+        .cta {
+          padding: clamp(0.4rem, 1.2svh, 0.75rem) 0 clamp(0.6rem, 1.8svh, 1rem);
+        }
+
+        .cta-group {
+          margin-top: 0.6rem;
+          gap: 0.6rem;
+        }
+
+        .mark img {
+          width: 36px;
+          height: 36px;
+        }
+
+        .cta-btn {
+          min-height: 44px;
+          padding: 0 1.15rem;
+        }
+
+        .long {
+          display: none;
+        }
+
+        .short {
+          display: inline;
+        }
+
+        .cta-hint {
+          margin-top: 0.45rem;
+          font-size: 0.75rem;
+          line-height: 1.4;
+          max-width: 21rem;
+        }
+
+        .footer {
+          padding: 0.5rem 0 0.65rem;
+          font-size: 0.75rem;
+          line-height: 1.4;
+          gap: 0.2rem 1.1rem;
+          letter-spacing: 0.03em;
+        }
+      }
+
+      /* Short phones (iPhone SE and the like): a slightly slimmer band and a
+         smaller floor for the animation so the page still fits in one view. */
+      @media (max-width: 520px) and (max-height: 600px) {
+        :root {
+          --hero-h: clamp(140px, 28svh, 300px);
+        }
+
+        .demo {
+          --card-min: 150px;
+        }
+      }
+
+      /* Landscape phones: there is no room to fit, so keep the band modest and
+         let the page scroll normally. */
+      @media (max-height: 440px) and (orientation: landscape) {
+        :root {
+          --hero-h: 130px;
+        }
+
+        .demo {
+          --card-min: 200px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="backdrop" aria-hidden="true">
+        <div class="photo photo-soft"><div></div></div>
+        <div class="photo photo-sharp"><div></div></div>
+        <div class="scrim"></div>
+        <div class="tint"></div>
+      </div>
+
+      <header class="hero" data-check="hero">
+        <a class="mark" href="./" aria-label="Divi — home">
+          <img data-check="icon" src="../../assets/img/icon.png" alt="" width="44" height="44" />
+        </a>
+        <h1 class="wordmark" data-check="wordmark">Divi</h1>
+      </header>
+
+      <main class="panel">
+        <figure class="demo">
+          <img
+            id="anim"
+            data-check="anim"
+            src="../../assets/img/divi-web-charcoal-sage.svg"
+            alt="How Divi works: snap the receipt, everyone scans, tap what you had, settle up."
+            width="530"
+            height="655"
+          />
+          <button class="replay" id="replay" type="button" data-check="replay">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+            Replay
+          </button>
+        </figure>
+
+        <section class="cta" aria-labelledby="cta-prompt">
+          <p class="cta-prompt" id="cta-prompt" data-check="prompt">Text us to split your bill</p>
+          <div class="cta-group">
+            <a class="cta-btn cta-whatsapp" data-check="whatsapp" href="https://wa.me/14785004378" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span class="long">Text Through WhatsApp</span><span class="short"><span class="sr-only">Text Through </span>WhatsApp</span>
+            </a>
+            <a class="cta-btn cta-imessage" data-check="imessage" href="sms:+14785004378">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+              <span class="long">Text Through iMessage</span><span class="short"><span class="sr-only">Text Through </span>iMessage</span>
+            </a>
+          </div>
+          <p class="cta-hint" data-check="hint">Text us and we'll send you a link to start splitting — no download required.</p>
+        </section>
+      </main>
+
+      <footer class="footer" data-check="footer">
+        <div class="footer-group footer-legal">
+          <span data-check="copyright">&copy; 2026 Divi. All rights reserved.</span>
+          <a data-check="email" href="mailto:hello@justdivi.com">hello@justdivi.com</a>
+        </div>
+        <div class="footer-group footer-links">
+          <a data-check="tos" href="/tos">Terms of Service</a>
+          <a data-check="privacy" href="/privacy">Privacy Policy</a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Replay: reload the SVG with a cache-buster so its CSS animation restarts.
+      (function () {
+        var anim = document.getElementById('anim');
+        document.getElementById('replay').addEventListener('click', function () {
+          var src = anim.src.split('?')[0];
+          anim.src = '';
+          requestAnimationFrame(function () {
+            anim.src = src + '?' + Date.now();
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

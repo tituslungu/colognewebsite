@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>Divi - minimal d (lowercase)</title>
+  <!-- One 24-unit round-capped line: down the ascender, into a radius-52 bowl tangent to the stem, round underneath and over the top, stopping 16 units short of the stem - the same open junction as the uppercase. Gradient deep at the lower-left bowl, light at the ascender top. Shifted 4 left and 3 up of geometric centre for the round left side and the low, heavy bowl. -->
+  <defs>
+    <linearGradient id="tile-g" x1="0" y1="0" x2="0" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6FAF8E"/>
+      <stop offset="1" stop-color="#3E7A5B"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="60" y1="198" x2="202" y2="62" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  
+  <path d="M176 42V156A52 52 0 1 1 136 105.4" fill="none" stroke="url(#ink)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

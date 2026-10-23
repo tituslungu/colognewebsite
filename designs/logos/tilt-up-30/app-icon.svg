@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Divi app icon">
+<title>Divi app icon</title>
+<rect width="256" height="256" fill="#2D2D2D"/>
+<g transform="rotate(-30 128 128)">
+<rect x="47.92" y="105.12" width="160.16" height="45.76" rx="11.44" fill="#6FAF8E"/>
+<circle cx="87.96" cy="73.09" r="22.88" fill="#FAFAF8"/>
+<circle cx="168.04" cy="182.91" r="22.88" fill="#FAFAF8"/>
+</g>
+</svg>

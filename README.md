@@ -19,7 +19,23 @@ assets/docs/               Terms of Service and Privacy Policy PDFs
 tos/, privacy/             stub pages that redirect to those PDFs
 .nojekyll                  skip Jekyll processing; serve files as-is
 .github/workflows/         deploy workflow
+designs/                   design explorations (preview-only; the site never links to them)
+assets/img/divi-web-charcoal-sage.svg
+                           the original play-once animation, used by the older previews
 ```
+
+## Design explorations
+
+`designs/` keeps the work that led to the current page. With the local server
+running, open:
+
+- `/designs/` — homepage options A–F side by side (each opens live, with a
+  switcher for background, footer, button colours and button order).
+- `/designs/logos/` — the logo concepts, including the chosen D
+  (`designs/logos/dee-mono`), with lookalike/trademark screens.
+
+The pages load `designs/preview.js` for their switchers and reuse the site's
+assets; changing the site does not update the screenshots in `designs/shots/`.
 
 ## Design
 

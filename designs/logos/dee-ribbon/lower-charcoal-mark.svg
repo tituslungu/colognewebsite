@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Divi">
+  <title>Divi</title>
+  <!-- dee-ribbon, lowercase d: the Cologne C itself, unflipped, as the bowl, plus an ascender stem.
+       Same stroke (16), line spacing (35), hairpin radius (17.5) and crossing angle as the uppercase.
+       1 the ribbon: outer arc (r69) round the left, hairpin hooks at the right, inner arc (r34) back;
+       2 the stem, ascender to baseline, half a stroke beyond the hooks so they stay round knobs
+         (closer in, their counters press flat against the stem);
+       3 the crescent line: the outer arc shifted 35 toward the stem, crossing the outer arc at about
+         29 degrees and kissing the inner arc on the left, exactly as in the C.
+       Placed so the tile centre falls between the outline centre and the ink centre; all ink within r116. -->
+  <defs>
+    <linearGradient id="tile-g" x1="0" y1="0" x2="0" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="37.93" y1="172.16" x2="200.07" y2="85.95" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2D2D2D"/>
+      <stop offset="1" stop-color="#2D2D2D"/>
+    </linearGradient>
+  </defs>
+  
+  <g fill="none" stroke="url(#ink)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M175.86 104.15 A69 69 0 1 0 175.86 192.85 A17.5 17.5 0 0 0 149.05 170.35 A34 34 0 1 1 149.05 126.65 A17.5 17.5 0 0 0 175.86 104.15 Z"/>
+    <path d="M187.95 38.5 V217.5"/>
+    <path d="M140.5 81.76 A69 69 0 0 0 140.5 215.24"/>
+  </g>
+</svg>

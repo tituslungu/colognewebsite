@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Divi Homepage Options</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* Layout: one column of option rows; each row = notes on the left, laptop + phone shots on the right. */
+  :root {
+    --bg: #f2f3f1; --surface: #ffffff; --fg: #2d2d2d; --muted: #63665f; --line: #d9dcd7;
+    --accent: #3e7a5b; --accent-fill: #6faf8e; --on-accent: #1f2a24;
+    --font: "Helvetica Neue", Helvetica, Inter, system-ui, -apple-system, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #1d1f1e; --surface: #272a28; --fg: #eeeeeb; --muted: #a4a8a2; --line: #3a3d3b;
+    --accent: #8cc4a5; --accent-fill: #6faf8e; --on-accent: #1f2a24; color-scheme: dark } }
+  :root[data-theme="dark"] {
+    --bg: #1d1f1e; --surface: #272a28; --fg: #eeeeeb; --muted: #a4a8a2; --line: #3a3d3b;
+    --accent: #8cc4a5; --accent-fill: #6faf8e; --on-accent: #1f2a24; color-scheme: dark }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.55 var(--font); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding-block: 40px 64px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  header { display: grid; gap: 14px; margin-bottom: 36px; }
+  .eyebrow { margin: 0; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; color: var(--accent); }
+  h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.1; letter-spacing: -.01em; text-wrap: balance; }
+  .lede { margin: 0; max-width: 64ch; color: var(--muted); }
+  .tone { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 6px; }
+  .tone-label { font-size: 13px; color: var(--muted); }
+  .seg { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); }
+  .seg button { font: 600 13px/1 var(--font); letter-spacing: .02em; color: var(--fg); background: none; border: 0;
+    padding: 9px 16px; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+  .seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+  .swatch { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--line); }
+  .opt { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 32px; align-items: start;
+    padding-block: 32px; border-top: 1px solid var(--line); }
+  .opt-letter { margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .round + .round { margin-top: 56px; }
+  .round-head { display: grid; gap: 10px; margin-bottom: 20px; }
+  .round-head h2 { margin: 0; font-size: clamp(22px, 3vw, 30px); line-height: 1.15; text-wrap: balance; }
+  h3 { margin: 0 0 10px; font-size: 24px; line-height: 1.2; }
+  .opt-summary { margin: 0 0 18px; }
+  .open { display: inline-flex; gap: 6px; align-items: center; padding: 10px 18px; border-radius: 999px;
+    background: var(--accent-fill); color: var(--on-accent); font-weight: 700; font-size: 14px; text-decoration: none; }
+  .open:hover { filter: brightness(1.06); }
+  .shots { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 200px); gap: 20px; align-items: end; }
+  figure { margin: 0; display: grid; gap: 8px; }
+  figure img { display: block; width: 100%; height: auto; max-width: 100%; background: #2d2d2d;
+    border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.08); }
+  .desk img { border-radius: 10px; }
+  .phone img { border-radius: 22px; }
+  figcaption { font-size: 12px; color: var(--muted); letter-spacing: .02em; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  @media (max-width: 880px) {
+    .opt { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  }
+  @media (max-width: 520px) {
+    .shots { grid-template-columns: minmax(0, 1fr); }
+    .phone { max-width: 240px; justify-self: center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">justdivi.com</p>
+    <h1>Divi homepage options</h1>
+    <p class="lede">Layouts that put the table photo and DIVI back on top, with the animation, buttons and footer below it.
+      The newest round is at the top; earlier rounds are below it for comparison.
+      Use &ldquo;Open live page&rdquo; to see the animation running; it works on your phone too.</p>
+  </header>
+
+  <section class="round" aria-labelledby="r4-title">
+    <div class="round-head">
+      <p class="eyebrow">Round 4</p>
+      <h2 id="r4-title">Option F: C with the photo fading into white</h2>
+      <p class="lede">Option C with the header photo dissolving into the white panel, the looping animation, no Replay button and a Messages-style iMessage icon. It now defaults to the soft buttons with iMessage first and the new button text; the other colours and the WhatsApp-first order are still here to compare. The footer is dark gray.</p>
+      
+      <div class="tone" role="group" aria-label="Button colours">
+        <span class="tone-label">Buttons</span>
+        <div class="seg btn-seg" data-default="soft"><button type="button" data-btn="soft" aria-pressed="true">Platform soft</button><button type="button" data-btn="sage" aria-pressed="false">Sage</button><button type="button" data-btn="solid" aria-pressed="false">Platform solid</button><button type="button" data-btn="mixed" aria-pressed="false">Mixed</button></div>
+      </div>
+      <div class="tone" role="group" aria-label="Button order">
+        <span class="tone-label">Order</span>
+        <div class="seg ord-seg"><button type="button" data-ord="im" aria-pressed="true">iMessage first</button><button type="button" data-ord="wa" aria-pressed="false">WhatsApp first</button></div>
+      </div>
+    </div>
+    
+    <section class="opt" id="bv-f-fade" aria-labelledby="bv-f-fade-name">
+      <div class="opt-text">
+        <p class="opt-letter">Option F</p>
+        <h3 id="bv-f-fade-name">Overlap card, photo fade</h3>
+        <p class="opt-summary">C's layout and animation sizes, with the photo fading into white like D and E, and the card still rising into the fade. Buttons read “Use on iMessage” and “Use on WhatsApp” (“iMessage” and “WhatsApp” on phones), above “Text your receipt and Divi will split it — no app to download.”</p>
+        <p class="opt-summary"><strong>Critic:</strong> Soft buttons with iMessage first work best: the pale green suits the sage brand, the blue is a gentle second colour, and the sage headline stays the strongest colour. Keep the dark gray footer.</p>
+        <a class="open" data-bslug="f-fade" href="f-fade/index.html?tone=white&amp;footer=charcoal">Open live page <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="shots">
+        <figure class="desk">
+          <img data-bslug="f-fade" data-kind="desk" src="shots/f-fade/btn-soft-im-desk.jpg"
+               alt="Overlap card, photo fade on a 1440px-wide laptop window" width="1280" height="702">
+          <figcaption>Laptop &middot; 1440 &times; 790</figcaption>
+        </figure>
+        <figure class="phone">
+          <img data-bslug="f-fade" data-kind="phone" src="shots/f-fade/btn-soft-im-phone.jpg"
+               alt="Overlap card, photo fade on an iPhone in Safari" width="329" height="560">
+          <figcaption>iPhone &middot; 390 &times; 664</figcaption>
+        </figure>
+      </div>
+    </section>
+  </section>
+
+  <section class="round" aria-labelledby="r3-title">
+    <div class="round-head">
+      <p class="eyebrow">Round 3</p>
+      <h2 id="r3-title">Option E: D with a looping, bigger animation</h2>
+      <p class="lede">Option D with your three changes. Open the live page to see the animation loop.</p>
+      <div class="tone" role="group" aria-label="Footer color">
+        <span class="tone-label">Footer</span>
+        <div class="seg footer-seg">
+        <button type="button" data-footer="charcoal" aria-pressed="true"><span class="swatch" style="background:#2d2d2d"></span>Charcoal</button>
+        <button type="button" data-footer="light" aria-pressed="false"><span class="swatch" style="background:#ecebe8"></span>Light gray</button>
+        <button type="button" data-footer="" aria-pressed="false"><span class="swatch" style="background:#fafaf8"></span>White (before)</button>
+        </div>
+      </div>
+    </div>
+    
+    <section class="opt" id="r3-e-loop" aria-labelledby="r3-e-loop-name">
+      <div class="opt-text">
+        <p class="opt-letter">Option E</p>
+        <h3 id="r3-e-loop-name">Photo bleed, looping</h3>
+        <p class="opt-summary">The Replay button is gone and the animation loops on its own: it holds the DIVI screen, fades out and starts again. “Text us to split your bill” is sage green like C. The animation rises into the faded part of the photo, now 10% smaller than before on phones and 20% smaller on laptops. Everything fits on one screen.</p>
+        <a class="open" data-fslug="e-loop" href="e-loop/index.html?tone=white&amp;footer=charcoal">Open live page <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="shots">
+        <figure class="desk">
+          <img data-fslug="e-loop" data-kind="desk" src="shots/e-loop/white-footer-charcoal-desk.jpg"
+               alt="Photo bleed, looping on white, on a 1440px-wide laptop window" width="1280" height="702">
+          <figcaption>Laptop &middot; 1440 &times; 790</figcaption>
+        </figure>
+        <figure class="phone">
+          <img data-fslug="e-loop" data-kind="phone" src="shots/e-loop/white-footer-charcoal-phone.jpg"
+               alt="Photo bleed, looping on white, on an iPhone in Safari" width="329" height="560">
+          <figcaption>iPhone &middot; 390 &times; 664</figcaption>
+        </figure>
+      </div>
+    </section>
+  </section>
+
+  <section class="round" aria-labelledby="r2-title">
+    <div class="round-head">
+      <p class="eyebrow">Round 2</p>
+      <h2 id="r2-title">C and D on white, with a gray footer</h2>
+      <p class="lede">Charcoal matches the animation card. Light gray is one step darker than the white. Both still fit on one screen.</p>
+      <div class="tone" role="group" aria-label="Footer color">
+        <span class="tone-label">Footer</span>
+        <div class="seg footer-seg">
+        <button type="button" data-footer="charcoal" aria-pressed="true"><span class="swatch" style="background:#2d2d2d"></span>Charcoal</button>
+        <button type="button" data-footer="light" aria-pressed="false"><span class="swatch" style="background:#ecebe8"></span>Light gray</button>
+        <button type="button" data-footer="" aria-pressed="false"><span class="swatch" style="background:#fafaf8"></span>White (before)</button>
+        </div>
+      </div>
+    </div>
+    
+    <section class="opt" id="r2-c-overlap" aria-labelledby="r2-c-overlap-name">
+      <div class="opt-text">
+        <p class="opt-letter">Option C</p>
+        <h3 id="r2-c-overlap-name">Overlap card</h3>
+        <p class="opt-summary">The animation is a card that rises over the bottom of the photo, tying the two halves together. On laptops DIVI and the buttons sit on the left with the card on the right; on phones everything is centered. It has the biggest animation of the four.</p>
+        <a class="open" data-fslug="c-overlap" href="c-overlap/index.html?tone=white&amp;footer=charcoal">Open live page <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="shots">
+        <figure class="desk">
+          <img data-fslug="c-overlap" data-kind="desk" src="shots/c-overlap/white-footer-charcoal-desk.jpg"
+               alt="Overlap card on white, on a 1440px-wide laptop window" width="1280" height="702">
+          <figcaption>Laptop &middot; 1440 &times; 790</figcaption>
+        </figure>
+        <figure class="phone">
+          <img data-fslug="c-overlap" data-kind="phone" src="shots/c-overlap/white-footer-charcoal-phone.jpg"
+               alt="Overlap card on white, on an iPhone in Safari" width="329" height="560">
+          <figcaption>iPhone &middot; 390 &times; 664</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="opt" id="r2-d-bleed" aria-labelledby="r2-d-bleed-name">
+      <div class="opt-text">
+        <p class="opt-letter">Option D</p>
+        <h3 id="r2-d-bleed-name">Photo bleed</h3>
+        <p class="opt-summary">The table photo keeps going down the page and blurs into the background color, so the area under the band is made from the photo itself. It uses the same centered column as Option A.</p>
+        <a class="open" data-fslug="d-bleed" href="d-bleed/index.html?tone=white&amp;footer=charcoal">Open live page <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="shots">
+        <figure class="desk">
+          <img data-fslug="d-bleed" data-kind="desk" src="shots/d-bleed/white-footer-charcoal-desk.jpg"
+               alt="Photo bleed on white, on a 1440px-wide laptop window" width="1280" height="702">
+          <figcaption>Laptop &middot; 1440 &times; 790</figcaption>
+        </figure>
+        <figure class="phone">
+          <img data-fslug="d-bleed" data-kind="phone" src="shots/d-bleed/white-footer-charcoal-phone.jpg"
+               alt="Photo bleed on white, on an iPhone in Safari" width="329" height="560">
+          <figcaption>iPhone &middot; 390 &times; 664</figcaption>
+        </figure>
+      </div>
+    </section>
+  </section>
+
+  <section class="round" aria-labelledby="r1-title">
+    <div class="round-head">
+      <p class="eyebrow">Round 1</p>
+      <h2 id="r1-title">All four layouts</h2>
+      <p class="lede">With gray, the animation blends into the background. With white or sage, it sits on a rounded charcoal card.</p>
+      <div class="tone" role="group" aria-label="Background under the photo">
+        <span class="tone-label">Background under the photo</span>
+        <div class="seg" id="tone-seg">
+          <button type="button" data-tone="gray" aria-pressed="true"><span class="swatch" style="background:#2d2d2d"></span>Gray</button>
+          <button type="button" data-tone="white" aria-pressed="false"><span class="swatch" style="background:#ffffff"></span>White</button>
+          <button type="button" data-tone="sage" aria-pressed="false"><span class="swatch" style="background:#24382e"></span>Sage</button>
+        </div>
+      </div>
+    </div>
+    
+    <section class="opt" id="a-stack" aria-labelledby="a-stack-name">
+      <div class="opt-text">
+        <p class="opt-letter">Option A</p>
+        <h3 id="a-stack-name">Classic stack</h3>
+        <p class="opt-summary">The most direct merge of the old and current site: the photo band with DIVI, then one centered column with the animation, the buttons and a quiet footer. The simplest layout, though its animation is the smallest of the four.</p>
+        <a class="open" data-slug="a-stack" href="a-stack/index.html?tone=gray">Open live page <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="shots">
+        <figure class="desk">
+          <img data-slug="a-stack" data-kind="desk" src="shots/a-stack/gray-desk.jpg"
+               alt="Classic stack on a 1440px-wide laptop window" width="1280" height="702" loading="lazy">
+          <figcaption>Laptop &middot; 1440 &times; 790</figcaption>
+        </figure>
+        <figure class="phone">
+          <img data-slug="a-stack" data-kind="phone" src="shots/a-stack/gray-phone.jpg"
+               alt="Classic stack on an iPhone in Safari" width="329" height="560" loading="lazy">
+          <figcaption>iPhone &middot; 390 &times; 664</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="opt" id="b-split" aria-labelledby="b-split-name">
+      <div class="opt-text">
+        <p class="opt-letter">Option B</p>
+        <h3 id="b-split-name">Split</h3>
+        <p class="opt-summary">The animation sits beside a large “Text us to split your bill” headline, even on phones, so both get more room. It reads the most like a product landing page.</p>
+        <a class="open" data-slug="b-split" href="b-split/index.html?tone=gray">Open live page <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="shots">
+        <figure class="desk">
+          <img data-slug="b-split" data-kind="desk" src="shots/b-split/gray-desk.jpg"
+               alt="Split on a 1440px-wide laptop window" width="1280" height="702" loading="lazy">
+          <figcaption>Laptop &middot; 1440 &times; 790</figcaption>
+        </figure>
+        <figure class="phone">
+          <img data-slug="b-split" data-kind="phone" src="shots/b-split/gray-phone.jpg"
+               alt="Split on an iPhone in Safari" width="329" height="560" loading="lazy">
+          <figcaption>iPhone &middot; 390 &times; 664</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="opt" id="c-overlap" aria-labelledby="c-overlap-name">
+      <div class="opt-text">
+        <p class="opt-letter">Option C</p>
+        <h3 id="c-overlap-name">Overlap card</h3>
+        <p class="opt-summary">The animation is a card that rises over the bottom of the photo, tying the two halves together. On laptops DIVI and the buttons sit on the left with the card on the right; on phones everything is centered. It has the biggest animation of the four.</p>
+        <a class="open" data-slug="c-overlap" href="c-overlap/index.html?tone=gray">Open live page <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="shots">
+        <figure class="desk">
+          <img data-slug="c-overlap" data-kind="desk" src="shots/c-overlap/gray-desk.jpg"
+               alt="Overlap card on a 1440px-wide laptop window" width="1280" height="702" loading="lazy">
+          <figcaption>Laptop &middot; 1440 &times; 790</figcaption>
+        </figure>
+        <figure class="phone">
+          <img data-slug="c-overlap" data-kind="phone" src="shots/c-overlap/gray-phone.jpg"
+               alt="Overlap card on an iPhone in Safari" width="329" height="560" loading="lazy">
+          <figcaption>iPhone &middot; 390 &times; 664</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="opt" id="d-bleed" aria-labelledby="d-bleed-name">
+      <div class="opt-text">
+        <p class="opt-letter">Option D</p>
+        <h3 id="d-bleed-name">Photo bleed</h3>
+        <p class="opt-summary">The table photo keeps going down the page and blurs into the background color, so the area under the band is made from the photo itself. It uses the same centered column as Option A.</p>
+        <a class="open" data-slug="d-bleed" href="d-bleed/index.html?tone=gray">Open live page <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="shots">
+        <figure class="desk">
+          <img data-slug="d-bleed" data-kind="desk" src="shots/d-bleed/gray-desk.jpg"
+               alt="Photo bleed on a 1440px-wide laptop window" width="1280" height="702" loading="lazy">
+          <figcaption>Laptop &middot; 1440 &times; 790</figcaption>
+        </figure>
+        <figure class="phone">
+          <img data-slug="d-bleed" data-kind="phone" src="shots/d-bleed/gray-phone.jpg"
+               alt="Photo bleed on an iPhone in Safari" width="329" height="560" loading="lazy">
+          <figcaption>iPhone &middot; 390 &times; 664</figcaption>
+        </figure>
+      </div>
+    </section>
+  </section>
+</div>
+<script>
+  (function () {
+    var PREFIX = "";
+    var TONES = ['gray', 'white', 'sage'];
+    function setTone(t) {
+      if (TONES.indexOf(t) < 0) t = 'gray';
+      document.querySelectorAll('#tone-seg button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.tone === t)); });
+      document.querySelectorAll('img[data-slug]').forEach(function (img) {
+        img.src = PREFIX + 'shots/' + img.dataset.slug + '/' + t + '-' + img.dataset.kind + '.jpg';
+      });
+      document.querySelectorAll('a.open[data-slug]').forEach(function (a) {
+        a.href = PREFIX + a.dataset.slug + '/index.html?tone=' + t;
+      });
+      try { localStorage.setItem('divi-gallery-tone', t); } catch (e) {}
+    }
+    document.querySelectorAll('#tone-seg button').forEach(function (b) {
+      b.addEventListener('click', function () { setTone(b.dataset.tone); });
+    });
+    function setFooter(section, f) {
+      section.querySelectorAll('.footer-seg button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.footer === f)); });
+      section.querySelectorAll('img[data-fslug]').forEach(function (img) {
+        img.src = PREFIX + 'shots/' + img.dataset.fslug + '/white' + (f ? '-footer-' + f : '') + '-' + img.dataset.kind + '.jpg';
+      });
+      section.querySelectorAll('a.open[data-fslug]').forEach(function (a) {
+        a.href = PREFIX + a.dataset.fslug + '/index.html?tone=white' + (f ? '&footer=' + f : '');
+      });
+    }
+    function setButtons(section) {
+      var b = section.querySelector('.btn-seg [aria-pressed="true"]').dataset.btn;
+      var ord = section.querySelector('.ord-seg [aria-pressed="true"]').dataset.ord;
+      section.querySelectorAll('img[data-bslug]').forEach(function (img) {
+        img.src = PREFIX + 'shots/' + img.dataset.bslug + '/btn-' + b + '-' + ord + '-' + img.dataset.kind + '.jpg';
+      });
+      section.querySelectorAll('a.open[data-bslug]').forEach(function (a) {
+        var def = section.querySelector('.btn-seg').dataset.default;
+        a.href = PREFIX + a.dataset.bslug + '/index.html?tone=white&footer=charcoal' + (b !== def ? '&buttons=' + b : '') + (ord !== 'im' ? '&order=whatsapp-first' : '');
+      });
+    }
+    document.querySelectorAll('.btn-seg button, .ord-seg button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btn.parentNode.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === btn)); });
+        setButtons(btn.closest('.round'));
+      });
+    });
+    document.querySelectorAll('.footer-seg button').forEach(function (b) {
+      b.addEventListener('click', function () { setFooter(b.closest('.round'), b.dataset.footer); });
+    });
+    var start = location.hash.slice(1);
+    if (TONES.indexOf(start) < 0) { try { start = localStorage.getItem('divi-gallery-tone'); } catch (e) {} }
+    if (start) setTone(start);
+  })();
+</script>
+</body>
+</html>

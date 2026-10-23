@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Divi">
+  <title>Divi</title>
+  <!-- dee-min / lowercase d: two strokes, the Cologne C (mouth about 45 degrees) as the bowl, its round-capped tips resting on one tall stem tangent to the bowl. -->
+  <defs>
+    <linearGradient id="tile-g" x1="0" y1="0" x2="0" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6FAF8E"/>
+      <stop offset="1" stop-color="#3E7A5B"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="52" y1="192" x2="222" y2="62" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <rect id="tile" width="256" height="256" fill="url(#tile-g)"/>
+  <g fill="none" stroke="url(#ink)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M160 108.63A54 54 0 1 0 160 185.37"/>
+    <path d="M176 47V201"/>
+  </g>
+</svg>
